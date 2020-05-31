@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    testest1
+    testest1 <br>
+    My balance {{balance}}
+
+     <table border="1" width="100%"> 
+        <tr>
+        <{% for i in key  %}
+            <td>{{i}} </td>
+        {% endfor %}
+        <tr>
+        {% for i in values %}
+        <td>{{i}}</td> 
+        {% endfor %}
+        </tr>
+        </tr>
+    </table>
+</body>
+</html>
