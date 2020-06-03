@@ -8,12 +8,13 @@
 <body>
     testest1
     testest1 <br>
-    My balance {{balance}}
+    My balance {{balance}} <br>
+    avg 24 {{h24}}
 
      <table border="1" width="100%"> 
         <tr>
         <{% for i in key  %}
-            <td>{{i}} </td>
+            <td>{{i}}</td>
         {% endfor %}
         <tr>
         {% for i in values %}
@@ -21,6 +22,26 @@
         {% endfor %}
         </tr>
         </tr>
+    </table>
+    Genre.filter: {{genre}} <br>
+    Genre.filter по позииции: {{genre.0}} <br>
+    <h1>Genre</h1>
+         <table border="1" width="100%"> 
+        
+        <{% for i in all_g  %}
+            <tr>
+            <td>{{i.pk}}</td><td>{{i.name}}</td><td>{{i.description}}</td><td>{{i.created}}</td><td>{{i.update}}</td>
+            </tr>
+        {% endfor %}
+    </table>
+        <h1>Books</h1>
+         <table border="1" width="100%"> 
+        
+        <{% for i in all_b  %}
+            <tr>
+            <td>{{i.pk}}</td><td>{{i.name}}</td><td>{{i.description}}</td><td>{{i.created}}</td><td>{{i.update|timesince}}</td>
+            </tr>
+        {% endfor %}
     </table>
 </body>
 </html>
