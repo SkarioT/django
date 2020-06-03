@@ -5,7 +5,9 @@ import requests
 from .models import Parser_log
 
 def test(request):
-    return "text"
+    parser= Parser_log.objects.get(pk=1)
+    context ={}
+    return 
 
 # Create your views here.
 # def test(request):
