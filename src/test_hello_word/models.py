@@ -79,7 +79,7 @@ class Parser_log(models.Model):
         auto_now=True,
         auto_now_add=False
     )
-    update=models.DateField(
+    update=models.DateTimeField(
         verbose_name="Дата обновления",
         auto_now=False,
         auto_now_add=True

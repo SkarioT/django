@@ -6,28 +6,51 @@
     <title>Document</title>
 </head>
 <body>
-    {% comment %} My parser data:<br>
-    id: {{parser.id}}<br>
-    browser: {{parser.browser}}  <br>
-    text_log:  {{parser.text_log}} <br>
-    date_ivents {{parser.date_ivents}} <br>
-    created: {{parser.created}} <br>
-    update: {{parser.update}} <br>
-    parser {{parser2}}
-    id: {{parser2.id}}<br>
-    browser: {{parser2.browser}}  <br>
-    text_log:  {{parser2.text_log}} <br>
-    date_ivents {{parser2.date_ivents}} <br>
-    created: {{parser2.created}} <br>
-    update: {{parser2.update}} <br> {% endcomment %}
-    <h1>Pasrser</h1>
-         <table border="1" width="100%"> 
+    <h1 style="color:#ff0000">Pasrser</h1>
+
+    <h3>Кол-во запросов от браузерова Safari: {{safari}}</h3>
+    <details>
+        <summary>Список этих запросов</summary>
+        <table border="1" width="100%" > 
+            <tr>
+            <td>i.pk</td><td>i.browser</td><td>i.date_ivents</td><td>i.created</td><td>i.update|timesince</td><td>i.text_log</td>
+            </tr>
+            <{% for i in parser  %}
+                <tr>
+                <td>{{i.pk}}</td><td>{{i.browser}}</td><td>{{i.date_ivents}}</td><td>{{i.created}}</td><td>{{i.update}}</td><td>{{i.text_log}}</td>
+                </tr>
+        {% endfor %}
+        </table>
+    </details>
+
+    <h3>Кол-во запросов от браузерова Firefox {{firefox}}</h3>
+    <details>
+        <summary>Список этих запросов</summary>
+        <table border="1" width="100%" > 
+            <tr>
+            <td>i.pk</td><td>i.browser</td><td>i.date_ivents</td><td>i.created</td><td>i.update|timesince</td><td>i.text_log</td>
+            </tr>
+            <{% for i in parser2  %}
+                <tr>
+                <td>{{i.pk}}</td><td>{{i.browser}}</td><td>{{i.date_ivents}}</td><td>{{i.created}}</td><td>{{i.update}}</td><td>{{i.text_log}}</td>
+                </tr>
+        {% endfor %}
+        </table>
+    </details>
+
+
+
+     <h3>Кол-во запросов НЕ от браузерова Safari и Firefox: {{excludee}}</h3>
+        <details>
+        <summary>Список этих запросов</summary>
+        <table border="1" width="100%"> 
         <td>i.pk</td><td>i.browser</td><td>i.date_ivents</td><td>i.created</td><td>i.update|timesince</td><td>i.text_log</td>
-        <{% for i in parser  %}
-            
+        <{% for i in parser3  %}
             <tr>
             <td>{{i.pk}}</td><td>{{i.browser}}</td><td>{{i.date_ivents}}</td><td>{{i.created}}</td><td>{{i.update}}</td><td>{{i.text_log}}</td>
             </tr>
         {% endfor %}
+        </table>
+        </details>    
 </body>
 </html>

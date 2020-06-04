@@ -18,12 +18,27 @@ def test(request):
     #     create_parser_item=Parser_log(browser=Parser_log.get_word_4_possition(i,'lw'), text_log=Parser_log.get_word_4_possition(i,'all'), date_ivents=Parser_log.get_word_4_possition(i,3))
     #     i+=1
     #     create_parser_item.save()
+    i=0
+    cdr=datetime.datetime.now()
+    while i < 10000:
+        create_parser_item=Parser_log(update=cdr).update()
+        i+=1
+        create_parser_item.save()
     # delete=Parser_log.objects.all()
     # delete.delete()
-    parser2=Parser_log.objects.all()#get(browser='Safari/537.36')
-    parser=parser2
+    parser=Parser_log.objects.filter(browser__startswith='Safari')
+    safari=Parser_log.objects.filter(browser__startswith='Safari').count()
+
+    # parser11=Parser_log.objects.filter(browser__startswith='Safari')
+    # firefox=Parser_log.objects.filter(browser__startswith='Safari').count()
+    parser11=Parser_log.objects.filter(browser__startswith='Firefox')
+    firefox=Parser_log.objects.filter(browser__startswith='Firefox').count()
+
+    parser3=Parser_log.objects.exclude(browser__startswith='Firefox').exclude(browser__startswith='Safari')
+    excludee=parser2=Parser_log.objects.exclude(browser__startswith='Firefox').exclude(browser__startswith='Safari').count()
+    #parser=Parser_log.objects.filter(browser='Safari/537.36').all()
     # parser=Parser_log.objects.get(browser='Safari/537.36')
-    context ={'parser' : parser,'parser2' : parser2}
+    context ={'parser' : parser,'parser2' : parser11,'safari' : safari,'firefox': firefox, "parser3" : parser3, "excludee" : excludee}
     # context ={'browser' : Parser_log.get_word_4_possition(1,'lw'),'ddata':Parser_log.get_word_4_possition(1,3),'all_text':Parser_log.get_word_4_possition(1,'all')}
     return render(request, template_name="test_hello_word/index.html", context=context)
 
