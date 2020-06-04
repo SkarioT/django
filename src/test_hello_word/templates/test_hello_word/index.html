@@ -6,7 +6,7 @@
     <title>Document</title>
 </head>
 <body>
-    My parser data:<br>
+    {% comment %} My parser data:<br>
     id: {{parser.id}}<br>
     browser: {{parser.browser}}  <br>
     text_log:  {{parser.text_log}} <br>
@@ -19,6 +19,15 @@
     text_log:  {{parser2.text_log}} <br>
     date_ivents {{parser2.date_ivents}} <br>
     created: {{parser2.created}} <br>
-    update: {{parser2.update}} <br>
+    update: {{parser2.update}} <br> {% endcomment %}
+    <h1>Pasrser</h1>
+         <table border="1" width="100%"> 
+        <td>i.pk</td><td>i.browser</td><td>i.date_ivents</td><td>i.created</td><td>i.update|timesince</td><td>i.text_log</td>
+        <{% for i in parser  %}
+            
+            <tr>
+            <td>{{i.pk}}</td><td>{{i.browser}}</td><td>{{i.date_ivents}}</td><td>{{i.created}}</td><td>{{i.update}}</td><td>{{i.text_log}}</td>
+            </tr>
+        {% endfor %}
 </body>
 </html>

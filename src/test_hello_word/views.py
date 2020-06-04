@@ -9,7 +9,7 @@ from .models import Parser_log
 
 
 
-#objects.count() посчите кол-во элементов в базе
+#objects.count() посчите кол-во элементов в базеs
 def test(request):
     # cd=datetime.datetime.now()
     # блок когда через который заливал базу
@@ -21,7 +21,8 @@ def test(request):
     # delete=Parser_log.objects.all()
     # delete.delete()
     parser2=Parser_log.objects.all()#get(browser='Safari/537.36')
-    parser=Parser_log.objects.get(id=1)
+    parser=parser2
+    # parser=Parser_log.objects.get(browser='Safari/537.36')
     context ={'parser' : parser,'parser2' : parser2}
     # context ={'browser' : Parser_log.get_word_4_possition(1,'lw'),'ddata':Parser_log.get_word_4_possition(1,3),'all_text':Parser_log.get_word_4_possition(1,'all')}
     return render(request, template_name="test_hello_word/index.html", context=context)
