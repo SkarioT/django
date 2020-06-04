@@ -1,13 +1,25 @@
 from django.shortcuts import render
 from django.http import HttpResponse
+import datetime
+
+
 #from pip._vendor import requests
 import requests
 from .models import Parser_log
 
+
+
+#objects.count() посчите кол-во элементов в базе
 def test(request):
-    parser= Parser_log.objects.get(pk=1)
-    context ={}
-    return 
+    # cd=datetime.datetime.now()
+    # create_parser_item=Parser_log(browser='Хром', text_log='Многобукф для хрома', date_ivents=cd
+    # create_parser_item.save()
+
+    # parser=Parser_log.objects.all()
+    # context ={'parser' : parser}
+    context ={'browser' : Parser_log.get_word_4_possition(1,'lw'),'ddata':Parser_log.get_word_4_possition(1,3),'all_text':Parser_log.get_word_4_possition(1,'all')}
+    return render(request, template_name="test_hello_word/index.html", context=context)
+
 
 # Create your views here.
 # def test(request):
