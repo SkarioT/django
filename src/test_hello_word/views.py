@@ -18,19 +18,12 @@ def test(request):
     #     create_parser_item=Parser_log(browser=Parser_log.get_word_4_possition(i,'lw'), text_log=Parser_log.get_word_4_possition(i,'all'), date_ivents=Parser_log.get_word_4_possition(i,3))
     #     i+=1
     #     create_parser_item.save()
-    i=0
-    cdr=datetime.datetime.now()
-    while i < 10000:
-        create_parser_item=Parser_log(update=cdr).update()
-        i+=1
-        create_parser_item.save()
-    # delete=Parser_log.objects.all()
+
+    # # delete=Parser_log.objects.all()
     # delete.delete()
     parser=Parser_log.objects.filter(browser__startswith='Safari')
     safari=Parser_log.objects.filter(browser__startswith='Safari').count()
 
-    # parser11=Parser_log.objects.filter(browser__startswith='Safari')
-    # firefox=Parser_log.objects.filter(browser__startswith='Safari').count()
     parser11=Parser_log.objects.filter(browser__startswith='Firefox')
     firefox=Parser_log.objects.filter(browser__startswith='Firefox').count()
 
