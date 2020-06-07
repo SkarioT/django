@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1>Genre</h1>
+    <h3>form_PK_change</h3>
+    <form action="" method="post">
+        {% csrf_token %}
+        <label for="name">Genre name: </label>
+        <input id="name" type="text" name="name" value="{{ name }}"><br>
+        <label for="name">Genre description: </label>
+        <input id="description" type="text" name="description" value="{{description}}"><br>
+        <label for="name">Genre created: </label>
+        <input id="description" type="text" name="created" value="{{created}}"><br>
+        <input type="submit" value="submit">
+    </form>
+</body>
+</html>

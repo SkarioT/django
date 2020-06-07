@@ -15,9 +15,18 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from test_hello_word.views import test
+from test_hello_word.views import test_form,test_pk,test_created,test,Test_B_V,Genre_Create,Genre_Update,Genre_List
 
 
 urlpatterns = [
-    path('admin/', admin.site.urls)
+    path('admin/', admin.site.urls),
+    path('', test),
+    path('test_created/', test_created),
+    path('test_form/', test_form),
+    path('test_form/<int:pk>', test_form),
+    path('test_pk/<int:pk>', test_pk),
+    path('test_b_v/', Test_B_V.as_view()),
+    path('create/', Genre_Create.as_view()),
+    path('update/<int:pk>', Genre_Update.as_view()),
+    path('list/', Genre_List.as_view())
 ]

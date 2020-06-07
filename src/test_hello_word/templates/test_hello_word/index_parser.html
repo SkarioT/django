@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <h1 style="color:#ff0000">Pasrser</h1>
+
+    <h3>Кол-во запросов от браузерова Safari: {{safari}}</h3>
+    <details>
+        <summary>Список этих запросов</summary>
+        <table border="1" width="100%" > 
+            <tr>
+            <td>i.pk</td><td>i.browser</td><td>i.date_ivents</td><td>i.created</td><td>i.update|timesince</td><td>i.text_log</td>
+            </tr>
+            <{% for i in parser  %}
+                <tr>
+                <td>{{i.pk}}</td><td>{{i.browser}}</td><td>{{i.date_ivents}}</td><td>{{i.created}}</td><td>{{i.update}}</td><td>{{i.text_log}}</td>
+                </tr>
+        {% endfor %}
+        </table>
+    </details>
+
+    <h3>Кол-во запросов от браузерова Firefox {{firefox}}</h3>
+    <details>
+        <summary>Список этих запросов</summary>
+        <table border="1" width="100%" > 
+            <tr>
+            <td>i.pk</td><td>i.browser</td><td>i.date_ivents</td><td>i.created</td><td>i.update|timesince</td><td>i.text_log</td>
+            </tr>
+            <{% for i in parser2  %}
+                <tr>
+                <td>{{i.pk}}</td><td>{{i.browser}}</td><td>{{i.date_ivents}}</td><td>{{i.created}}</td><td>{{i.update|timesince}}</td><td>{{i.text_log}}</td>
+                </tr>
+        {% endfor %}
+        </table>
+    </details>
+
+
+
+     <h3>Кол-во запросов НЕ от браузерова Safari и Firefox: {{excludee}}</h3>
+        <details>
+        <summary>Список этих запросов</summary>
+        <table border="1" width="100%"> 
+        <td>i.pk</td><td>i.browser</td><td>i.date_ivents</td><td>i.created</td><td>i.update|timesince</td><td>i.text_log</td>
+        <{% for i in parser3  %}
+            <tr>
+            <td>{{i.pk}}</td><td>{{i.browser}}</td><td>{{i.date_ivents}}</td><td>{{i.created}}</td><td>{{i.update}}</td><td>{{i.text_log}}</td>
+            </tr>
+        {% endfor %}
+        </table>
+        </details>    
+        <form action="" method="post">
+            {% csrf_token %}
+            <label for="your">GET Browser</label> <br>
+            <input id="your" type="text" name="browser" value={{browser}}><br>
+            <input id="your" type="datetime" name="date_ivents" value={{date_ivents}}><br>
+            <input type="submit" value="OK"><br>
+</body>
+</html>
