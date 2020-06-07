@@ -32,7 +32,7 @@
             </tr>
             <{% for i in parser2  %}
                 <tr>
-                <td>{{i.pk}}</td><td>{{i.browser}}</td><td>{{i.date_ivents}}</td><td>{{i.created}}</td><td>{{i.update}}</td><td>{{i.text_log}}</td>
+                <td>{{i.pk}}</td><td>{{i.browser}}</td><td>{{i.date_ivents}}</td><td>{{i.created}}</td><td>{{i.update|timesince}}</td><td>{{i.text_log}}</td>
                 </tr>
         {% endfor %}
         </table>
@@ -52,5 +52,11 @@
         {% endfor %}
         </table>
         </details>    
+        <form action="" method="post">
+            {% csrf_token %}
+            <label for="your">GET Browser</label> <br>
+            <input id="your" type="text" name="browser" value={{browser}}><br>
+            <input id="your" type="datetime" name="date_ivents" value={{date_ivents}}><br>
+            <input type="submit" value="OK"><br>
 </body>
 </html>

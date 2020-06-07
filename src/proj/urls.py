@@ -17,7 +17,7 @@ from django.contrib import admin
 from django.urls import path
 from test_hello_word.views import test
 
+
 urlpatterns = [
-    path('admin/', admin.site.urls),
-    path('',test)
+    path('admin/', admin.site.urls)
 ]
