@@ -87,10 +87,10 @@ class Genre_Update(UpdateView):
     template_name='test_hello_word/update.html'
     success_url ='/list/'
 
-    def get_context_data(self, **kwargs):
-        context= super().get_context_data(**kwargs)
-        context['rate']=123
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context= super().get_context_data(**kwargs)
+    #     context['rate']=123
+    #     return context
 class Genre_List(ListView):
 
     model = Genre
