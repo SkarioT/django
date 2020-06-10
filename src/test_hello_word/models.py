@@ -12,13 +12,13 @@ class Genre(models.Model):
         null=True,
         blank=True
     )
-    created=models.DateField(
-        verbose_name="Дата создания",
+    update=models.DateField(
+        verbose_name="Дата обновления",
         auto_now=True,
         auto_now_add=False
     )
-    update=models.DateField(
-        verbose_name="Дата обновления",
+    create=models.DateField(
+        verbose_name="Дата ооздания",
         auto_now=False,
         auto_now_add=True
     )

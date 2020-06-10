@@ -72,7 +72,7 @@ class Genre_Create(CreateView):
     form_class=CreateGenreFormModel
     #в какой шаблон отрисовывать
     template_name='test_hello_word/create.html'
-    success_url ='/'
+    success_url ='/list/'
 
     def get_context_data(self, **kwargs):
         context= super().get_context_data(**kwargs)
@@ -85,7 +85,7 @@ class Genre_Update(UpdateView):
     form_class=CreateGenreFormModel
     #в какой шаблон отрисовывать
     template_name='test_hello_word/update.html'
-    success_url ='/'
+    success_url ='/list/'
 
     def get_context_data(self, **kwargs):
         context= super().get_context_data(**kwargs)
@@ -102,3 +102,7 @@ class Genre_List(ListView):
     #     context = super().get_context_data(**kwargs)
     #     context['now'] =datetime.datetime.now()
     #     return context
+class Genre_Delete(DeleteView):
+    model = Genre
+    template_name='test_hello_word/delete.html'
+    success_url ='/list/'

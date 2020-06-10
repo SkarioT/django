@@ -15,7 +15,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
-from test_hello_word.views import test_form,test_pk,test_created,test,Test_B_V,Genre_Create,Genre_Update,Genre_List
+from test_hello_word.views import test_form,test_pk,test_created,test,Test_B_V,Genre_Create,Genre_Update,Genre_List,Genre_Delete
 
 
 urlpatterns = [
@@ -28,5 +28,6 @@ urlpatterns = [
     path('test_b_v/', Test_B_V.as_view()),
     path('create/', Genre_Create.as_view()),
     path('update/<int:pk>', Genre_Update.as_view()),
-    path('list/', Genre_List.as_view())
+    path('list/', Genre_List.as_view()),
+    path('delete/<int:pk>', Genre_Delete.as_view())
 ]

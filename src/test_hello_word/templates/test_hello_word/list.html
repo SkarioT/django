@@ -6,15 +6,19 @@
     <title>Document</title>
 </head>
 <body>
-        <table border="1" width="100%" > 
+    <a class="btn btn-primary" href="/create/">Create new Genre</a>
+        <table class="table table-striped" border="1" width="100%" > 
             <tr>
-            <td>i.pk</td><td>i.browser</td><td>i.date_ivents</td><td>i.created</td><td>i.update|timesince</td>
+                <th>Редактирование</th><th>Название жанра</th><th>Описание</th><th>Дата создания</th><th>Дата изменения</th><th>Удаление</th>
             </tr>
-            <{% for i in object_list %}
+            {% for i in object_list %}
                 <tr>
-                <td>{{i.name}}</td><td>{{i.description}}</td><td>{{i.created}}</td><td>{{i.created}}</td><td>{{i.update|timesince}}</td>
+                <td><a href="/update/{{i.id}}">Edit</a></td><td>{{i.name}}</td><td>{{i.description}}</td><td>{{i.create}}</td><td>{{i.update|timesince}}</td><td><a href="/delete/{{i.pk}}">Delete</a></td>
                 </tr>
         {% endfor %}
         </table>
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 </body>
 </html>
+
