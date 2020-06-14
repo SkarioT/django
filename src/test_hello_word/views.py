@@ -12,7 +12,7 @@ from .models import Genre
 
 def test(request):
     context={}
-    return render(request, template_name="test_hello_word/base.html", context={})
+    return render(request, template_name="base.html", context={})
 
 
 def test_created(request):
@@ -73,7 +73,10 @@ class Genre_Create(CreateView):
     form_class=CreateGenreFormModel
     #в какой шаблон отрисовывать
     template_name='test_hello_word/create.html'
-    success_url =reverse_lazy('CRUD_genre:list')
+    # success_url =reverse_lazy('CRUD_genre:list')
+    def get_success_url(self):
+        #return f"/detail/{self.object.pk}"
+        return reverse_lazy('CRUD_genre:detail', kwargs={'pk':self.object.pk})
 
     # def get_context_data(self, **kwargs):
     #     context= super().get_context_data(**kwargs)

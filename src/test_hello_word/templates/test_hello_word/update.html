@@ -1,13 +1,7 @@
-<!DOCTYPE html>
-<html lang="ru">
-<head>
-     {% load crispy_forms_tags %}
-    <link href="https://getbootstrap.com/docs/4.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
-</head>
-<body>
+{% extends "base.html" %}
+  {% block title %}<title>Изменение жанра {{object.name}}</title>{% endblock title %}
+{% load crispy_forms_tags %}
+    {% block main %}
 
      <div class=container>
      <h3>Обновление данных для {{object.name}}</h3>
@@ -21,4 +15,5 @@
     </div>
 
 </body>
+{% endblock main %}
 </html>
