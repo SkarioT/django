@@ -3,7 +3,8 @@ from django.http import HttpResponse
 import datetime
 from django.views.generic.base import TemplateView
 from .forms import CreateGenreForm,CreateGenreFormModel
-from django.views.generic import CreateView,UpdateView,DeleteView,ListView
+from django.views.generic import CreateView,UpdateView,DeleteView,ListView,DetailView
+from django.urls import reverse,reverse_lazy
 
 #from pip._vendor import requests
 import requests
@@ -11,7 +12,7 @@ from .models import Genre
 
 def test(request):
     context={}
-    return render(request, template_name="test_hello_word/index.html", context={})
+    return render(request, template_name="test_hello_word/base.html", context={})
 
 
 def test_created(request):
@@ -72,12 +73,12 @@ class Genre_Create(CreateView):
     form_class=CreateGenreFormModel
     #в какой шаблон отрисовывать
     template_name='test_hello_word/create.html'
-    success_url ='/list/'
+    success_url =reverse_lazy('CRUD_genre:list')
 
-    def get_context_data(self, **kwargs):
-        context= super().get_context_data(**kwargs)
-        context['rate']=123
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context= super().get_context_data(**kwargs)
+    #     context['rate']=123
+    #     return context
 class Genre_Update(UpdateView):
     #куда сохронять
     model= Genre
@@ -85,7 +86,10 @@ class Genre_Update(UpdateView):
     form_class=CreateGenreFormModel
     #в какой шаблон отрисовывать
     template_name='test_hello_word/update.html'
-    success_url ='/list/'
+    # success_url ='/list/'
+    def get_success_url(self):
+        #return f"/detail/{self.object.pk}"
+        return reverse_lazy('CRUD_genre:detail', kwargs={'pk':self.object.pk})
 
     # def get_context_data(self, **kwargs):
     #     context= super().get_context_data(**kwargs)
@@ -105,4 +109,9 @@ class Genre_List(ListView):
 class Genre_Delete(DeleteView):
     model = Genre
     template_name='test_hello_word/delete.html'
-    success_url ='/list/'
+    success_url =reverse_lazy('CRUD_genre:list')
+
+class Genre_DetaleView(DetailView):
+    model = Genre
+    template_name='test_hello_word/detail.html'
+    success_url =reverse_lazy('CRUD_genre:list')

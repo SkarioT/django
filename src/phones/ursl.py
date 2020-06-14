@@ -14,18 +14,20 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path , include
-from test_hello_word.views import test_form,test_pk,test_created,test,Test_B_V,Genre_Create,Genre_Update,Genre_List,Genre_Delete,Genre_DetaleView
-
+from django.urls import path
+from test_hello_word.views import test_form,test_pk,test_created,test,Test_B_V,Genre_Create,Genre_Update,Genre_List,Genre_Delete
 # from phones import 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', test,name='main_page'),
-    # path('create/', Genre_Create.as_view()),
-    # path('update/<int:pk>', Genre_Update.as_view()),
-    # path('list/', Genre_List.as_view()),
-    # path('delete/<int:pk>', Genre_Delete.as_view()),
-    # path('detail/<int:pk>', Genre_DetaleView.as_view())
-    path('catalogs/',include('test_hello_word.urls', namespace="CRUD_genre"))
+    path('', test),
+    path('test_created/', test_created),
+    path('test_form/', test_form),
+    path('test_form/<int:pk>', test_form),
+    path('test_pk/<int:pk>', test_pk),
+    path('test_b_v/', Test_B_V.as_view()),
+    path('create/', Genre_Create.as_view()),
+    path('update/<int:pk>', Genre_Update.as_view()),
+    path('list/', Genre_List.as_view()),
+    path('delete/<int:pk>', Genre_Delete.as_view())
 ]

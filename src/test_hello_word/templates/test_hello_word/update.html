@@ -1,18 +1,24 @@
 <!DOCTYPE html>
 <html lang="ru">
 <head>
+     {% load crispy_forms_tags %}
+    <link href="https://getbootstrap.com/docs/4.5/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
 </head>
 <body>
-        {{rate}}
-    <h1>Genre</h1>
-    <h3>form_Create_Genre(C_B_V)</h3>
-    <form action="" method="post">
+
+     <div class=container>
+     <h3>Обновление данных для {{object.name}}</h3>
+     <form action="" method="post">
         {% csrf_token %}
-            {{form.as_p}}
-        <input type="submit" value="submit">
-    </form>
+            {{form|crispy}}
+        <input class="btn btn-primary" type="submit" value="Обновить">
+    <a class="btn btn-success" href="{% url 'main_page'%}">Go to site </a>
+    <a class="btn btn-success" href="{% url 'CRUD_genre:list'%}">Back </a>
+     </form>
+    </div>
+
 </body>
 </html>

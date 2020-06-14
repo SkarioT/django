@@ -5,7 +5,7 @@ class Genre(models.Model):
     #id/pk
     name = models.CharField(
         verbose_name ="Название Жанра",
-        max_length=100
+        max_length=30
         ) # столбец name тип данных CharField
     description = models.TextField(
         verbose_name="Описание Жанра",

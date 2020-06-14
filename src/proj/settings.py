@@ -25,7 +25,7 @@ SECRET_KEY = 'by&ol$$+^(%9e736z&&dxw6pxdf)hz7nm3rmgt7r6hw%dn7-j4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['skariot.pythonanywhere.com']
+ALLOWED_HOSTS = ['skariot.pythonanywhere.com','127.0.0.1']
 
 
 # Application definition
@@ -37,7 +37,9 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    'test_hello_word'
+    'crispy_forms',
+    'test_hello_word',
+    'phones'
 ]
 
 MIDDLEWARE = [
@@ -127,3 +129,4 @@ STATIC_ROOT='/home/SkarioT/django/src/proj/static'
 
 MEDIA_URL = '/media/'
 MEDIA_ROOT='/home/SkarioT/django/src/proj/media'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
