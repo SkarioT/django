@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path , include
 from test_hello_word.views import test_form,test_pk,test_created,test,Test_B_V,Genre_Create,Genre_Update,Genre_List,Genre_Delete,Genre_DetaleView
-
+from test_hello_word.views import test
 # from phones import 
 
 urlpatterns = [
