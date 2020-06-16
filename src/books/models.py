@@ -87,7 +87,7 @@ class Books(models.Model):
         default=True
     )
     # 17) Рейтинг
-    rating=models.IntegerField(
+    rating=models.FloatField(
         verbose_name="Рейтинг",
         validators=[MinValueValidator(0), MaxValueValidator(10)],
         default=9
