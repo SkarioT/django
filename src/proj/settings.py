@@ -40,7 +40,8 @@ INSTALLED_APPS = [
     'crispy_forms',
     'test_hello_word',
     'phones',
-    'books'
+    'books',
+    'profiles'
 ]
 
 MIDDLEWARE = [

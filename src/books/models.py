@@ -12,7 +12,12 @@ class Books(models.Model):
         max_length=50
     )
     #2)Фото обложки
-#-------------------
+    picture=models.ImageField(
+        verbose_name="Фото обложки",
+        upload_to="books-pic",
+        null=True,
+        blank=True
+    )
 
     # 3) Цена
     price=models.DecimalField(
@@ -115,19 +120,19 @@ class Books(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return f"{self.name} {self.picture}"
 
 class Author(models.Model):
     first_name=models.CharField(
         verbose_name="Имя",
         max_length=50
     )
-    lastn_name=models.CharField(
+    last_name=models.CharField(
         verbose_name="Фамилия",
         max_length=50
     )
     def __str__(self):
-        return self.lastn_name
+        return f"{self.first_name} {self.last_name}"
 
 class Genre(models.Model):
 
@@ -142,7 +147,7 @@ class Genre(models.Model):
     )
 
     def __str__(self):
-        return self.name
+        return f"{self.name} {self.description}"
         
 class Binging(models.Model):
     name = models.CharField(
