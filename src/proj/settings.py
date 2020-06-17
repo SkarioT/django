@@ -126,8 +126,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT='/home/SkarioT/django/src/proj/static'
+STATIC_ROOT='/home/SkarioT/shop/django/src/proj/static'
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT='/home/SkarioT/django/src/proj/media'
+MEDIA_ROOT='/home/SkarioT/shop/django/src/proj/media'
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
+

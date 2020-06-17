@@ -16,7 +16,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path , include
 from test_hello_word.views import test_form,test_pk,test_created,test,Test_B_V,Genre_Create,Genre_Update,Genre_List,Genre_Delete,Genre_DetaleView
-from test_hello_word.views import test
+from books.views import BooksCreate,BooksDetail,BooksUpdate,BooksDelete,BooksList
 # from phones import 
 
 urlpatterns = [
@@ -27,5 +27,6 @@ urlpatterns = [
     # path('list/', Genre_List.as_view()),
     # path('delete/<int:pk>', Genre_Delete.as_view()),
     # path('detail/<int:pk>', Genre_DetaleView.as_view())
-    path('catalogs/',include('test_hello_word.urls', namespace="CRUD_genre"))
+    path('catalogs/',include('test_hello_word.urls', namespace="CRUD_genre")),
+    path('books/',include('books.urls', namespace="CRUDL_books"))
 ]

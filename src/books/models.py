@@ -1,5 +1,9 @@
 from django.db import models
 from django.core.validators import MaxValueValidator, MinValueValidator
+
+from django.contrib.auth import get_user_model
+
+User= get_user_model()
 # Create your models here.
 class Books(models.Model):
     #1)Название книги
@@ -38,7 +42,7 @@ class Books(models.Model):
     )
 
     # 8)Кол-во страниц
-    number_page=models.IntegerField(
+    count_page=models.IntegerField(
         verbose_name="Кол-во страниц",
         default=100
     )
@@ -103,6 +107,11 @@ class Books(models.Model):
         verbose_name="Дата последнего изменения",
         auto_now=True,
         auto_now_add=False
+    )
+
+    user=models.ForeignKey(
+        User,
+        on_delete=models.PROTECT
     )
 
     def __str__(self):

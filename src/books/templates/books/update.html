@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+  {% block title %}<title>Изменение жанра {{object.name}}</title>{% endblock title %}
+{% load crispy_forms_tags %}
+    {% block main %}
+
+     <div class=container>
+     <h3>Обновление данных для {{object.name}}</h3>
+     <form action="" method="post">
+        {% csrf_token %}
+            {{form|crispy}}
+        <input class="btn btn-primary" type="submit" value="Обновить">
+    <a class="btn btn-success" href="{% url 'main_page'%}">Go to site </a>
+    <a class="btn btn-success" href="{% url 'CRUD_genre:list'%}">Back </a>
+     </form>
+    </div>
+
+</body>
+{% endblock main %}
+</html>
