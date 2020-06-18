@@ -16,7 +16,7 @@
                 <tr>
                     <td>{{object.name}}</td>
                     {% if object.picture %}
-                        <td> <img src="{{object.picture.url}}" alt=""></td>
+                        <td> <img height="250" height="250" src="{{object.picture.url}}" alt=""></td>
                     {% else %}
                         <td></td>
                     {% endif %}
@@ -37,7 +37,7 @@
                     {% if object.availability %}
                     <td>Доступен для заказа</td>
                     {% else %}
-                    <td>не доступен для заказа</td>
+                    <td>Не доступен для заказа</td>
                     {% endif %}
                     
                     

@@ -5,11 +5,11 @@
 
      <div class=container>
      <h3>Обновление данных для {{object.name}}</h3>
-     <form action="" method="post">
+     <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
             {{form|crispy}}
         <input class="btn btn-primary" type="submit" value="Обновить">
-    <a class="btn btn-success" href="{% url 'main_page'%}">Go to site </a>
+    <a class="btn btn-success" href="{% url 'home_page'%}">Go to site </a>
     <a class="btn btn-success" href="{% url 'CRUDL_books:list'%}">Back </a>
      </form>
     </div>
