@@ -127,9 +127,11 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/3.0/howto/static-files/
 
 STATIC_URL = '/static/'
-STATIC_ROOT='/home/SkarioT/shop/django/src/proj/static'
+STATIC_ROOT=os.path.join(BASE_DIR,'static')
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT='/home/SkarioT/shop/django/src/proj/media'
+#строку вернуть для прода, аналогичную сделать для статика
+#MEDIA_ROOT='/home/SkarioT/shop/django/src/proj/media'
+MEDIA_ROOT=os.path.join(BASE_DIR,'media')
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 

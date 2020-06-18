@@ -27,7 +27,10 @@ class BooksUpdate(UpdateView):
 
 
 class BooksDelete(DeleteView):
-    pass
+    model = Books
+    template_name='books/delete.html'
+    success_url =reverse_lazy('CRUDL_books:list')
 
 class BooksList(ListView):
-    pass
+    model= models.Books
+    template_name='books/list.html'

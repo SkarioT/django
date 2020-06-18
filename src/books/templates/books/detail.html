@@ -14,8 +14,18 @@
                 </thead> 
                 
                 <tr>
-                    <td>{{object.name}}</td><td>{{object.picture}}</td><td>{{object.price}}</td><td>{{object.author}}</td><td>Soon...</td>
-                    <td>{{object.genre}}</td><td>{{object.publishing_year}}</td><td>{{object.count_page}}</td><td>{{object.binging}}</td><td>{{object.format_book}}</td>
+                    <td>{{object.name}}</td><td>{{object.picture}}</td><td>{{object.price}}</td>
+                    {% for author in object.author.all %}
+                        <td>{{author}}</td>
+                    {% endfor %}                   
+                    <td>Soon...</td>
+
+                    {% for genre in object.genre.all %}
+
+                        <td>{{genre}}</td>
+                    {% endfor %} 
+
+                    <td>{{object.publishing_year}}</td><td>{{object.count_page}}</td><td>{{object.binging}}</td><td>{{object.format_book}}</td>
                     <td>{{object.isbn}}</td><td>{{object.weight}}</td><td>{{object.age_limit}}</td><td>Soon...</td><td>{{object.count_book}}</td>
                     <td>{{object.availability}}</td><td>{{object.rating}}</td><td>{{object.create}}</td><td>{{object.update}}</td>
                     <td><a href="{% url 'CRUDL_books:update' object.pk %}"><svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
