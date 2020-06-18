@@ -2,27 +2,40 @@
   {% block title %}<title>Домашняя страница</title>{% endblock title %}
 {% load crispy_forms_tags %}
     {% block main %}
-    {% for object in object_list %}
-        <div class="card" style="width: 18rem;">
-        {% if object.picture %}
-            <img src="{{object.picture.url}}" class="card-img-top" alt="">
-        {% else %}
-        {% endif %}
-        <div class="card-body">
-            <h5 class="card-title">Card title</h5>
-            <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+    
+    <div class="container">
+        <div class="row">
+            {% for object in object_list %}
+            <div class="w-100">
+                <div class="card" style="width: 18rem;">
+                
+                    {% if object.picture %}
+                        <img src="{{object.picture.url}}" class="card-img-top" alt="">
+                    {% else %}
+                    {% endif %}
+                    <div class="card-body">
+                        <h5 class="card-title">{{object.name}}</h5>
+                        <p class="card-text">Жанр:
+                        {% for genre in object.genre.all %}
+                                    {{genre}}
+                                {% endfor %} </p>
+                    </div>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item">Год издания: {{object.publishing_year}}</li>
+                        <li class="list-group-item">Возрастные ограничения: {{object.age_limit}}</li>
+                        <li class="list-group-item">Цена: {{object.price}}</li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="{% url 'CRUDL_books:detail' object.pk %}" class="card-link">Подробнее</a>
+                        <a href="{% url 'CRUDL_books:list' %}" class="card-link">Список всех книг</a>
+                    </div>
+                </div>
+            </div>
+
+             {% endfor %}
         </div>
-        <ul class="list-group list-group-flush">
-            <li class="list-group-item">Cras justo odio</li>
-            <li class="list-group-item">Dapibus ac facilisis in</li>
-            <li class="list-group-item">Vestibulum at eros</li>
-        </ul>
-        <div class="card-body">
-            <a href="#" class="card-link">Card link</a>
-            <a href="#" class="card-link">Another link</a>
-        </div>
-        </div>
-    {% endfor %}
+    </div>
+   
     {% endblock main %}
 </body>
 </html>
