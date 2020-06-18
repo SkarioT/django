@@ -16,7 +16,8 @@ class Books(models.Model):
         verbose_name="Фото обложки",
         upload_to="books-pic",
         null=True,
-        blank=True
+        blank=True,
+        default="books-pic/default.jpg"
     )
 
     # 3) Цена

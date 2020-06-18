@@ -17,14 +17,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path , include
 from test_hello_word.views import test_form,test_pk,test_created,test,Test_B_V,Genre_Create,Genre_Update,Genre_List,Genre_Delete,Genre_DetaleView
-from books.views import BooksCreate,BooksDetail,BooksUpdate,BooksDelete,BooksList
+from books.views import BooksCreate,BooksDetail,BooksUpdate,BooksDelete,BooksList,Home_page
 from django.conf import settings
 from django.conf.urls.static import static
 # from phones import 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', test,name='main_page'),
+    path('',Home_page.as_view(),name='home_page'),
     path('catalogs/',include('test_hello_word.urls', namespace="CRUD_genre")),
     path('books/',include('books.urls', namespace="CRUDL_books"))   
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
