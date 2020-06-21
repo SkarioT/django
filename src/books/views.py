@@ -58,9 +58,12 @@ class BooksList(LoginRequiredMixin,ListView):
     model= models.Books
     template_name='books/list.html'
     #накинуты права для стафюзер на просмотр только доступных книг
-    def get_queryset(self,*args, **kwargs):
-        if self.request.user.has_perm('books.view_books'):
+    def get_queryset(self,*args, **kwargs) :
+        print(self.request.user.groups.filter(name='staff_group'))
+        if self.request.user.has_perm('books.view_books') and self.request.user.groups.filter(name='staff_group') :
             return self.model.objects.filter(availability=True)
+        else:
+            return self.model.objects.all()
 
 
 class Home_page(ListView):
