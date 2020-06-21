@@ -28,7 +28,7 @@
                     <td>
                     {% for genre in object.genre.all %}
 
-                        {{genre}}
+                        {{genre.name}}
                     {% endfor %} 
                     </td>
                     <td>{{object.publishing_year}}</td><td>{{object.count_page}}</td><td>{{object.binging}}</td><td>{{object.format_book}}</td>

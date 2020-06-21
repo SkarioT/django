@@ -5,19 +5,19 @@
     
     <div class="container">
         <div class="row">
-            {% for object in object_list %}
+             {% for object in object_list %}
             <div class="row row-cols-1">
                 <div class="card" style="width: 18rem;">
+                
                     {% if object.picture %}
                         <img height="250" height="250"src="{{object.picture.url}}" class="card-img-top" alt="">
                     {% else %}
                     {% endif %}
                     <div class="card-body">
                         <h5 class="card-title">{{object.name}}</h5>
-                        <p class="card-text">Жанр:<br>
-                        {% for genre in object.genre.all  %}
-                                    {{genre.name}}
-                                    <br>
+                        <p class="card-text">Жанр:
+                        {% for genre in object.genre.all %}
+                                    {{genre}}
                                 {% endfor %} </p>
                     </div>
                     <ul class="list-group list-group-flush">
@@ -32,8 +32,7 @@
                 </div>
             </div>
 
-             {% endfor %} 
-</form>
+             {% endfor %}
         </div>
     </div>
    
