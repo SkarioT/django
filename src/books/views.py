@@ -57,6 +57,10 @@ class BooksDelete(LoginRequiredMixin,DeleteView):
 class BooksList(LoginRequiredMixin,ListView):
     model= models.Books
     template_name='books/list.html'
+    #накинуты права для стафюзер на просмотр только доступных книг
+    def get_queryset(self,*args, **kwargs):
+        if self.request.user.has_perm('books.view_books'):
+            return self.model.objects.filter(availability=True)
 
 
 class Home_page(ListView):
