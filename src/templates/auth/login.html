@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+  {% block title %}<title>Страница авторизации</title>{% endblock title %}
+{% load crispy_forms_tags %}
+  {% block main %}
+  <div id="login">
+        <h3 class="text-center text-white pt-5">Login form</h3>
+        <div class="container">
+            <div id="login-row" class="row justify-content-center align-items-center">
+                <div id="login-column" class="col-md-6">
+                    <div id="login-box" class="col-md-12">
+                        <form id="login-form" class="form" action="{% url 'login' %}" method="post">
+                        {% csrf_token %}
+                            <h3 class="text-center text-info">Login</h3>
+                            {% if next %}
+                                {% if user.is_authenticated %}
+                                <p>Your account doesn't have access to this page. To proceed,
+                                please login with an account that has access.</p>
+                                {% else %}
+                                <p>Please login to see this page.</p>
+                                {% endif %}
+                            {% endif %}
+
+                            {{form|crispy}}
+                            <input type="submit" name="submit" class="btn btn-info btn-md" value="login">
+                            <input type="hidden" name="next" value="{{ next }}">
+                            <div id="register-link" class="text-right">
+                                <a href="#" class="nav-link disabled">Register here</a>
+                            </div>
+                            
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  {% endblock main %}
+</body>
+</html>

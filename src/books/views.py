@@ -38,9 +38,11 @@ class BooksCreate(LoginRequiredMixin,CreateView):
 class BooksDetail(LoginRequiredMixin,DetailView):
     model= models.Books
     template_name='books/detail.html'
+ 
 
 class BooksUpdate(LoginRequiredMixin,UpdateView):
     model= Books
+
     fields=('name','picture','price','author','genre','publishing_year','count_page','binging','format_book',
     'isbn','weight','age_limit','count_book','availability','rating','user')
     template_name='books/update.html'
@@ -53,6 +55,7 @@ class BooksDelete(LoginRequiredMixin,DeleteView):
     model = Books
     template_name='books/delete.html'
     success_url =reverse_lazy('CRUDL_books:list')
+
 
 class BooksList(LoginRequiredMixin,ListView):
     model= models.Books

@@ -20,12 +20,15 @@ from test_hello_word.views import test_form,test_pk,test_created,test,Test_B_V,G
 from books.views import BooksCreate,BooksDetail,BooksUpdate,BooksDelete,BooksList,Home_page
 from django.conf import settings
 from django.conf.urls.static import static
+from books.auth_view import Mylogin,Mylogout
 # from phones import 
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('',Home_page.as_view(),name='home_page'),
     path('catalogs/',include('test_hello_word.urls', namespace="CRUD_genre")),
-    path('books/',include('books.urls', namespace="CRUDL_books"))   
+    path('books/',include('books.urls', namespace="CRUDL_books")),
+    path('login/',Mylogin.as_view(), name='login'),
+    path('logout/',Mylogout.as_view(), name='logout')  
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 #конструкция +static  специально для режими разработке, в проде эту строку нужно удалить

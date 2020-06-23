@@ -56,6 +56,11 @@
       </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
+      {% if user.is_anonymous %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Login page</a>
+        </li>
+      {% endif%}
         {% if user.is_staff %}
         <li class="nav-item">
           <a class="nav-link" href="{% url 'CRUDL_books:list' %}">Books List View</a>
@@ -71,12 +76,15 @@
         {% endif %}
       {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Вы вошли на сайт как {{user}} Last login: {{user.last_login}}</a>
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Вы вошли на сайт как {{user}} Last login time: {{user.last_login}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
         </li>
       {% endif %}
       
       </ul>
-      <form class="form-inline mt-2 mt-md-0">
+      <form class="form-inline mt-1 mt-md-0">
         <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
         <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
       </form>
