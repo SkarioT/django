@@ -1,4 +1,4 @@
-from django.contrib.auth.views import LoginView,LogoutView
+from django.contrib.auth.views import LoginView,LogoutView,PasswordChangeView
 
 
 
@@ -8,3 +8,6 @@ class Mylogin(LoginView):
 
 class Mylogout(LogoutView):
     pass
+
+class MyPasswordChange(PasswordChangeView):
+    template_name='auth/password-change.html'

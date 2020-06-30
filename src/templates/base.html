@@ -76,7 +76,10 @@
         {% endif %}
       {% if user.is_authenticated %}
         <li class="nav-item">
-          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Вы вошли на сайт как {{user}} Last login time: {{user.last_login}}</a>
+          <a class="nav-link" href="{% url 'change-password' %}">Change Password</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Вы вошли на сайт как {{user}} Время последней авторизации: {{user.last_login}}</a>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="{% url 'logout' %}">Logout</a>

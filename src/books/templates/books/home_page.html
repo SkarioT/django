@@ -5,7 +5,7 @@
     <div class="container">
         <div class="row">
             {% for object in object_list %}
-            <div class="row row-cols-1">
+            <div class="row">
                 <div class="card" style="width: 18rem;">
                     {% if object.picture %}
                         <img height="250" height="250"src="{{object.picture.url}}" class="card-img-top" alt="">
@@ -23,11 +23,21 @@
                         <li class="list-group-item">Год издания: {{object.publishing_year}}</li>
                         <li class="list-group-item">Возрастные ограничения: {{object.age_limit}}</li>
                         <li class="list-group-item">Цена: {{object.price}}</li>
+                    {% if object.availability %}
+                        <li class="list-group-item">Доступен для заказа: Да</li>
                     </ul>
                     <div class="card-body">
                         <a href="{% url 'CRUDL_books:detail' object.pk %}" class="card-link">Подробнее</a>
                         <a href="{% url 'CRUDL_books:list' %}" class="card-link">Список всех книг</a>
                     </div>
+                    {% else %}
+                        <li class="list-group-item">Доступен для заказа: Нет</li>
+                    </ul>
+                    <div class="card-body">
+                        <a href="#"  class="card-link">Подробнее</a>
+                        <a href="#"  class="card-link">Список всех книг</a>
+                    </div>
+                    {% endif %}
                 </div>
             </div>
 
@@ -35,7 +45,7 @@
 </form>
         </div>
     </div>
-   
+ 
     {% endblock main %}
 </body>
 </html>
