@@ -42,7 +42,8 @@ INSTALLED_APPS = [
     'test_hello_word',
     'phones',
     'books',
-    'profiles'
+    'profiles',
+    'cart'
 ]
 
 MIDDLEWARE = [
