@@ -74,9 +74,3 @@ class Home_page(ListView):
     template_name='books/home_page.html'
     paginate_by=8
 
-#набивание книгами
-# def test():
-#     for b in range(50):
-#         Books(name=f"Books_{str(b)}",user_id=1).save()
-
-# test()

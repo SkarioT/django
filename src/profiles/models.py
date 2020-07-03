@@ -1,6 +1,9 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 
+
+from django.dispatch import receiver
+
 User= get_user_model()
 
 class Profile(models.Model):
@@ -12,10 +15,20 @@ class Profile(models.Model):
     )
     image=models.ImageField(
         verbose_name="Фото пользователя",
-        upload_to="",
+        upload_to="profiles-pic",
         null=True,
-        blank=True
+        blank=True,
     )
 
     def __str__(self):
-        return f"{self.user.first_name} {self.user.last_name}"
+        return f"{self.user}"
+
+#функция сигнал, при кком либо изменние в User, менят для User.last_name имя на "upd_lastname_from_signal"
+# def test_singal(sender,instance, **kwargs):
+#     instance.last_name="upd_lastname_from_signal"
+#испольем pre_save,т.к. при созднии post_save требовлось бы выполнение instance.save(),что в свою очередь запукло рекурсию. т.е. сохроняем, 
+# стрбывет сигнал на измениние, изменят, сохроняем, вызывает сигнал и так пока не страшимся.
+#                 фун.обрботик, откуда сигнал
+# pre_save.connect(test_singal,sender=User)
+
+
