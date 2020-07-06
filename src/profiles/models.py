@@ -1,5 +1,6 @@
 from django.db import models
 from django.contrib.auth import get_user_model
+from django.contrib.auth.models import Group
 
 
 from django.dispatch import receiver
@@ -20,6 +21,13 @@ class Profile(models.Model):
         blank=True,
     )
 
+    phone=models.CharField(
+        verbose_name="Телефон",
+        max_length=15,
+        null=True,
+        blank=True,
+        default="375290000000"
+    )
     def __str__(self):
         return f"{self.user}"
 
