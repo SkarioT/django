@@ -17,6 +17,12 @@ class ProfilesCreate(FormView):
         return reverse_lazy('CRUDL_profiles:list')
 
     def form_valid(self, form):
+        formdata=self.get_form_kwargs()
+        username=formdata['data']['username']
+        password=formdata['data']['password']
+        print("username:",username,'\npassword:',password)
+        obj_user=User(username=username,password=password)
+        obj_user.save()
         return super().form_valid(form)
 
     def form_invalid(self, form):
@@ -46,7 +52,7 @@ class ProfilesDetail(DetailView):
 class ProfilesUpdate(UpdateView):
     #редактирую не профайл а дефэолдную таблицу User
     model=Profile
-    fields=('user','email','phone')
+    fields=('user','phone','home_address')
     # model= User
     # fields=('username','first_name','last_name','email','groups','is_staff','is_active','is_superuser','last_login','date_joined')
     template_name='profiles/update.html'

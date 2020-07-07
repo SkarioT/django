@@ -19,6 +19,10 @@ class CreateProfileFormModel(forms.Form):
         max_length=15,
         
     )
+    phone=forms.CharField(
+        label='Телефон',
+        max_length=15
+    )
     first_name=forms.CharField(
         label='Имя',
         max_length=15,
@@ -29,10 +33,33 @@ class CreateProfileFormModel(forms.Form):
         max_length=15,
         required=None 
     )
-    phone=forms.CharField(
-        label='Телефон',
-        max_length=15
+    address_1 = forms.CharField(
+        label="Адрес 1",
+        max_length=128,
+        required=None 
     )
+    address_2 = forms.CharField(
+        label="Адрес 2",
+        max_length=128,
+        required=None 
+    )
+    city = forms.CharField(
+        label="Город",
+        max_length=64,
+        required=None 
+    )
+    county = forms.CharField(
+        label="Страна",
+        max_length=64,
+        required=None 
+
+    )
+    zip_code = forms.CharField(
+        label="Почтовый индекс",
+        max_length=5,
+        required=None 
+    )
+
     class Meta:
         model= User
         fields=('username','password','first_name','last_name','email')
