@@ -18,11 +18,33 @@ class ProfilesCreate(FormView):
 
     def form_valid(self, form):
         formdata=self.get_form_kwargs()
+        #блок для User
         username=formdata['data']['username']
         password=formdata['data']['password']
+        email=formdata['data']['email']
+        #блок для Profiles
+        phone=formdata['data']['phone']
+        first_name=formdata['data']['first_name']
+        last_name=formdata['data']['last_name']
+        address_1=formdata['data']['address_1']
+        address_2=formdata['data']['address_2']
+        city=formdata['data']['city']
+        county=formdata['data']['county']
+        zip_code=formdata['data']['zip_code']
+
         print("username:",username,'\npassword:',password)
-        obj_user=User(username=username,password=password)
+        obj_user=User(username=username,email=email)
+        obj_user.set_password(password)
         obj_user.save()
+        #получаю id созданого объекта в USER
+        obj_user_id=obj_user.id
+        #в моей теории он должен быть рамен ID созданого PROFILES
+        print(obj_user_id)
+
+        obj_profile=Profile.objects.get(pk=obj_user_id)
+        obj_profile(phone=phone)
+        obj_profile.save()
+        # obj, created = Profile.objects.get_or_create(
         return super().form_valid(form)
 
     def form_invalid(self, form):
