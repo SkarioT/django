@@ -22,6 +22,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from books.auth_view import Mylogin,Mylogout,MyPasswordChange
 from profiles import urls
+from cart import urls
 # from phones import 
 
 urlpatterns = [
@@ -32,6 +33,7 @@ urlpatterns = [
     path('login/',Mylogin.as_view(), name='login'),
     path('logout/',Mylogout.as_view(), name='logout'),
     path('change-password/',MyPasswordChange.as_view(), name='change-password'),
-    path('profiles/',include('profiles.urls', namespace="CRUDL_profiles"))
+    path('profiles/',include('profiles.urls', namespace="CRUDL_profiles")),
+    path('cart/',include('cart.urls', namespace="cart"))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 #конструкция +static  специально для режими разработке, в проде эту строку нужно удалить

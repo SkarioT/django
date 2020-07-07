@@ -4,6 +4,7 @@
 {% load crispy_forms_tags %}
     {% block main %}
     <div class="container">
+    <h2>key1={{key1}}</h2>
         {% include "paginator.html" %}
         <div class="row">
             {% for object in object_list %}
@@ -30,14 +31,14 @@
                     </ul>
                     <div class="card-body">
                         <a href="{% url 'CRUDL_books:detail' object.pk %}" class="card-link">Подробнее</a>
-                        <a href="{% url 'CRUDL_books:list' %}" class="card-link">Список всех книг</a>
+                        <a href="?key1={{object.pk}}" class="card-link">В корзину</a>
                     </div>
                     {% else %}
                         <li class="list-group-item">Доступен для заказа: Нет</li>
                     </ul>
                     <div class="card-body">
                         <a href="#"  class="card-link">Подробнее</a>
-                        <a href="#"  class="card-link">Список всех книг</a>
+                        <a href="#"  class="card-link">В корзину</a>
                     </div>
                     {% endif %}
                 </div>

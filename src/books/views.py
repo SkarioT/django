@@ -76,6 +76,14 @@ class Home_page(ListView):
     model= models.Books
     template_name='books/home_page.html'
     paginate_by=8
+    
+    def get_context_data(self, **kwargs):
+        key1=self.request.GET.get('key1')
+        print("key1:",key1)
+        c= super().get_context_data(**kwargs)
+        c['key1']=key1
+        print(c)
+        return c
 
 #набивание книгами
 # def test():
