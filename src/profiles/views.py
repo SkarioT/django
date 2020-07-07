@@ -9,8 +9,9 @@ from django.contrib.auth.models import User
 
 from django.db.models.signals import post_save
 from django.dispatch import receiver
+from django.contrib.auth.mixins import LoginRequiredMixin
 
-class ProfilesCreate(FormView):
+class ProfilesCreate(LoginRequiredMixin,FormView):
     form_class=CreateProfileFormModel
     template_name='profiles/create.html'
     def get_success_url(self):
@@ -32,18 +33,28 @@ class ProfilesCreate(FormView):
         county=formdata['data']['county']
         zip_code=formdata['data']['zip_code']
 
+        user=self.request.user
+        print(user)
+
         print("username:",username,'\npassword:',password)
         obj_user=User(username=username,email=email)
         obj_user.set_password(password)
         obj_user.save()
         #получаю id созданого объекта в USER
         obj_user_id=obj_user.id
-        #в моей теории он должен быть рамен ID созданого PROFILES
+        #в моей теории он должен быть равен ID созданого PROFILES
         print(obj_user_id)
 
-        obj_profile=Profile.objects.get(pk=obj_user_id)
-        obj_profile(phone=phone)
-        obj_profile.save()
+        obj_profile=Profile.objects.filter(pk=obj_user_id).update(
+        phone=phone,
+        first_name=first_name,
+        last_name=last_name,
+        address_1=address_1,
+        address_2=address_2,
+        city=city,
+        county=county,
+        zip_code=zip_code
+        )
         # obj, created = Profile.objects.get_or_create(
         return super().form_valid(form)
 
@@ -67,14 +78,21 @@ class ProfilesCreate(FormView):
 #         return reverse_lazy('CRUDL_profiles:detail', kwargs={'pk':self.object.pk})
 
 
-class ProfilesDetail(DetailView):
+class ProfilesDetail(LoginRequiredMixin,DetailView):
     model= Profile
     template_name='profiles/detail.html'
 
-class ProfilesUpdate(UpdateView):
+class ProfilesUpdate(LoginRequiredMixin,UpdateView):
     #редактирую не профайл а дефэолдную таблицу User
     model=Profile
-    fields=('user','phone','home_address')
+    fields=('user', 'phone',
+        'first_name',
+        'last_name',
+        'address_1',
+        'address_2',
+        'city',
+        'county',
+        'zip_code')
     # model= User
     # fields=('username','first_name','last_name','email','groups','is_staff','is_active','is_superuser','last_login','date_joined')
     template_name='profiles/update.html'
@@ -82,10 +100,10 @@ class ProfilesUpdate(UpdateView):
         return reverse_lazy('CRUDL_profiles:detail', kwargs={'pk':self.object.pk})
 
 
-class ProfilesDelete(DeleteView):
+class ProfilesDelete(LoginRequiredMixin,DeleteView):
     pass
 
-class ProfilesList(ListView):
+class ProfilesList(LoginRequiredMixin,ListView):
     model=Profile
     template_name='profiles/list.html'
 

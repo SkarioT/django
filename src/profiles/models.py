@@ -34,12 +34,20 @@ class Profile(models.Model):
 #         return f"{self.user}"
 
 # class ProfileAddress(models.Model):
+    first_name = models.CharField(
+        verbose_name="Имя",
+        max_length=128,
+        blank=True)
+    last_name = models.CharField(
+        verbose_name="Фамилия",
+        max_length=128,
+        blank=True)
     address_1 = models.CharField(
-        verbose_name="address",
+        verbose_name="Адресс 1",
         max_length=128,
         blank=True)
     address_2 = models.CharField(
-        verbose_name="address",
+        verbose_name="Адресс 2",
         max_length=128,
         blank=True)
     city = models.CharField(
