@@ -1,6 +1,8 @@
 from .models import Profile
 
 def create_profile(sender,instance, **kwargs):
+    # email = kwargs["email"]
+    # print(instance,email)
     obj, created = Profile.objects.get_or_create(
         user=instance,
         defaults={},

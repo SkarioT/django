@@ -10,17 +10,11 @@ User= get_user_model()
 class Profile(models.Model):
     user=models.OneToOneField(
         User,
-        on_delete=models.PROTECT,
+        related_name='user',
+        on_delete=models.CASCADE,
         null=True,
         blank=True
     )
-    image=models.ImageField(
-        verbose_name="Фото пользователя",
-        upload_to="profiles-pic",
-        null=True,
-        blank=True,
-    )
-
     phone=models.CharField(
         verbose_name="Телефон",
         max_length=15,
@@ -30,6 +24,33 @@ class Profile(models.Model):
     )
     def __str__(self):
         return f"{self.user}"
+
+class ProfileAddress(models.Model):
+    address_1 = models.CharField(
+        verbose_name="address",
+        max_length=128)
+    address_2 = models.CharField(
+        verbose_name="address",
+        max_length=128,
+        blank=True)
+    city = models.CharField(
+        verbose_name="Город",
+        max_length=64,
+        default="Минск"
+        )
+    county = models.CharField(
+        verbose_name="Страна",
+        max_length=64,
+        default="Беларусь"
+        )
+    zip_code = models.CharField(
+        verbose_name="Почтовый индекс",
+        max_length=5,
+        default="235555")
+
+    def __str__(self):
+        return f"{self.city}"
+# fields=('username','password','first_name','last_name','email')
 
 #функция сигнал, при кком либо изменние в User, менят для User.last_name имя на "upd_lastname_from_signal"
 # def test_singal(sender,instance, **kwargs):
