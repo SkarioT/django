@@ -11,12 +11,12 @@ class CreateProfileFormModel(forms.Form):
     )
     password=forms.CharField(
         label='Пароль',
-        max_length=15,
+        max_length=20,
         widget=forms.PasswordInput
     )
     email=forms.EmailField(
         label='email',
-        max_length=15,
+        max_length=45,
         
     )
     phone=forms.CharField(
@@ -25,12 +25,12 @@ class CreateProfileFormModel(forms.Form):
     )
     first_name=forms.CharField(
         label='Имя',
-        max_length=15,
+        max_length=25,
         required=None
     )
     last_name=forms.CharField(
         label='Фамилия',
-        max_length=15,
+        max_length=25,
         required=None 
     )
     address_1 = forms.CharField(

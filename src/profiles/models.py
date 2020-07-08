@@ -15,6 +15,11 @@ class Profile(models.Model):
         null=True,
         blank=True
     )
+    username=models.CharField(
+        verbose_name="Имя пользователя",
+        max_length=100,
+        default=''
+    )
     phone=models.CharField(
         verbose_name="Телефон",
         max_length=15,

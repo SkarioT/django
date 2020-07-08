@@ -82,7 +82,7 @@ class Home_page(ListView):
         print("key1:",key1)
         c= super().get_context_data(**kwargs)
         c['key1']=key1
-        print(c)
+
         return c
 
 #набивание книгами
