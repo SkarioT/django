@@ -4,7 +4,7 @@
 {% load crispy_forms_tags %}
     {% block main %}
     <div class="container">
-    <h2>key1={{key1}}</h2>
+    <h2>book_pk={{book_pk}}</h2>
         {% include "paginator.html" %}
         <div class="row">
             {% for object in object_list %}
@@ -26,12 +26,18 @@
                         <li class="list-group-item">Год издания: {{object.publishing_year}}</li>
                         <li class="list-group-item">Возрастные ограничения: {{object.age_limit}}</li>
                         <li class="list-group-item">Цена: {{object.price}}</li>
+                    
                     {% if object.availability %}
                         <li class="list-group-item">Доступен для заказа: Да</li>
                     </ul>
                     <div class="card-body">
                         <a href="{% url 'CRUDL_books:detail' object.pk %}" class="card-link">Подробнее</a>
-                        <a href="?key1={{object.pk}}" class="card-link">В корзину</a>
+                        {% comment %} {% if user.is_anonymous %}
+                                    <a class="card-link" href="{% url 'login' %}">Авторизируйтесь</a>
+                        {% else%}
+                         {% endcomment %}
+                        <a href="{% url 'cart:add' %}?book_pk={{object.pk}}" class="card-link">В корзину</a>
+                        {% comment %} {% endif%} {% endcomment %}
                     </div>
                     {% else %}
                         <li class="list-group-item">Доступен для заказа: Нет</li>

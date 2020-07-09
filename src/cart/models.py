@@ -44,7 +44,7 @@ class BookInCart(models.Model):
     )
 
     def __str__(self):
-        return f"Book #{self.books.pk} in cart #{self.cart.pk}"
+        return f"Book #{self.books.pk} in cart #{self.cart.pk},qantity {self.qantity}"
     class Meta:
         unique_together=(('cart','books'),)
     
