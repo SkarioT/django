@@ -1,0 +1,17 @@
+{% extends "sadmin.html" %}
+  {% block title %}<title>Обновление данных для {{object.username}}</title>{% endblock title %}
+{% load crispy_forms_tags %}
+    {% block main %}
+
+     <div class=container>
+     <h3>Обновление данных для {{object.username}}</h3>
+     <form action="" method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+            {{form|crispy}}
+        <input class="btn btn-primary" type="submit" value="Обновить">
+     </form>
+    </div>
+
+</body>
+{% endblock main %}
+</html>
