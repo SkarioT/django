@@ -4,12 +4,15 @@ from . import models
 import requests
 from django.urls import reverse,reverse_lazy
 from .models import Books,Binging,Author
+from profiles.models import Profile
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-def home_page(request):
-    context={}
-    return render(request, template_name="books/home_page.html", context={})
+# def home_page(request):
+#     user_pk=self.re
+#     username_pk=Profile.objects.all()
+#     context={}
+#     return render(request, template_name="books/home_page.html", context={})
 
 class BooksCreate(LoginRequiredMixin,CreateView):
     model=Books
@@ -82,7 +85,15 @@ class Home_page(ListView):
         print("book_pk:",book_pk)
         c= super().get_context_data(**kwargs)
         c['book_pk']=book_pk
-
+         #подкидуываю в контектс для каждого обработчика в контект Profile user pk
+        try:
+            user=self.request.user
+            prof_user=Profile.objects.get(username=user)
+            print(user)
+            print(prof_user.pk)
+            c['prof_user']=prof_user.pk
+        except Profile.DoesNotExist:
+            prof_user=None
         return c
 
 #набивание книгами

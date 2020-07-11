@@ -44,37 +44,42 @@
 <body> 
   <header> {% block top_menu %}
     <nav class="navbar navbar-expand-md navbar-dark fixed-top bg-dark">
-      <a class="navbar-brand">Book`s shop</a>
+      <a class="navbar-brand" href="{% url 'home_page' %}">Book`s shop</a>
       <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
         <span class="navbar-toggler-icon"></span>
       </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
-        <a class="nav-link" href="{% url 'home_page' %}">Home <span class="sr-only">(current)</span></a>
-        <li class="nav-item dropdown show">
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Profiles</a>
-          <div class="dropdown-menu" aria-labelledby="dropdown01">
-            {% if user.is_authenticated %}
-            <a class="dropdown-item" href="{% url 'CRUDL_profiles:detail' prof_user %}">{{user}}</a>
-            <a class="dropdown-item" href="{% url 'change-password' %}">Change Password</a>
-            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
-            {%endif%}
-            {% if user.is_anonymous %}      
-            <a class="dropdown-item" href="{% url 'login' %}">Login page</a>
-            <a class="dropdown-item" href="{% url 'CRUDL_profiles:create' %}">Register here</a>
-            {% endif%}
-          </div>
+      {% if user.is_anonymous %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'login' %}">Login page</a>
         </li>
-            {% if user.is_staff %}
+      {% endif%}
+        {% if user.is_staff %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'CRUDL_books:list' %}">Books List View</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'CRUDL_books:create' %}">Create new Books</a>
+        </li>
+          {% if user.is_superuser %}
             <li class="nav-item">
-              <a class="nav-link" href="{% url 's-admin:index' %}">S-Admin page</a>
+              <a class="nav-link" href="/admin/">Admin page</a>
             </li>
-              {% if user.is_superuser %}
-                <li class="nav-item">
-                  <a class="nav-link" href="/admin/">Admin page</a>
-                </li>
-              {%endif%}
-            {% endif %}   
+          {%endif%}
+        {% endif %}
+      {% if user.is_authenticated %}
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'change-password' %}">Change Password</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Вы вошли на сайт как {{user}} Время последней авторизации: {{user.last_login}}</a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="{% url 'logout' %}">Logout</a>
+        </li>
+      {% endif %}
+      
       </ul>
       <form class="form-inline mt-1 mt-md-0">
         <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">

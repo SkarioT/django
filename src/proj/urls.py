@@ -34,6 +34,7 @@ urlpatterns = [
     path('logout/',Mylogout.as_view(), name='logout'),
     path('change-password/',MyPasswordChange.as_view(), name='change-password'),
     path('profiles/',include('profiles.urls', namespace="CRUDL_profiles")),
-    path('cart/',include('cart.urls', namespace="cart"))
+    path('cart/',include('cart.urls', namespace="cart")),
+    path('s-admin/',include('s_admin.urls', namespace="s-admin"))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 #конструкция +static  специально для режими разработке, в проде эту строку нужно удалить

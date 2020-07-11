@@ -43,7 +43,8 @@ INSTALLED_APPS = [
     'phones',
     'books',
     'profiles',
-    'cart'
+    'cart',
+    's_admin'
 ]
 
 MIDDLEWARE = [

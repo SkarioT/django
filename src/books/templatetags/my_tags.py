@@ -11,4 +11,6 @@ def rev_name(value): # Only one argument.
     """Converts a string into all lowercase"""
     return value[::-1]
 
+
+
 register.filter('rev_name', rev_name)
