@@ -38,17 +38,30 @@ class CustomersUpdate(ProfilesUpdate):
 class CustomersDetail(ProfilesDetail):
     template_name='s_admin/customers/detail.html'
 
+#product|books CRUDL for S-Admin portal
+class SAdminBooksList(book_view.BooksList):
+    template_name='s_admin/books/b_list.html'
 
-class ProductList(book_view.BooksList):
-    template_name='s_admin/product/p_list.html'
+class SAdminBooksDetail(book_view.BooksDetail):
+    template_name='s_admin/books/b_detail.html'
 
-
-class ProductBookDetail(book_view.BooksDetail):
-    template_name='s_admin/product/b_detail.html'
-
-class ProductBookDelete(book_view.BooksDelete):
-    template_name='s_admin/product/b_delete.html'
+class SAdminBooksDelete(book_view.BooksDelete):
+    template_name='s_admin/books/b_delete.html'
     success_url =reverse_lazy('s-admin:product')
+
+class SAdminBooksUpdate(book_view.BooksUpdate):
+    template_name='s_admin/books/b_update.html'
+    def get_success_url(self):
+        return reverse_lazy('s-admin:books_detail', kwargs={'pk':self.object.pk})
+
+class SAdminBooksCreate(book_view.BooksCreate):
+    template_name='s_admin/books/b_create.html'
+    def get_success_url(self):
+        return reverse_lazy('s-admin:books_detail', kwargs={'pk':self.object.pk})
+
+    
+
+
 
 
 

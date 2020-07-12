@@ -117,7 +117,8 @@ class Books(models.Model):
 
     user=models.ForeignKey(
         User,
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
+        default=2
     )
 
     def __str__(self):

@@ -16,10 +16,20 @@ class BooksCreate(LoginRequiredMixin,CreateView):
     template_name='books/create.html'
     def get_success_url(self):
         return reverse_lazy('CRUDL_books:detail', kwargs={'pk':self.object.pk})
-    def get_context_data(self, **kwargs):
-        print(self.request.user)
-        return super().get_context_data(** kwargs)
-
+    
+#подкидываю по умочанию пользователя текущего
+    def get_initial(self):
+        initinal=super().get_initial()
+        user=self.request.user
+        prof_user=Profile.objects.get(username=user)
+        initinal['user']=prof_user.pk
+        return initinal
+#скрываю возможность сменить пользователя(визуально)    
+    def get_form(self, form_class=None):
+        form=super().get_form(form_class=form_class)
+        form.fields['user'].widget.attrs.update({"class": "d-none"})
+        form.fields['user'].widget.attrs.update({"":""})
+        return form
 
 class BooksDetail(LoginRequiredMixin,DetailView):
     model= models.Books
