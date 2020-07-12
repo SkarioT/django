@@ -70,7 +70,7 @@ class Books(models.Model):
     isbn=models.CharField(
         verbose_name="ISBN",
         default="999-1-88877-6",
-        max_length=20
+        max_length=15
     )
     # 12) Вес(гр)
     weight=models.PositiveSmallIntegerField(

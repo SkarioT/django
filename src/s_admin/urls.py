@@ -23,4 +23,10 @@ urlpatterns = [
     path('customers', views.CustomersList.as_view(),name='customers'),
     path('customers/update/<int:pk>', views.CustomersUpdate.as_view(),name='update'),
     path('customers/detail/<int:pk>', views.CustomersDetail.as_view(),name='detail'),
+
+    path('product', views.ProductList.as_view(),name='product'),
+    path('product/b/update/<int:pk>', views.ProductList.as_view(),name='product_book_update'),
+    path('product/b/detail/<int:pk>', views.ProductBookDetail.as_view(),name='product_book_detail'),
+    path('product/b/delete/<int:pk>', views.ProductBookDelete.as_view(),name='product_book_delete'),
+    
 ]

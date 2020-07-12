@@ -1,5 +1,5 @@
 
-{% extends "base.html" %}
+{% extends "sadmin.html" %}
   {% block title %}<title>Детальный обзор Книги {{object.name}}</title>{% endblock title %}
 {% load crispy_forms_tags %}
     {% block main %}
@@ -14,11 +14,7 @@
         {% else %}
             <img src="..." class="card-img" alt="...">
         {% endif %}
-        <div class="card text-center">
-        <div class="card-header">
-            <a class="btn btn-success" href="{% url 's-admin:product'%}">В корзину </a>
-        </div>
-        </div>
+      
     </div>
     <div class="col-md-5">
       <div class="card-body">
@@ -62,3 +58,4 @@
 </body>
 {% endblock main %}
 </html>
+

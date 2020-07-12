@@ -8,11 +8,6 @@ from profiles.models import Profile
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 
-# def home_page(request):
-#     user_pk=self.re
-#     username_pk=Profile.objects.all()
-#     context={}
-#     return render(request, template_name="books/home_page.html", context={})
 
 class BooksCreate(LoginRequiredMixin,CreateView):
     model=Books
@@ -25,23 +20,22 @@ class BooksCreate(LoginRequiredMixin,CreateView):
         print(self.request.user)
         return super().get_context_data(** kwargs)
 
-#create with update
-# class BooksCreate(UpdateView):
-#     model= Books
-#     fields=('name','picture','price','author','genre','publishing_year','count_page','binging','format_book',
-#     'isbn','weight','age_limit','count_book','availability','rating','user')
-#     template_name='books/update.html'
 
-#     def get_success_url(self):
-#         return reverse_lazy('CRUDL_books:detail', kwargs={'pk':self.object.pk})
-#     def get_object(self):
-#         print(self.kwargs)
-#     #     obj, created = self.objects.get_or_create(first_name='John',last_name='Lennon',defaults={'birthday': date(1940, 10, 9)}
-#     #     return obj
 class BooksDetail(LoginRequiredMixin,DetailView):
     model= models.Books
     template_name='books/detail.html'
- 
+
+    def get_context_data(self, **kwargs):
+        c= super().get_context_data(**kwargs)
+        try:
+            user=self.request.user
+            prof_user=Profile.objects.get(username=user)
+            print(user)
+            print(prof_user.pk)
+            c['prof_user']=prof_user.pk
+        except Profile.DoesNotExist:
+            prof_user=None
+        return c
 
 class BooksUpdate(LoginRequiredMixin,UpdateView):
     model= Books
@@ -52,7 +46,17 @@ class BooksUpdate(LoginRequiredMixin,UpdateView):
     def get_success_url(self):
         return reverse_lazy('CRUDL_books:detail', kwargs={'pk':self.object.pk})
 
-
+    def get_context_data(self, **kwargs):
+        c= super().get_context_data(**kwargs)
+        try:
+            user=self.request.user
+            prof_user=Profile.objects.get(username=user)
+            print(user)
+            print(prof_user.pk)
+            c['prof_user']=prof_user.pk
+        except Profile.DoesNotExist:
+            prof_user=None
+        return c
 
 class BooksDelete(LoginRequiredMixin,DeleteView):
     model = Books
@@ -63,9 +67,9 @@ class BooksDelete(LoginRequiredMixin,DeleteView):
 class BooksList(LoginRequiredMixin,ListView):
     model= models.Books
     template_name='books/list.html'
-    #накинуты права для стафюзер на просмотр только доступных книг
+    #накинуты права для Customers на просмотр только доступных книг
     def get_queryset(self,*args, **kwargs) :
-        print(self.request.user.groups.filter(name='Customers'))
+        print("group:",self.request.user.groups.filter(name='Customers'))
         #получение назнавания группы для текущего авторизированного пользователя
         cust=self.request.user.groups.values_list('name', flat=True).first()
         print(cust)
@@ -73,6 +77,20 @@ class BooksList(LoginRequiredMixin,ListView):
             return self.model.objects.filter(availability=True)
         else:
             return self.model.objects.all()
+
+    def get_context_data(self, **kwargs):
+        c= super().get_context_data(**kwargs)
+        try:
+            user=self.request.user
+            prof_user=Profile.objects.get(username=user)
+            print(user)
+            print(prof_user.pk)
+            c['prof_user']=prof_user.pk
+        except Profile.DoesNotExist:
+            prof_user=None
+        return c
+            
+
 
 
 class Home_page(ListView):
