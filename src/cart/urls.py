@@ -20,5 +20,6 @@ from . import views
 
 urlpatterns = [
     path('add/', views.AddBookToCart.as_view(),name='add'),
+    path('cart/', views.CartDetail.as_view(),name='my'),
 
 ]

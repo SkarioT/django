@@ -64,6 +64,52 @@ class SAdminGenreCreate(CreateView):
     model=books_model.Genre
     fields=('__all__')
     template_name='s_admin/genre/g_create.html'
+    success_url =reverse_lazy('s-admin:genre')
+
+class SAdminGenreList(ListView):
+    model=books_model.Genre
+    template_name='s_admin/genre/g_list.html'
+
+class SAdminGenreUpdate(UpdateView):
+    model=books_model.Genre
+    fields=('__all__')
+    template_name='s_admin/genre/g_update.html'
+    def get_success_url(self):
+        return reverse_lazy('s-admin:genre_detail', kwargs={'pk':self.object.pk})
+class SAdminGenreDetail(DetailView):
+    model=books_model.Genre
+    template_name='s_admin/genre/g_detail.html'
+
+class SAdminGenreDelete(DeleteView):
+    model=books_model.Genre
+    template_name='s_admin/genre/g_delete.html'
+    success_url =reverse_lazy('s-admin:genre')
+
+#author CRUD
+class SAdminAuthorCreate(CreateView):
+    model=books_model.Author
+    fields=('__all__')
+    template_name='s_admin/author/a_create.html'
+    success_url =reverse_lazy('s-admin:author')
+
+class SAdminAuthorList(ListView):
+    model=books_model.Author
+    template_name='s_admin/author/a_list.html'
+
+class SAdminAuthorUpdate(UpdateView):
+    model=books_model.Author
+    fields=('__all__')
+    template_name='s_admin/author/a_update.html'
+    def get_success_url(self):
+        return reverse_lazy('s-admin:author_detail', kwargs={'pk':self.object.pk})
+class SAdminAuthorDetail(DetailView):
+    model=books_model.Author
+    template_name='s_admin/author/a_detail.html'
+
+class SAdminAuthorDelete(DeleteView):
+    model=books_model.Author
+    template_name='s_admin/author/a_delete.html'
+    success_url =reverse_lazy('s-admin:author')
 
 
 

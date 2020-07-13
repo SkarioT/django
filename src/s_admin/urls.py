@@ -30,10 +30,15 @@ urlpatterns = [
     path('books/detail/<int:pk>', views.SAdminBooksDetail.as_view(),name='books_detail'),
     path('books/delete/<int:pk>', views.SAdminBooksDelete.as_view(),name='books_delete'),
 
-    path('genre', views.SAdminBooksList.as_view(),name='genre'),
-    path('genre/create', views.SAdminGenreCreate.as_view(),name='books_genre'),
-    path('books/update/<int:pk>', views.SAdminBooksUpdate.as_view(),name='books_update'),
-    path('books/detail/<int:pk>', views.SAdminBooksDetail.as_view(),name='books_detail'),
-    path('books/delete/<int:pk>', views.SAdminBooksDelete.as_view(),name='books_delete'),
+    path('genre', views.SAdminGenreList.as_view(),name='genre'),
+    path('genre/create', views.SAdminGenreCreate.as_view(),name='genre_create'),
+    path('genre/update/<int:pk>', views.SAdminGenreUpdate.as_view(),name='genre_update'),
+    path('genre/detail/<int:pk>', views.SAdminGenreDetail.as_view(),name='genre_detail'),
+    path('genre/delete/<int:pk>', views.SAdminGenreDelete.as_view(),name='genre_delete'),
     
+    path('author', views.SAdminAuthorList.as_view(),name='author'),
+    path('author/create', views.SAdminAuthorCreate.as_view(),name='author_create'),
+    path('author/update/<int:pk>', views.SAdminAuthorUpdate.as_view(),name='author_update'),
+    path('author/detail/<int:pk>', views.SAdminAuthorDetail.as_view(),name='author_detail'),
+    path('author/delete/<int:pk>', views.SAdminAuthorDelete.as_view(),name='author_delete'),
 ]
