@@ -2,7 +2,7 @@ from django.shortcuts import render
 #cart
 from cart.models import BookInCart,Cart
 #books
-from books.models import Books 
+from books import models as books_model 
 from books import views as book_view
 
 
@@ -24,7 +24,7 @@ from django.views.generic import CreateView,DetailView,UpdateView,DeleteView,Lis
 # Create your views here.
 
 class S_Admin(LoginRequiredMixin,TemplateView):
-    models=Books
+    models=books_model.Books
     template_name='s_admin/index.html'
 
 class CustomersList(ProfilesList):
@@ -59,7 +59,11 @@ class SAdminBooksCreate(book_view.BooksCreate):
     def get_success_url(self):
         return reverse_lazy('s-admin:books_detail', kwargs={'pk':self.object.pk})
 
-    
+#genre CRUD
+class SAdminGenreCreate(CreateView):
+    model=books_model.Genre
+    fields=('__all__')
+    template_name='s_admin/genre/g_create.html'
 
 
 

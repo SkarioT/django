@@ -29,5 +29,11 @@ urlpatterns = [
     path('books/update/<int:pk>', views.SAdminBooksUpdate.as_view(),name='books_update'),
     path('books/detail/<int:pk>', views.SAdminBooksDetail.as_view(),name='books_detail'),
     path('books/delete/<int:pk>', views.SAdminBooksDelete.as_view(),name='books_delete'),
+
+    path('genre', views.SAdminBooksList.as_view(),name='genre'),
+    path('genre/create', views.SAdminGenreCreate.as_view(),name='books_genre'),
+    path('books/update/<int:pk>', views.SAdminBooksUpdate.as_view(),name='books_update'),
+    path('books/detail/<int:pk>', views.SAdminBooksDetail.as_view(),name='books_detail'),
+    path('books/delete/<int:pk>', views.SAdminBooksDelete.as_view(),name='books_delete'),
     
 ]

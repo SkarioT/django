@@ -50,8 +50,8 @@
       </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
-        <a class="nav-link" href="{% url 'home_page' %}">Home <span class="sr-only">(current)</span></a>
-        <li class="nav-item dropdown show">
+        <a class="nav-link active" href="{% url 'home_page' %}">Home <span class="sr-only">(current)</span></a>
+        <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Profiles</a>
           <div class="dropdown-menu" aria-labelledby="dropdown01">
             {% if user.is_authenticated %}
