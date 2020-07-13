@@ -5,6 +5,9 @@ from cart.models import BookInCart,Cart
 from books import models as books_model 
 from books import views as book_view
 
+#cart
+
+from cart import models as cart_model
 
 
 #profile
@@ -111,6 +114,26 @@ class SAdminAuthorDelete(DeleteView):
     template_name='s_admin/author/a_delete.html'
     success_url =reverse_lazy('s-admin:author')
 
+#cart view
+
+class SAdminCartList(ListView):
+    model=cart_model.Cart
+    template_name='s_admin/cart/c_list.html'
+
+class SAdminCartUpdate(UpdateView):
+    model=cart_model.Cart
+    fields=('__all__')
+    template_name='s_admin/cart/c_update.html'
+    def get_success_url(self):
+        return reverse_lazy('s-admin:cart_detail', kwargs={'pk':self.object.pk})
+class SAdminCartDetail(DetailView):
+    model=cart_model.Cart
+    template_name='s_admin/cart/c_detail.html'
+
+class SAdminCartDelete(DeleteView):
+    model=Cart
+    template_name='s_admin/cart/c_delete.html'
+    success_url =reverse_lazy('s-admin:cart')
 
 
 

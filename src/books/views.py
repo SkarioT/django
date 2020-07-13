@@ -11,8 +11,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 
 class BooksCreate(LoginRequiredMixin,CreateView):
     model=Books
-    fields=('name','picture','price','author','genre','publishing_year','count_page','binging','format_book',
-    'isbn','weight','age_limit','count_book','availability','rating','user')
+    fields=('__all__')
     template_name='books/create.html'
     def get_success_url(self):
         return reverse_lazy('CRUDL_books:detail', kwargs={'pk':self.object.pk})
@@ -50,8 +49,8 @@ class BooksDetail(LoginRequiredMixin,DetailView):
 class BooksUpdate(LoginRequiredMixin,UpdateView):
     model= Books
 
-    fields=('name','picture','price','author','genre','publishing_year','count_page','binging','format_book',
-    'isbn','weight','age_limit','count_book','availability','rating','user')
+    fields=('name','description','picture','price','author','genre','publishing_year','count_page','binging','format_book',
+    'isbn','weight','age_limit','count_book','availability','rating')
     template_name='books/update.html'
     def get_success_url(self):
         return reverse_lazy('CRUDL_books:detail', kwargs={'pk':self.object.pk})

@@ -11,6 +11,11 @@ class Books(models.Model):
         verbose_name="Имя книги",
         max_length=50
     )
+    description = models.TextField(
+        verbose_name='Описание книги',
+        null=True,
+        blank=True
+    )
     #2)Фото обложки
     picture=models.ImageField(
         verbose_name="Фото обложки",

@@ -41,4 +41,9 @@ urlpatterns = [
     path('author/update/<int:pk>', views.SAdminAuthorUpdate.as_view(),name='author_update'),
     path('author/detail/<int:pk>', views.SAdminAuthorDetail.as_view(),name='author_detail'),
     path('author/delete/<int:pk>', views.SAdminAuthorDelete.as_view(),name='author_delete'),
+
+    path('cart', views.SAdminCartList.as_view(),name='cart'),
+    path('cart/update/<int:pk>', views.SAdminCartUpdate.as_view(),name='cart_update'),
+    path('cart/detail/<int:pk>', views.SAdminCartDetail.as_view(),name='cart_detail'),
+    path('cart/delete/<int:pk>', views.SAdminCartDelete.as_view(),name='cart_delete'),
 ]
