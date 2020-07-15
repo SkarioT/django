@@ -35,7 +35,8 @@ class Books(models.Model):
     # 4)Автор книги
     author=models.ManyToManyField(
         'Author',
-        verbose_name="Автор"
+        verbose_name="Автор",
+        related_name="books_author"
     )
     # 5)Серия
 # ----------------
@@ -43,7 +44,8 @@ class Books(models.Model):
     # 6) Жанр книги
     genre=models.ManyToManyField(
         'Genre',
-        verbose_name="Жанр"
+        verbose_name="Жанр",
+        related_name="genre"
     )
 
     # 7)Год издания

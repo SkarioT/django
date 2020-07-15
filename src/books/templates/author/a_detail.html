@@ -1,0 +1,32 @@
+
+{% extends "base.html" %}
+  {% block title %}<title>Детальный обзор Книги {{object.name}}</title>{% endblock title %}
+{% load crispy_forms_tags %}
+        {% block books_active %}
+          <a class="nav-link dropdown-toggle active" href="{% url 'CRUDL_profiles:detail' prof_user %}" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Books</a>
+          {% endblock books_active %}
+
+    {% block main %}
+<body>
+    <h1>Информация об авторе: {{object.name}}</h1>
+
+<div class="card mb-10" style="max-width: 1850px;">
+  <div class="row no-gutters">
+    <div class="col-md-5">
+      <div class="card-body">
+            <ul class="list-group list-group-flush">
+
+                <li class="list-group-item">Имя автора: <b>{{object.first_name}}</b></li>
+                <li class="list-group-item">Фамилия автора: <b>{{object.last_name}}</b></li>
+
+            </ul>
+      </div>
+    </div>
+  </div>
+</div>
+        <a class="btn btn-success" href="{% url 'CRUDL_books:author_list'%}">Back </a>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+</body>
+{% endblock main %}
+</html>
+

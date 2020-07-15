@@ -2,7 +2,12 @@
 {% extends "base.html" %}
   {% block title %}<title>Детальный обзор жанра {{object.name}}</title>{% endblock title %}
 {% load crispy_forms_tags %}
-    {% block main %}
+
+        {% block profiles_active%}
+          <a class="nav-link dropdown-toggle active" href="{% url 'CRUDL_profiles:detail' prof_user %}" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Profiles</a>
+          {% endblock profiles_active %}
+
+{% block main %}
 <body>
     <h1>{{object.name}}</h1>
             <table class="table table-striped" width="100%" > 
@@ -28,8 +33,7 @@
                   </svg></a></td>
                 </tr>
             </table>
-        <a class="btn btn-success" href="{% url 'home_page'%}">Go to site </a>
-        <a class="btn btn-success" href="{% url 'CRUDL_profiles:list'%}">Back </a>
+        <a class="btn btn-success" href="{% url 'home_page'%}">Back </a>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 </body>
 {% endblock main %}

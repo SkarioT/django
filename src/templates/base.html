@@ -50,9 +50,24 @@
       </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
-        <a class="nav-link active" href="{% url 'home_page' %}">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{% url 'home_page' %}">Home <span class="sr-only">(current)</span></a>
+        {% block books %}
         <li class="nav-item dropdown">
+        {% block books_active %}
+          <a class="nav-link dropdown-toggle" href="{% url 'CRUDL_books:list' %}" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Books</a>
+          {% endblock books_active %}
+          <div class="dropdown-menu" aria-labelledby="dropdown01">
+            <a class="dropdown-item" href="{% url 'CRUDL_books:list' %}">Books list</a>
+            <a class="dropdown-item" href="{% url 'CRUDL_books:genre_list' %}">Genre list</a>
+            <a class="dropdown-item" href="{% url 'CRUDL_books:author_list' %}">Authors list</a>
+          </div>
+        </li>
+        {% endblock books %}
+        {% block profiles %}
+        <li class="nav-item dropdown">
+        {% block profiles_active%}
           <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Profiles</a>
+          {% endblock profiles_active %}
           <div class="dropdown-menu" aria-labelledby="dropdown01">
             {% if user.is_authenticated %}
             <a class="dropdown-item" href="{% url 'CRUDL_profiles:detail' prof_user %}">{{user}}</a>
@@ -68,13 +83,15 @@
             {% if user.is_staff %}
             <li class="nav-item">
               <a class="nav-link" href="{% url 's-admin:index' %}">S-Admin page</a>
-            </li>
+              </li>
               {% if user.is_superuser %}
                 <li class="nav-item">
                   <a class="nav-link" href="/admin/">Admin page</a>
                 </li>
               {%endif%}
-            {% endif %}   
+            {% endif %} 
+
+          {% endblock profiles %}
       </ul>
       <form class="form-inline mt-1 mt-md-0">
         <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">

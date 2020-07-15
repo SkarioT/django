@@ -1,0 +1,31 @@
+{% extends "base.html" %}
+{% block title %} <title>Лист всех жанров</title> {% endblock title %}
+
+{% load crispy_forms_tags %}
+{%load my_tags %}
+        {% block books_active %}
+          <a class="nav-link dropdown-toggle active" href="{% url 'CRUDL_profiles:detail' prof_user %}" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Books</a>
+          {% endblock books_active %}
+
+
+    {% block main %}
+        <table class="table table-striped" width="100%" > 
+            <thead class="thead-dark"></thead>
+                <tr>
+                    <th>Название жанра</th><th>Описания</th>
+                </tr>
+            </thead>
+            {% for genre in object_list %}
+                <tr>
+
+                  <td><a href="{% url 'CRUDL_books:genre_detail' genre.pk %}">{{genre.name}}</a> </td>     
+                  <td>{{genre.description}}
+
+                </tr>
+        {% endfor %} 
+        </table>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+{% endblock main %}
+</body>
+</html>
+

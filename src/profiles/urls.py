@@ -22,7 +22,7 @@ from . import views
 urlpatterns = [
     path('create/', views.ProfilesCreate .as_view(),name='create'),
     path('update/<int:pk>', views.ProfilesUpdate.as_view(),name='update'),
-    path('list/', views.ProfilesList.as_view(),name='list'),
-    path('delete/<int:pk>', views.ProfilesDelete.as_view(),name='delete'),
+    # path('list/', views.ProfilesList.as_view(),name='list'),
+    # path('delete/<int:pk>', views.ProfilesDelete.as_view(),name='delete'),
     path('detail/<int:pk>', views.ProfilesDetail.as_view(),name='detail')
 ]

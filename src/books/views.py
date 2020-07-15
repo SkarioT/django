@@ -3,11 +3,21 @@ from django.views.generic import CreateView,DetailView,UpdateView,DeleteView,Lis
 from . import models
 import requests
 from django.urls import reverse,reverse_lazy
-from .models import Books,Binging,Author
+from .models import Books,Binging,Author,Genre
 from profiles.models import Profile
 from django.contrib.auth.mixins import LoginRequiredMixin
 
-
+def get__my_context_data(self, **kwargs):
+        c= super().get_context_data(**kwargs)
+        try:
+            user=self.request.user
+            prof_user=Profile.objects.get(username=user)
+            print(user)
+            print(prof_user.pk)
+            c['prof_user']=prof_user.pk
+        except Profile.DoesNotExist:
+            prof_user=None
+        return c
 
 class BooksCreate(LoginRequiredMixin,CreateView):
     model=Books
@@ -27,7 +37,6 @@ class BooksCreate(LoginRequiredMixin,CreateView):
     def get_form(self, form_class=None):
         form=super().get_form(form_class=form_class)
         form.fields['user'].widget.attrs.update({"class": "d-none"})
-        form.fields['user'].widget.attrs.update({"":""})
         return form
 
 class BooksDetail(LoginRequiredMixin,DetailView):
@@ -66,6 +75,12 @@ class BooksUpdate(LoginRequiredMixin,UpdateView):
         except Profile.DoesNotExist:
             prof_user=None
         return c
+
+    def get_queryset(self,*args,**kwargs):
+        if self.request.user.groups.filter(name='Customers'):
+            return self.handle_no_permission()
+        else:
+            return self.model.objects.all() 
 
 class BooksDelete(LoginRequiredMixin,DeleteView):
     model = Books
@@ -113,6 +128,76 @@ class Home_page(ListView):
         c= super().get_context_data(**kwargs)
         c['book_pk']=book_pk
          #подкидуываю в контектс для каждого обработчика в контект Profile user pk
+        try:
+            user=self.request.user
+            prof_user=Profile.objects.get(username=user)
+            print(user)
+            print(prof_user.pk)
+            c['prof_user']=prof_user.pk
+        except Profile.DoesNotExist:
+            prof_user=None
+        return c
+
+#genre CRUD
+
+
+class GenreList(ListView):
+    model=Genre
+    template_name='genre/g_list.html'
+
+    def get_context_data(self, **kwargs):
+        c= super().get_context_data(**kwargs)
+        try:
+            user=self.request.user
+            prof_user=Profile.objects.get(username=user)
+            print(user)
+            print(prof_user.pk)
+            c['prof_user']=prof_user.pk
+        except Profile.DoesNotExist:
+            prof_user=None
+        return c
+
+class GenreDetail(DetailView):
+    model=Genre
+    template_name='genre/g_detail.html'
+
+    def get_context_data(self, **kwargs):
+        c= super().get_context_data(**kwargs)
+        try:
+            user=self.request.user
+            prof_user=Profile.objects.get(username=user)
+            print(user)
+            print(prof_user.pk)
+            c['prof_user']=prof_user.pk
+        except Profile.DoesNotExist:
+            prof_user=None
+        return c
+
+#author CRUD
+
+class AuthorList(ListView):
+    model=Author
+    template_name='author/a_list.html'
+
+    def get_context_data(self, **kwargs):
+        c= super().get_context_data(**kwargs)
+        try:
+            user=self.request.user
+            prof_user=Profile.objects.get(username=user)
+            print(user)
+            print(prof_user.pk)
+            c['prof_user']=prof_user.pk
+        except Profile.DoesNotExist:
+            prof_user=None
+        return c
+
+
+class AuthorDetail(DetailView):
+    model=Author
+    template_name='author/a_detail.html'
+
+    def get_context_data(self, **kwargs):
+        c= super().get_context_data(**kwargs)
         try:
             user=self.request.user
             prof_user=Profile.objects.get(username=user)

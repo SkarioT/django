@@ -19,9 +19,15 @@ app_name="CRUDL_books"
 from . import views
 
 urlpatterns = [
-    path('create/', views.BooksCreate.as_view(),name='create'),
+    # path('create/', views.BooksCreate.as_view(),name='create'),
     path('detail/<int:pk>', views.BooksDetail.as_view(),name='detail'),
-    path('update/<int:pk>', views.BooksUpdate.as_view(),name='update'),
-    path('delete/<int:pk>', views.BooksDelete.as_view(),name='delete'),
-    path('list/', views.BooksList.as_view(),name='list')
+    # path('update/<int:pk>', views.BooksUpdate.as_view(),name='update'),
+    # path('delete/<int:pk>', views.BooksDelete.as_view(),name='delete'),
+    path('list/', views.BooksList.as_view(),name='list'),
+
+    path('genre_list', views.GenreList.as_view(),name='genre_list'),
+    path('genre_detail/<int:pk>', views.GenreDetail.as_view(),name='genre_detail'),
+
+    path('author_list', views.AuthorList.as_view(),name='author_list'),
+    path('autrhor_detail/<int:pk>', views.AuthorDetail.as_view(),name='author_detail')
 ]
