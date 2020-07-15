@@ -91,6 +91,8 @@ class BooksDelete(LoginRequiredMixin,DeleteView):
 class BooksList(LoginRequiredMixin,ListView):
     model= models.Books
     template_name='books/list.html'
+    paginate_by=8
+    
     #накинуты права для Customers на просмотр только доступных книг
     def get_queryset(self,*args, **kwargs) :
         print("group:",self.request.user.groups.filter(name='Customers'))
@@ -144,18 +146,44 @@ class Home_page(ListView):
 class GenreList(ListView):
     model=Genre
     template_name='genre/g_list.html'
-
+    
     def get_context_data(self, **kwargs):
         c= super().get_context_data(**kwargs)
+        
+        
+        for genre_q in c['object_list']:
+            for b_g in genre_q.genre_books.all():
+                print(genre_q,":",b_g)
+
+                genre_in_book=Books.objects.get(name=b_g)
+                print(genre_in_book.pk)
+        # cc=c['object_list'][0].genre_books.all()
+        # print(cc)
         try:
             user=self.request.user
             prof_user=Profile.objects.get(username=user)
-            print(user)
-            print(prof_user.pk)
+
             c['prof_user']=prof_user.pk
         except Profile.DoesNotExist:
             prof_user=None
         return c
+        
+    def get_queryset(self,*args,**kwargs):
+        # if self.request.user.groups.filter(name='Customers'):
+        #     return self.handle_no_permission()
+        # else:
+
+        # gnq_c=self.model.objects.all().count()
+        # gnq=self.model.objects.all()
+
+        # print(gnq)
+        # gn=Genre.objects.all()
+
+        
+        # gn=gn[0].genre_books.all()
+        # print(gn)
+        return self.model.objects.all() 
+
 
 class GenreDetail(DetailView):
     model=Genre

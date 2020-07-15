@@ -45,7 +45,7 @@ class Books(models.Model):
     genre=models.ManyToManyField(
         'Genre',
         verbose_name="Жанр",
-        related_name="genre"
+        related_name="genre_books"
     )
 
     # 7)Год издания
