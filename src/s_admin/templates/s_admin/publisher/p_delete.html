@@ -1,5 +1,5 @@
 {% extends "sadmin.html" %}
-  {% block title %}<title>Изменение жанра {{object.name}}</title>{% endblock title %}
+  {% block title %}<title>Удалить жанра {{object.name}} ???</title>{% endblock title %}
 {% load crispy_forms_tags %}
               {% block nav_cart %}
                 <li class="nav-item">
@@ -10,16 +10,12 @@
                 </li>
               {% endblock nav_cart %}
     {% block main %}
-       <div class=container>
-     <h3>Обновление данных корзины</h3>
-     <form action="" method="post" enctype="multipart/form-data">
-        {% csrf_token %}
-            {{form|crispy}}
-        <input class="btn btn-primary" type="submit" value="Обновить">
-    <a class="btn btn-success" href="{% url 's-admin:cart'%}">Back </a>
-     </form>
-    </div>
-
+<body>
+        <h1>Удалить {{object.name}} ?</h1>
+            <form action="" method="post">
+            {% csrf_token %}
+            <input class="btn btn-danger" type="submit" value="Точно???"><br>
 </body>
 {% endblock main %}
 </html>
+

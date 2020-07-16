@@ -300,6 +300,21 @@ class SAdminCartDelete(LoginRequiredMixin,DeleteView):
             return self.model.objects.all() 
 
 
+#publisher
+class SAdminPublisherList(ListView):
+    model=books_model.Publisher
+    template_name='s_admin/publisher/p_list.html'
 
+    def get_context_data(self, **kwargs):
+        c= super().get_context_data(**kwargs)
+        try:
+            user=self.request.user
+            prof_user=Profile.objects.get(username=user)
+            print(user)
+            print(prof_user.pk)
+            c['prof_user']=prof_user.pk
+        except Profile.DoesNotExist:
+            prof_user=None
+        return c
 
 

@@ -150,14 +150,6 @@ class GenreList(ListView):
         c= super().get_context_data(**kwargs)
         
         
-        for genre_q in c['object_list']:
-            for b_g in genre_q.genre_books.all():
-                print(genre_q,":",b_g)
-
-                genre_in_book=Books.objects.get(name=b_g)
-                print(genre_in_book.pk)
-        # cc=c['object_list'][0].genre_books.all()
-        # print(cc)
         try:
             user=self.request.user
             prof_user=Profile.objects.get(username=user)
@@ -167,21 +159,7 @@ class GenreList(ListView):
             prof_user=None
         return c
         
-    def get_queryset(self,*args,**kwargs):
-        # if self.request.user.groups.filter(name='Customers'):
-        #     return self.handle_no_permission()
-        # else:
 
-        # gnq_c=self.model.objects.all().count()
-        # gnq=self.model.objects.all()
-
-        # print(gnq)
-        # gn=Genre.objects.all()
-
-        
-        # gn=gn[0].genre_books.all()
-        # print(gn)
-        return self.model.objects.all() 
 
 
 class GenreDetail(DetailView):
@@ -234,39 +212,42 @@ class AuthorDetail(DetailView):
         except Profile.DoesNotExist:
             prof_user=None
         return c
-# #seire
-# class AuthorList(ListView):
-#     model=Author
-#     template_name='author/a_list.html'
+# #Publisher
+class PublisherList(ListView):
+    model=Publisher
+    template_name='publisher/p_list.html'
 
-#     def get_context_data(self, **kwargs):
-#         c= super().get_context_data(**kwargs)
-#         try:
-#             user=self.request.user
-#             prof_user=Profile.objects.get(username=user)
-#             print(user)
-#             print(prof_user.pk)
-#             c['prof_user']=prof_user.pk
-#         except Profile.DoesNotExist:
-#             prof_user=None
-#         return c
+    def get_context_data(self, **kwargs):
+        c= super().get_context_data(**kwargs)
+        try:
+            user=self.request.user
+            prof_user=Profile.objects.get(username=user)
+            print(user)
+            print(prof_user.pk)
+            c['prof_user']=prof_user.pk
+        except Profile.DoesNotExist:
+            prof_user=None
+        return c
+
+#Series
+class SeriesList(ListView):
+    model=Series
+    template_name='series/se_list.html'
+
+    def get_context_data(self, **kwargs):
+        c= super().get_context_data(**kwargs)
+        try:
+            user=self.request.user
+            prof_user=Profile.objects.get(username=user)
+            print(user)
+            print(prof_user.pk)
+            c['prof_user']=prof_user.pk
+        except Profile.DoesNotExist:
+            prof_user=None
+        return c
 
 
-# class AuthorDetail(DetailView):
-#     model=Author
-#     template_name='author/a_detail.html'
 
-#     def get_context_data(self, **kwargs):
-#         c= super().get_context_data(**kwargs)
-#         try:
-#             user=self.request.user
-#             prof_user=Profile.objects.get(username=user)
-#             print(user)
-#             print(prof_user.pk)
-#             c['prof_user']=prof_user.pk
-#         except Profile.DoesNotExist:
-#             prof_user=None
-#         return c
 #набивание книгами
 # def test():
 #     for b in range(50):

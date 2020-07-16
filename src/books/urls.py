@@ -29,5 +29,8 @@ urlpatterns = [
     path('genre_detail/<int:pk>', views.GenreDetail.as_view(),name='genre_detail'),
 
     path('author_list', views.AuthorList.as_view(),name='author_list'),
-    path('autrhor_detail/<int:pk>', views.AuthorDetail.as_view(),name='author_detail')
+    path('autrhor_detail/<int:pk>', views.AuthorDetail.as_view(),name='author_detail'),
+
+    path('publisher_list', views.PublisherList.as_view(),name='publisher_list'),
+    path('series_list', views.SeriesList.as_view(),name='series_list'),
 ]
