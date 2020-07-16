@@ -71,18 +71,8 @@ class ProfilesCreate(SuccessMessageMixin,FormView):
         usern=cleaned_data['username']
         pswd=cleaned_data['password']
         return f"Profile {usern} was created. Your password {pswd}"
-        
-    def get_context_data(self, **kwargs):
-        c= super().get_context_data(**kwargs)
-        try:
-            user=self.request.user
-            prof_user=Profile.objects.get(username=user)
-            print(user)
-            print(prof_user.pk)
-            c['prof_user']=prof_user.pk
-        except Profile.DoesNotExist:
-            prof_user=None
-        return c
+
+
 
 
 

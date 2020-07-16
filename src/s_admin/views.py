@@ -16,6 +16,7 @@ from profiles.models import Profile
 from profiles.forms import CreateProfileFormModel
 from django.contrib.auth.models import User
 
+from django.core.exceptions import PermissionDenied
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -33,12 +34,14 @@ class S_Admin(LoginRequiredMixin,TemplateView):
     models=books_model.Books
     template_name='s_admin/index.html'
 
-    def get_queryset(self,*args,**kwargs):
+
+    def render_to_response(self, context, **response_kwargs):
         print(self.request.user.groups)
         if self.request.user.groups.filter(name='Customers'):
-            return self.handle_no_permission()
-        else:
-            return self.model.objects.all() 
+            raise PermissionDenied
+        return super().render_to_response(context, **response_kwargs)    
+
+
 
 class CustomersList(ProfilesList):
     template_name='s_admin/customers/list.html'
@@ -73,7 +76,7 @@ class CustomersDetail(ProfilesDetail):
             return self.model.objects.all() 
 
 #product|books CRUDL for S-Admin portal
-class SAdminBooksList(book_view.BooksList):
+class SAdminBooksList(LoginRequiredMixin,book_view.BooksList):
     template_name='s_admin/books/b_list.html'
     paginate_by=None
     def get_queryset(self,*args,**kwargs):
@@ -83,7 +86,7 @@ class SAdminBooksList(book_view.BooksList):
         else:
             return self.model.objects.all() 
 
-class SAdminBooksDetail(book_view.BooksDetail):
+class SAdminBooksDetail(LoginRequiredMixin,book_view.BooksDetail):
     template_name='s_admin/books/b_detail.html'
 
     def get_queryset(self,*args,**kwargs):
@@ -121,12 +124,12 @@ class SAdminBooksCreate(book_view.BooksCreate):
     def get_success_url(self):
         return reverse_lazy('s-admin:books_detail', kwargs={'pk':self.object.pk})
 
-    def get_queryset(self,*args,**kwargs):
+    def get_context_data(self, **kwargs):
         print(self.request.user.groups)
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
-            return self.model.objects.all() 
+            return super().get_context_data(**kwargs)
 
 #genre CRUD
 class SAdminGenreCreate(LoginRequiredMixin,CreateView):
@@ -135,12 +138,13 @@ class SAdminGenreCreate(LoginRequiredMixin,CreateView):
     template_name='s_admin/genre/g_create.html'
     success_url =reverse_lazy('s-admin:genre')
 
-    def get_queryset(self,*args,**kwargs):
+    def get_context_data(self, **kwargs):
         print(self.request.user.groups)
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
-            return self.model.objects.all() 
+            return super().get_context_data(**kwargs)
+
 
 class SAdminGenreList(LoginRequiredMixin,ListView):
     model=books_model.Genre
@@ -196,12 +200,13 @@ class SAdminAuthorCreate(LoginRequiredMixin,CreateView):
     template_name='s_admin/author/a_create.html'
     success_url =reverse_lazy('s-admin:author')
 
-    def get_queryset(self,*args,**kwargs):
+    def get_context_data(self, **kwargs):
         print(self.request.user.groups)
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
-            return self.model.objects.all() 
+            return super().get_context_data(**kwargs)
+
 
 class SAdminAuthorList(LoginRequiredMixin,ListView):
     model=books_model.Author
@@ -300,8 +305,11 @@ class SAdminCartDelete(LoginRequiredMixin,DeleteView):
             return self.model.objects.all() 
 
 
+
+
+
 #publisher
-class SAdminPublisherList(ListView):
+class SAdminPublisherList(LoginRequiredMixin,ListView):
     model=books_model.Publisher
     template_name='s_admin/publisher/p_list.html'
 
@@ -316,5 +324,12 @@ class SAdminPublisherList(ListView):
         except Profile.DoesNotExist:
             prof_user=None
         return c
+
+    def get_queryset(self,*args,**kwargs):
+        print(self.request.user.groups)
+        if self.request.user.groups.filter(name='Customers'):
+            return self.handle_no_permission()
+        else:
+            return self.model.objects.all() 
 
 
