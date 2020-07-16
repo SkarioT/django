@@ -8,28 +8,13 @@ from django.urls import reverse,reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
-def get_cart(request):
-        #получаем текущего юзера
-    user=request.user 
-        #получаем cart_pk из сессии(из куков),если в куках пусто - отдаём None
-    cart_pk=request.session.get('cart_pk',None) 
-        #производим поиск на освани данных из куков, если в куках нашло - получаем корзину,
-        #  не нашло ( вернуло 0, а пк=0 быть не может)  - создаём новую корзину
-    cart,create = Cart.objects.get_or_create(
-        pk=cart_pk,
-        user=user,
-        defaults={}
-    )
-    if create:
-        self.request.session['cart_pk']=cart.pk
 
-    return cart
 
-class AddBookToCart(LoginRequiredMixin,UpdateView):
+class AddBookToCart(UpdateView):
     models=BookInCart
     template_name='cart/add.html'
     fields=('qantity',)
-    success_url =reverse_lazy('home_page')
+    success_url =reverse_lazy('cart:my')
 
     def get_object(self, queryset=None):
         #из запросы берём book_pk
@@ -38,6 +23,8 @@ class AddBookToCart(LoginRequiredMixin,UpdateView):
         books=Books.objects.get(pk=book_pk)
         #получаем текущего юзера
         user=self.request.user 
+        if user.is_anonymous:
+            user=None
         #получаем cart_pk из сессии(из куков),если в куках пусто - отдаём None
         cart_pk=self.request.session.get('cart_pk',None) 
         if cart_pk is not None:
@@ -68,15 +55,17 @@ class AddBookToCart(LoginRequiredMixin,UpdateView):
             print(user)
             print('prof_user.pk',prof_user.pk)
             c['prof_user']=prof_user.pk
-        except Profile.DoesNotExist:
+        except Profile.DoesNotExist: 
             prof_user=None
         return c
-class CartDetail(LoginRequiredMixin,DetailView):
+class CartDetail(DetailView):
     model=Cart
     template_name='cart/detail.html'
     
     def get_object(self, queryset=None):
         user=self.request.user
+        if user.is_anonymous:
+            user=None
         cart_pk=self.request.session.get('cart_pk',None)
         print('cart_pk:',cart_pk)
         cart,create = Cart.objects.get_or_create(
@@ -102,3 +91,8 @@ class CartDetail(LoginRequiredMixin,DetailView):
         except Profile.DoesNotExist:
             prof_user=None
         return c
+
+class BookInCartDelete(DeleteView):
+    model=BookInCart
+    success_url =reverse_lazy('cart:my')
+    template_name='cart/delete.html'

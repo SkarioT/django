@@ -25,6 +25,13 @@ class Cart(models.Model):
         auto_now_add=False
     )
     
+    # @property
+    def totalprice(self):
+        price=0
+        for product in self.books.all():
+            price+=product.price
+        return price
+
     def __str__(self):
         return f'Cart #{self.pk}'
 
@@ -44,7 +51,14 @@ class BookInCart(models.Model):
         verbose_name='Кол-во',
         default=1
     )
-
+    @property
+    def price(self):
+        price=self.qantity*self.books.price
+        if price==0:
+            return 0
+        return price
+    
+    
     def __str__(self):
         return f"Book #{self.books.name} in cart #{self.cart.pk},qantity {self.qantity}"
     class Meta:

@@ -21,5 +21,6 @@ from . import views
 urlpatterns = [
     path('add/', views.AddBookToCart.as_view(),name='add'),
     path('mycart/', views.CartDetail.as_view(),name='my'),
+    path('delete/<int:pk>', views.BookInCartDelete.as_view(),name='delete'),
 
 ]
