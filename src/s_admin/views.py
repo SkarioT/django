@@ -75,7 +75,7 @@ class CustomersDetail(ProfilesDetail):
 #product|books CRUDL for S-Admin portal
 class SAdminBooksList(book_view.BooksList):
     template_name='s_admin/books/b_list.html'
-
+    paginate_by=None
     def get_queryset(self,*args,**kwargs):
         print(self.request.user.groups)
         if self.request.user.groups.filter(name='Customers'):

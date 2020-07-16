@@ -3,7 +3,7 @@
   {% block title %}<title>Домашняя страница</title>{% endblock title %}
 {% load crispy_forms_tags %}
         {% block books_active %}
-          <a class="nav-link dropdown-toggle active" href="{% url 'CRUDL_profiles:detail' prof_user %}" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Books</a>
+          <a class="nav-link dropdown-toggle active" href="{% url 'CRUDL_books:list' %}" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Books</a>
           {% endblock books_active %}
     {% block main %}
     <div class="container">

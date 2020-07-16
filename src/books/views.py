@@ -3,7 +3,7 @@ from django.views.generic import CreateView,DetailView,UpdateView,DeleteView,Lis
 from . import models
 import requests
 from django.urls import reverse,reverse_lazy
-from .models import Books,Binging,Author,Genre
+from .models import Books,Binging,Author,Genre,Series,Publisher
 from profiles.models import Profile
 from django.contrib.auth.mixins import LoginRequiredMixin
 
@@ -39,7 +39,7 @@ class BooksCreate(LoginRequiredMixin,CreateView):
         form.fields['user'].widget.attrs.update({"class": "d-none"})
         return form
 
-class BooksDetail(LoginRequiredMixin,DetailView):
+class BooksDetail(DetailView):
     model= models.Books
     template_name='books/detail.html'
 
@@ -58,7 +58,7 @@ class BooksDetail(LoginRequiredMixin,DetailView):
 class BooksUpdate(LoginRequiredMixin,UpdateView):
     model= Books
 
-    fields=('name','description','picture','price','author','genre','publishing_year','count_page','binging','format_book',
+    fields=('name','description','picture','price','author','genre','publisher','publishing_year','series','count_page','binging','format_book',
     'isbn','weight','age_limit','count_book','availability','rating')
     template_name='books/update.html'
     def get_success_url(self):
@@ -88,7 +88,7 @@ class BooksDelete(LoginRequiredMixin,DeleteView):
     success_url =reverse_lazy('CRUDL_books:list')
 
 
-class BooksList(LoginRequiredMixin,ListView):
+class BooksList(ListView):
     model= models.Books
     template_name='books/list.html'
     paginate_by=8
@@ -141,7 +141,6 @@ class Home_page(ListView):
         return c
 
 #genre CRUD
-
 
 class GenreList(ListView):
     model=Genre
@@ -235,7 +234,39 @@ class AuthorDetail(DetailView):
         except Profile.DoesNotExist:
             prof_user=None
         return c
+# #seire
+# class AuthorList(ListView):
+#     model=Author
+#     template_name='author/a_list.html'
 
+#     def get_context_data(self, **kwargs):
+#         c= super().get_context_data(**kwargs)
+#         try:
+#             user=self.request.user
+#             prof_user=Profile.objects.get(username=user)
+#             print(user)
+#             print(prof_user.pk)
+#             c['prof_user']=prof_user.pk
+#         except Profile.DoesNotExist:
+#             prof_user=None
+#         return c
+
+
+# class AuthorDetail(DetailView):
+#     model=Author
+#     template_name='author/a_detail.html'
+
+#     def get_context_data(self, **kwargs):
+#         c= super().get_context_data(**kwargs)
+#         try:
+#             user=self.request.user
+#             prof_user=Profile.objects.get(username=user)
+#             print(user)
+#             print(prof_user.pk)
+#             c['prof_user']=prof_user.pk
+#         except Profile.DoesNotExist:
+#             prof_user=None
+#         return c
 #набивание книгами
 # def test():
 #     for b in range(50):

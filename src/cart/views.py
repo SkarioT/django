@@ -1,13 +1,14 @@
+  
 from django.shortcuts import render
 from django.views.generic import CreateView,DetailView,UpdateView,DeleteView,ListView,FormView
 from .models import BookInCart,Cart
-from books.models import Books
 from profiles.models import Profile
+from books.models import Books
 from django.urls import reverse,reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 # Create your views here.
 
-class AddBookToCart(UpdateView):
+class AddBookToCart(LoginRequiredMixin,UpdateView):
     models=BookInCart
     template_name='cart/add.html'
     fields=('qantity',)
@@ -23,17 +24,15 @@ class AddBookToCart(UpdateView):
         user=self.request.user 
 
         #получаем cart_pk из сессии(из куков),если в куках пусто - отдаём None
-        cart_pk=self.request.session.get('cart_pk',0)
+        cart_pk=self.request.session.get('cart_pk',None)
+
 
         #производим поиск на освани данных из куков, если в куках нашло - получаем корзину,
         #  не нашло ( вернуло 0, а пк=0 быть не может)  - создаём новую корзину
-        if user.is_anonymous:
-            user=None
         cart,create = Cart.objects.get_or_create(
-            pk=int(cart_pk),
-            defaults={
-                "user": user,
-            }
+            pk=cart_pk,
+            user=user,
+            defaults={}
         )
         if create:
             cart_pk=self.request.session['cart_pk']=cart.pk
@@ -57,7 +56,6 @@ class AddBookToCart(UpdateView):
         except Profile.DoesNotExist:
             prof_user=None
         return c
-
 class CartDetail(LoginRequiredMixin,ListView):
     models=Cart
     template_name='cart/list.html'

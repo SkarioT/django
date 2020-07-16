@@ -39,7 +39,13 @@ class Books(models.Model):
         related_name="books_author"
     )
     # 5)Серия
-# ----------------
+    series=models.ManyToManyField(
+        'Series',
+        verbose_name="Серия",
+        related_name="series_books",
+        null=True,
+        blank=True,
+    )
 
     # 6) Жанр книги
     genre=models.ManyToManyField(
@@ -91,8 +97,12 @@ class Books(models.Model):
         max_length=3
     )
     # 14)Издательство
-# -----------------------
-
+    publisher=models.ManyToManyField(
+        'Publisher',
+        verbose_name="Издательство",
+        related_name="publisher_books"
+    )
+    
     # 15) Кол-во книг в наличии
     count_book=models.IntegerField(
         verbose_name="Ко-во книг в наличии",
@@ -162,6 +172,22 @@ class Binging(models.Model):
     name = models.CharField(
         verbose_name ="Тип переплёта",
         max_length=30
+        )     
+    def __str__(self):
+        return self.name
+
+class Series(models.Model):
+    name = models.CharField(
+        verbose_name ="Серия книг",
+        max_length=50
+        )     
+    def __str__(self):
+        return self.name
+
+class Publisher(models.Model):
+    name = models.CharField(
+        verbose_name ="Издатель",
+        max_length=50
         )     
     def __str__(self):
         return self.name

@@ -51,6 +51,16 @@
                     <b>{{genre.name}}</b>
                 {% endfor %}
                 </li>
+                <li class="list-group-item">Серия:  
+                {% for series in object.series.all %}
+                    <b>{{series.name}}</b>
+                {% endfor %}
+                </li>
+                <li class="list-group-item">Издательство:  
+                {% for publisher in object.publisher.all %}
+                    <b>{{publisher.name}}</b>
+                {% endfor %}
+                </li>
                 <li class="list-group-item">Кол-во страниц: <b>{{object.count_page}}</b></li>
                 <li class="list-group-item">Переплёт: <b>{{object.binging}}</b></li>
                 <li class="list-group-item">Формат: <b>{{object.format_book}}</b></li>
