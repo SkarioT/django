@@ -12,44 +12,22 @@
         <div class="row">
             {% for object in object_list %}
             <div class="row">
-                <div class="card" style="width: 18rem;">
+                <div class="card border mb-3" style="width: 18rem;">
+                    <div class="card-header bg-transparent border">
                     {% if object.picture %}
-                        <img height="250" height="250"src="{{object.picture.url}}" class="card-img-top" alt="">
+                        <img height="400" weight="300"src="{{object.picture.url}}" class="card-img-top" alt="">
                     {% else %}
                     {% endif %}
+                    </div>
                     <div class="card-body">
                         <h5 class="card-title">{{object.name}}</h5>
-                        <p class="card-text">Жанр:<br>
-                        {% for genre in object.genre.all  %}
-                                    {{genre.name}}
-                                    <br>
-                                {% endfor %} </p>
                     </div>
-                    <ul class="list-group list-group-flush">
-                        <li class="list-group-item">Год издания: {{object.publishing_year}}</li>
-                        <li class="list-group-item">Возрастные ограничения: {{object.age_limit}}</li>
-                        <li class="list-group-item">Цена: {{object.price}}</li>
-                    
-                    {% if object.availability %}
-                        <li class="list-group-item">Доступен для заказа: Да</li>
-                    </ul>
-                    <div class="card-body">
-                        <a href="{% url 'CRUDL_books:detail' object.pk %}" class="card-link">Подробнее</a>
-                        {% comment %} {% if user.is_anonymous %}
-                                    <a class="card-link" href="{% url 'login' %}">Авторизируйтесь</a>
-                        {% else%}
-                         {% endcomment %}
-                        <a href="{% url 'cart:add' %}?book_pk={{object.pk}}" class="card-link">В корзину</a>
-                        {% comment %} {% endif%} {% endcomment %}
+                    <div class="card-footer">
+                        <div class="card-link">
+                            <a class="btn btn-primary" href="{% url 'CRUDL_books:detail' object.pk %}" >Подробнее</a>
+                            <a class="btn btn-success" href="{% url 'cart:add' %}?book_pk={{object.pk}}">В корзину</a>
+                        </div>
                     </div>
-                    {% else %}
-                        <li class="list-group-item">Доступен для заказа: Нет</li>
-                    </ul>
-                    <div class="card-body">
-                        <a href="#"  class="card-link">Подробнее</a>
-                        <a href="#"  class="card-link">В корзину</a>
-                    </div>
-                    {% endif %}
                 </div>
             </div>
 

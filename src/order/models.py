@@ -6,7 +6,7 @@ from cart.models import Cart
 class Order(models.Model):
     cart=models.OneToOneField(
         Cart,
-        on_delete=models.PROTECT
+        on_delete=models.PROTECT,
     )
     status=models.BooleanField(
         verbose_name="Статус заказа",
@@ -18,7 +18,7 @@ class Order(models.Model):
     )
     contact_phone=models.CharField(
         verbose_name="Контактный номер",
-        max_length=50
+        max_length=15
     )
     create=models.DateField(
         verbose_name="Дата cоздания",

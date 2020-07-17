@@ -1,0 +1,51 @@
+{% extends "base.html" %}
+
+  {% block title %}<title>Домашняя страница</title>{% endblock title %}
+{% load crispy_forms_tags %}
+    {% block main %}
+    <div class="container" >
+        <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" >
+            <ol class="carousel-indicators" >
+                {% for object in object_list %}
+                <li data-target="#carouselExampleIndicators" data-slide-to="{{object.pk}}" class=""></li>
+                {% endfor %}
+                <li data-target="#carouselExampleIndicators" data-slide-to="6" class=""></li>
+            </ol>
+            <div class="carousel-inner" >
+                {% for object in object_list %}
+                <div class="carousel-item" style="width: 25rem;">
+                        <img  alt="{{object.name}} slide [800x400]" src="{{object.picture.url}}" data-holder-rendered="true">
+                            <div class="carousel-caption d-none d-md-block">
+                                <h5 class="btn btn-light">{{object.name}}</h5> <br>
+                                <a href="{% url 'CRUDL_books:detail' object.pk %}" class="btn btn-success">Подробнее</a>
+                            </div>
+                </div>
+                {% endfor %}
+                <div class="carousel-item active">
+                    <img data-src="holder.js/800x400?auto=yes&amp;bg=666&amp;fg=444&amp;text=Second __s_slide" alt="Second __ss__ slide [800x400]" src="/media/home_page_image.jpg" data-holder-rendered="true">
+                    <div class="carousel-caption d-none d-md-block">
+                        <a href="{% url 'CRUDL_books:list'%}" class="btn btn-success">Перечень всех книг</a><br><br>
+                        <a href="{% url 'CRUDL_books:list'%}" class="btn btn-success">Подробнее</a>
+                        <p>...</p>
+                    </div>
+                </div>
+            
+            </div>
+            <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                <span class="sr-only" >Previous</span>
+            </a>
+            <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+            </a>
+
+        </div>
+    </div>
+
+
+
+{% endblock main %}
+
+</body>
+</html>

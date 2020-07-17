@@ -9,7 +9,7 @@ class Books(models.Model):
     #1)Название книги
     name=models.CharField(
         verbose_name="Имя книги",
-        max_length=50
+        max_length=100
     )
     description = models.TextField(
         verbose_name='Описание книги',

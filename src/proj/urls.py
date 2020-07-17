@@ -17,11 +17,13 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path , include
 from test_hello_word.views import test_form,test_pk,test_created,test,Test_B_V,Genre_Create,Genre_Update,Genre_List,Genre_Delete,Genre_DetaleView
-from books.views import BooksCreate,BooksDetail,BooksUpdate,BooksDelete,BooksList,Home_page
+from books.views import BooksCreate,BooksDetail,BooksUpdate,BooksDelete,BooksList
+from home_page.views import Home_page
 from django.conf import settings
 from django.conf.urls.static import static
 from books.auth_view import Mylogin,Mylogout,MyPasswordChange
 from profiles import urls
+from order import urls
 from cart import urls
 # from phones import 
 
@@ -35,6 +37,7 @@ urlpatterns = [
     path('change-password/',MyPasswordChange.as_view(), name='change-password'),
     path('profiles/',include('profiles.urls', namespace="CRUDL_profiles")),
     path('cart/',include('cart.urls', namespace="cart")),
-    path('s-admin/',include('s_admin.urls', namespace="s-admin"))
+    path('s-admin/',include('s_admin.urls', namespace="s-admin")),
+    path('order/',include('order.urls', namespace="order"))
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 #конструкция +static  специально для режими разработке, в проде эту строку нужно удалить

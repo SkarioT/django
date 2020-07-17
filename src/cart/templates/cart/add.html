@@ -16,7 +16,8 @@
      <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
             {{form|crispy}}
-        <input class="btn btn-primary" type="submit" value="Добавить">
+
+        <input class="btn btn-primary" type="submit" value="Обновить">
     <a class="btn btn-success" href="{% url 'CRUDL_books:list' %}" > Back </a>
      </form>
     </div>

@@ -1,5 +1,5 @@
 {% extends "base.html" %}
-{% block title %} <title>Корзина</title> {% endblock title %}
+{% block title %} <title>Заказ</title> {% endblock title %}
 
 {% load crispy_forms_tags %}
 {%load my_tags %}
@@ -7,53 +7,48 @@
         <table class="table table-striped" width="100%" > 
             <thead class="thead-dark"></thead>
                 <tr>
-                    <th>Владелец корзины</th><th>Товар</th><th>Кол-во</th><th>Цена книги</th><th>Итого</th><th>#</th>
+                    <th>Владелец корзины(заказа)</th><th>Товар</th><th>Кол-во</th><th>Цена книги</th><th>Итого</th><th>#</th>
                 </tr>
                 <tr>
-                    <td> {% if object.user is None %}
+                    <td> {% if order.cart.user is None %}
                      Гость
                     {% else %}
-                    {{object.user}}</td>
+                    {{order.cart.user}}</td>
                     {% endif %}
-                    
+
                     <td>
-                    {% for books in object.books.all %}
-                            {% if books.books is not None %}
-                            {{books.books}} <br>
-                            {% else %}
-                            sss
-                            {% endif %}
-                            
+                    {% for book  in order.cart.books.all %}
+                        {{book.books}}<br>
                     {% endfor %}
                     </td>
                     <td>
-                    {% for books_q in cart.books.all %}
+                    {% for books_q in order.cart.books.all %}
                             <a class="btn btn-primary" href="{% url 'cart:add' %}?book_pk={{books_q.books.pk}}">edit
                             <span class="badge badge-light">{{books_q.qantity}}</span>
                             <span class="sr-only">unread messages</span></a> <br>
                     {% endfor %}
                     </td>
                     <td>
-                    {% for books_price in object.books.all %}
+                    {% for books_price in order.cart.books.all %}
                             {{books_price.books.price}} <br>
                     {% endfor %}
                     </td>
                     <td>
-                    {% for to_pay in object.books.all %}
-                            {{to_pay.price}} <br>
-                    {% endfor %}
-                    </td>
-                    <td>
-                    {% for books_d in object.books.all %}
-                        <a class="btn btn-danger"href="{% url 'cart:delete' books_d.pk %}">Delete </a> <br>
+                    {% for books_q in order.cart.books.all %}
+                            {{books_q.price}} <br>
                     {% endfor %}
                     </td>
                 </tr>
             </thead>
         </table>
-        <b>Total price: {{object.totalprice}}<br>
-        <a class="btn btn-success" href="{% url 'order:create'%}"> Submin order</a>
+        <b>Total price: {{order.cart.totalprice}}<br>
+            <form action="" method="post" enctype="multipart/form-data">
+                  {% csrf_token %}
+              {{form|crispy}}
+              <input class="btn btn-primary" type="submit" value="Submit">
+            </form>
 
+    <a class="btn btn-success" href="{% url 'cart:my' %}" > Back </a>
         
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 {% endblock main %}

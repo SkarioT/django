@@ -119,26 +119,6 @@ class BooksList(ListView):
 
 
 
-class Home_page(ListView):
-    model= models.Books
-    template_name='books/home_page.html'
-    paginate_by=8
-    
-    def get_context_data(self, **kwargs):
-        book_pk=self.request.GET.get('book_pk')
-        print("book_pk:",book_pk)
-        c= super().get_context_data(**kwargs)
-        c['book_pk']=book_pk
-         #подкидуываю в контектс для каждого обработчика в контект Profile user pk
-        try:
-            user=self.request.user
-            prof_user=Profile.objects.get(username=user)
-            print(user)
-            print(prof_user.pk)
-            c['prof_user']=prof_user.pk
-        except Profile.DoesNotExist:
-            prof_user=None
-        return c
 
 #genre CRUD
 
