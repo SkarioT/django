@@ -4,6 +4,10 @@
 {% load crispy_forms_tags %}
     {% block main %}
     <div class="container" >
+            <marquee class="list-group-item" behavior="scroll" direction="left">USD: {{rate.USD}}, EUR : {{rate.EUR}},100 RUB {{rate.RUB}}</marquee>
+
+
+
         <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel" >
             <ol class="carousel-indicators" >
                 {% for object in object_list %}
@@ -16,7 +20,7 @@
                 <div class="carousel-item" style="width: 25rem;">
                         <img  alt="{{object.name}} slide [800x400]" src="{{object.picture.url}}" data-holder-rendered="true">
                             <div class="carousel-caption d-none d-md-block">
-                                <h5 class="btn btn-light">{{object.name}}</h5> <br>
+                                <h5 class="btn-light">{{object.name}}</h5> <br>
                                 <a href="{% url 'CRUDL_books:detail' object.pk %}" class="btn btn-success">Подробнее</a>
                             </div>
                 </div>
@@ -42,7 +46,6 @@
 
         </div>
     </div>
-
 
 
 {% endblock main %}

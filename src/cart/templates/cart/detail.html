@@ -4,6 +4,7 @@
 {% load crispy_forms_tags %}
 {%load my_tags %}
     {% block main %}
+    <div class="container">
         <table class="table table-striped" width="100%" > 
             <thead class="thead-dark"></thead>
                 <tr>
@@ -21,40 +22,41 @@
                             {% if books.books is not None %}
                             {{books.books}} <br>
                             {% else %}
-                            sss
+                            
                             {% endif %}
                             
                     {% endfor %}
                     </td>
                     <td>
                     {% for books_q in cart.books.all %}
-                            <a class="btn btn-primary" href="{% url 'cart:add' %}?book_pk={{books_q.books.pk}}">edit
+                            <a class="btn btn-primary btn-sm" href="{% url 'cart:add' %}?book_pk={{books_q.books.pk}}">edit
                             <span class="badge badge-light">{{books_q.qantity}}</span>
                             <span class="sr-only">unread messages</span></a> <br>
                     {% endfor %}
                     </td>
                     <td>
                     {% for books_price in object.books.all %}
-                            {{books_price.books.price}} <br>
+                            <span class="badge badge-pill badge-primary">{{books_price.books.price}}</span> <br>
                     {% endfor %}
                     </td>
                     <td>
                     {% for to_pay in object.books.all %}
-                            {{to_pay.price}} <br>
+                            <span class="badge badge-pill badge-warning">{{to_pay.price}}</span> <br>
                     {% endfor %}
                     </td>
                     <td>
                     {% for books_d in object.books.all %}
-                        <a class="btn btn-danger"href="{% url 'cart:delete' books_d.pk %}">Delete </a> <br>
+                        <a class="btn btn-danger btn-sm"href="{% url 'cart:delete' books_d.pk %}">Delete </a> <br>
                     {% endfor %}
                     </td>
                 </tr>
             </thead>
         </table>
+        
         <b>Total price: {{object.totalprice}}<br>
         <a class="btn btn-success" href="{% url 'order:create'%}"> Submin order</a>
 
-        
+    </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 {% endblock main %}
 </body>

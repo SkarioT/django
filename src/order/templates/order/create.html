@@ -3,18 +3,20 @@
 
 {% load crispy_forms_tags %}
 {%load my_tags %}
+
     {% block main %}
+    <div class="container" >
         <table class="table table-striped" width="100%" > 
             <thead class="thead-dark"></thead>
                 <tr>
-                    <th>Владелец корзины(заказа)</th><th>Товар</th><th>Кол-во</th><th>Цена книги</th><th>Итого</th><th>#</th>
+                    <th>Товар</th><th>Кол-во</th><th>Цена книги</th><th>Итого</th><th>#</th>
                 </tr>
                 <tr>
-                    <td> {% if order.cart.user is None %}
+                    {% comment %} <td> {% if order.cart.user is None %}
                      Гость
                     {% else %}
                     {{order.cart.user}}</td>
-                    {% endif %}
+                    {% endif %} {% endcomment %}
 
                     <td>
                     {% for book  in order.cart.books.all %}
@@ -23,33 +25,34 @@
                     </td>
                     <td>
                     {% for books_q in order.cart.books.all %}
-                            <a class="btn btn-primary" href="{% url 'cart:add' %}?book_pk={{books_q.books.pk}}">edit
+                            <a class="btn btn-primary btn-sm" href="{% url 'cart:add' %}?book_pk={{books_q.books.pk}}">Edit
                             <span class="badge badge-light">{{books_q.qantity}}</span>
                             <span class="sr-only">unread messages</span></a> <br>
                     {% endfor %}
                     </td>
                     <td>
                     {% for books_price in order.cart.books.all %}
-                            {{books_price.books.price}} <br>
+                            <span class="badge badge-pill badge-primary">{{books_price.books.price}}</span> <br>
                     {% endfor %}
                     </td>
                     <td>
                     {% for books_q in order.cart.books.all %}
-                            {{books_q.price}} <br>
+                            <span class="badge badge-pill badge-warning">{{books_q.price}}</span> <br>
                     {% endfor %}
                     </td>
                 </tr>
             </thead>
         </table>
         <b>Total price: {{order.cart.totalprice}}<br>
-            <form action="" method="post" enctype="multipart/form-data">
+            <form class="btn btn-outline-primary" method="post" enctype="multipart/form-data">
                   {% csrf_token %}
               {{form|crispy}}
-              <input class="btn btn-primary" type="submit" value="Submit">
-            </form>
+              <input class="btn btn-danger" type="submit" value="Submit">
+            </form><br>
+            
 
     <a class="btn btn-success" href="{% url 'cart:my' %}" > Back </a>
-        
+    </div>    
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 {% endblock main %}
 </body>

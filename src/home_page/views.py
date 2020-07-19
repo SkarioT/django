@@ -12,6 +12,17 @@ class Home_page(ListView):
     template_name='home_page/home_page.html'
     paginate_by=5
     
-
-
-# Create your views here.
+    def get_context_data(self, **kwargs):
+        nbrb = requests.get('https://www.nbrb.by/api/exrates/rates?periodicity=0')
+        course = nbrb.json()
+        rate = {}
+        for c in course:
+            if c.get('Cur_Abbreviation') == 'USD':
+                rate['USD'] = c.get('Cur_OfficialRate') * c.get('Cur_Scale')
+            elif c.get('Cur_Abbreviation') == 'EUR':
+                rate['EUR'] = c.get('Cur_OfficialRate') * c.get('Cur_Scale')
+            elif c.get('Cur_Abbreviation') == 'RUB':
+                rate['RUB'] = c.get('Cur_OfficialRate') * c.get('Cur_Scale')
+        context = super().get_context_data(**kwargs)
+        context = {'USD': rate.get('USD'), 'EUR': rate.get('EUR'), 'RUB': rate.get('RUB'), 'rate': rate}
+        return context
