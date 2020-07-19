@@ -46,18 +46,7 @@ class AddBookToCart(UpdateView):
         )
         return obj
 
-    def get_context_data(self, **kwargs):
-        #подкидуываю в контектс для каждого обработчика в контект Profile user pk
-        c= super().get_context_data(**kwargs)
-        try:
-            user=self.request.user
-            prof_user=Profile.objects.get(username=user)
-            print(user)
-            print('prof_user.pk',prof_user.pk)
-            c['prof_user']=prof_user.pk
-        except Profile.DoesNotExist: 
-            prof_user=None
-        return c
+
         
 class CartDetail(DetailView):
     model=Cart
@@ -80,33 +69,10 @@ class CartDetail(DetailView):
         return cart
 
 
-    def get_context_data(self, **kwargs):
-        #подкидуываю в контектс для каждого обработчика в контект Profile user pk
-        c= super().get_context_data(**kwargs)
-        try:
-            user=self.request.user
-            prof_user=Profile.objects.get(username=user)
-            print(user)
-            print('prof_user.pk',prof_user.pk)
-            c['prof_user']=prof_user.pk
-        except Profile.DoesNotExist:
-            prof_user=None
-        return c
+
 
 class BookInCartDelete(DeleteView):
     model=BookInCart
     success_url =reverse_lazy('cart:my')
     template_name='cart/delete.html'
 
-    def get_context_data(self, **kwargs):
-        #подкидуываю в контектс для каждого обработчика в контект Profile user pk
-        c= super().get_context_data(**kwargs)
-        try:
-            user=self.request.user
-            prof_user=Profile.objects.get(username=user)
-            print(user)
-            print('prof_user.pk',prof_user.pk)
-            c['prof_user']=prof_user.pk
-        except Profile.DoesNotExist:
-            prof_user=None
-        return c

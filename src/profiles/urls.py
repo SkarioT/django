@@ -25,4 +25,5 @@ urlpatterns = [
     # path('list/', views.ProfilesList.as_view(),name='list'),
     # path('delete/<int:pk>', views.ProfilesDelete.as_view(),name='delete'),
     path('detail/<int:pk>', views.ProfilesDetail.as_view(),name='detail')
+    
 ]

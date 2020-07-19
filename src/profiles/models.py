@@ -10,7 +10,7 @@ User= get_user_model()
 class Profile(models.Model):
     user=models.OneToOneField(
         User,
-        related_name='user',
+        related_name='prof_user',
         on_delete=models.CASCADE,
         null=True,
         blank=True

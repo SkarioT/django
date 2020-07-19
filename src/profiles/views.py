@@ -76,21 +76,13 @@ class ProfilesCreate(SuccessMessageMixin,FormView):
 
 
 
+
+
 class ProfilesDetail(LoginRequiredMixin,DetailView):
     model= Profile
     template_name='profiles/detail.html'
 
-    def get_context_data(self, **kwargs):
-        c= super().get_context_data(**kwargs)
-        try:
-            user=self.request.user
-            prof_user=Profile.objects.get(username=user)
-            print(user)
-            print(prof_user.pk)
-            c['prof_user']=prof_user.pk
-        except Profile.DoesNotExist:
-            prof_user=None
-        return c
+
 
 class ProfilesUpdate(LoginRequiredMixin,UpdateView):
     #редактирую не профайл а дефэолдную таблицу User
@@ -109,17 +101,7 @@ class ProfilesUpdate(LoginRequiredMixin,UpdateView):
     def get_success_url(self):
         return reverse_lazy('CRUDL_profiles:detail', kwargs={'pk':self.object.pk})
 
-    def get_context_data(self, **kwargs):
-        c= super().get_context_data(**kwargs)
-        try:
-            user=self.request.user
-            prof_user=Profile.objects.get(username=user)
-            print(user)
-            print(prof_user.pk)
-            c['prof_user']=prof_user.pk
-        except Profile.DoesNotExist:
-            prof_user=None
-        return c
+
 
 
 class ProfilesDelete(LoginRequiredMixin,DeleteView):
@@ -129,16 +111,5 @@ class ProfilesList(LoginRequiredMixin,ListView):
     model=Profile
     template_name='profiles/list.html'
 
-    def get_context_data(self, **kwargs):
-        #подкидуываю в контектс для каждого обработчика в контект Profile user pk
-        c= super().get_context_data(**kwargs)
-        try:
-            user=self.request.user
-            prof_user=Profile.objects.get(username=user)
-            print(user)
-            print('prof_user.pk',prof_user.pk)
-            c['prof_user']=prof_user.pk
-        except Profile.DoesNotExist:
-            prof_user=None
-        return c
+
 

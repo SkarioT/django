@@ -3,7 +3,7 @@
 {% load crispy_forms_tags %}
 
         {% block profiles_active%}
-          <a class="nav-link dropdown-toggle active" href="{% url 'CRUDL_profiles:detail' prof_user %}" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Profiles</a>
+          <a class="nav-link dropdown-toggle active" href="{% url 'CRUDL_profiles:detail' user.prof_user.pk %}" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Profiles</a>
           {% endblock profiles_active %}
 
     {% block main %}

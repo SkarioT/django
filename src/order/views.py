@@ -29,7 +29,7 @@ class CreateOrder(UpdateView):
         if prof_user == None:
             print("prof_user is none",prof_user)
             delivery_address1="Please fill in"
-            contact_phone="Please fill in",
+            contact_phone="Please fill in"
         else:
             delivery_address1=prof_user.address_1
             contact_phone=prof_user.phone
@@ -62,14 +62,3 @@ class CreateOrder(UpdateView):
         del(self.request.session['cart_pk'])
         return url
 
-    def get_context_data(self, **kwargs):
-        #подкидуываю в контектс для каждого обработчика в контект Profile user pk
-        c= super().get_context_data(**kwargs)
-        try:
-            user=self.request.user
-            prof_user=Profile.objects.get(username=user)
-            c['prof_user']=prof_user.pk
-        except Profile.DoesNotExist: 
-            prof_user=None
-        return c
-        
