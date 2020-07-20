@@ -2,7 +2,17 @@
 {% extends "sadmin.html" %}
   {% block title %}<title>Детальный обзор жанра {{object.name}}</title>{% endblock title %}
 {% load crispy_forms_tags %}
-    {% block main %}
+
+              {% block nav_customers %}
+                <li class="nav-item ">
+                  <a class="nav-link active" href="{% url 's-admin:customers' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-users"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                    Customers
+                  </a>
+                </li>
+               {% endblock nav_customers %}
+
+{% block main %}
 <body>
     <h1>{{object.name}}</h1>
             <table class="table table-striped" width="100%" > 
@@ -22,13 +32,63 @@
                     <td>{{object.city}}</td>
                     <td>{{object.county}}</td>
                     <td>{{object.zip_code}}</td>
-                    <td><a href="{% url 's-admin:update' object.pk %}"><svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                    <td><a href="{% url 'CRUDL_profiles:update' object.pk %}"><svg class="bi bi-pencil-square" width="1em" height="1em" viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
                     <path d="M15.502 1.94a.5.5 0 0 1 0 .706L14.459 3.69l-2-2L13.502.646a.5.5 0 0 1 .707 0l1.293 1.293zm-1.75 2.456l-2-2L4.939 9.21a.5.5 0 0 0-.121.196l-.805 2.414a.25.25 0 0 0 .316.316l2.414-.805a.5.5 0 0 0 .196-.12l6.813-6.814z"/>
                     <path fill-rule="evenodd" d="M1 13.5A1.5 1.5 0 0 0 2.5 15h11a1.5 1.5 0 0 0 1.5-1.5v-6a.5.5 0 0 0-1 0v6a.5.5 0 0 1-.5.5h-11a.5.5 0 0 1-.5-.5v-11a.5.5 0 0 1 .5-.5H9a.5.5 0 0 0 0-1H2.5A1.5 1.5 0 0 0 1 2.5v11z"/>
                   </svg></a></td>
                 </tr>
             </table>
-        <a class="btn btn-success" href="{% url 's-admin:customers'%}">Back </a>
+                    
+
+        <div class="row">          
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    Дата заказа
+                </div>
+                <ul class="list-group list-group-flush">
+                {% for cart in object.user.carts.all %}
+                    {% if cart.order %}
+                    <li class="list-group-item">{{cart.create}}</li>
+                    {% else %}
+                    {% endif %}
+                    
+                {% endfor %}
+                </ul>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    Мои заказы
+                </div>
+                <ul class="list-group list-group-flush">
+                {% for cart in object.user.carts.all %}
+                    {% if cart.order %}
+                    <li class="list-group-item"><a href="{% url 's-admin:order_update' cart.order.pk %}">{{cart.order}}</a></li>
+                    {% else %}
+                    {% endif %}
+                {% endfor %}
+                </ul>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    Статус заказа
+                </div>
+                <ul class="list-group list-group-flush">
+                {% for cart in object.user.carts.all %}
+                    {% if cart.order %}
+                    <li class="list-group-item">
+                        {% if cart.order.status %}
+                        Выполнен
+                        {% else %}
+                        В процессе обработки
+                        {% endif %}
+                    </li>
+                    {% else %}
+                    {% endif %}
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
+        <a class="btn btn-success" href="{% url 's-admin:customers'%}"> Back to customers list</a>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 </body>
 {% endblock main %}

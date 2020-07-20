@@ -14,7 +14,7 @@
         <table class="table table-striped" width="100%" > 
             <thead class="thead-dark"></thead>
                 <tr>
-                    <th>Имя пользователя</th><th>Группа</th><th>Phone</th><th>first_name</th><th>last_name</th><th>address_1</th>
+                    <th>Имя пользователя</th><th>Группа</th><th>email</th><th>Phone</th><th>first_name</th><th>last_name</th><th>address_1</th>
                     <th>address_2</th><th>city</th><th>county</th><th>zip_code</th><th>#</th>
                 </tr>
             </thead>
@@ -30,6 +30,7 @@
                                 {% endfor %}
                             {% endif %}
                         </td>
+                    <td>{{profile.email}}</td>
                     <td>{{profile.phone}}</td>
                     <td>{{profile.first_name}}</td>
                     <td>{{profile.last_name}}</td>

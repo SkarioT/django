@@ -33,6 +33,56 @@
                   </svg></a></td>
                 </tr>
             </table>
+                    
+
+        <div class="row">          
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    Дата заказа
+                </div>
+                <ul class="list-group list-group-flush">
+                {% for cart in object.user.carts.all %}
+                    {% if cart.order %}
+                    <li class="list-group-item">{{cart.create}}</li>
+                    {% else %}
+                    {% endif %}
+                    
+                {% endfor %}
+                </ul>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    Мои заказы
+                </div>
+                <ul class="list-group list-group-flush">
+                {% for cart in object.user.carts.all %}
+                    {% if cart.order %}
+                    <li class="list-group-item">{{cart.order}}</li>
+                    {% else %}
+                    {% endif %}
+                {% endfor %}
+                </ul>
+            </div>
+            <div class="card" style="width: 18rem;">
+                <div class="card-header">
+                    Статус заказа
+                </div>
+                <ul class="list-group list-group-flush">
+                {% for cart in object.user.carts.all %}
+                    {% if cart.order %}
+                    <li class="list-group-item">
+                        {% if cart.order.status %}
+                        Выполнен
+                        {% else %}
+                        В процессе обработки
+                        {% endif %}
+                    </li>
+                    {% else %}
+                    {% endif %}
+                {% endfor %}
+                </ul>
+            </div>
+        </div>
         <a class="btn btn-success" href="{% url 'home_page'%}">Back </a>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 </body>

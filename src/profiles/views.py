@@ -51,6 +51,7 @@ class ProfilesCreate(SuccessMessageMixin,FormView):
 
         obj_profile=Profile.objects.filter(user=obj_user_id).update(
         username=username,
+        email=email,
         phone=phone,
         first_name=first_name,
         last_name=last_name,
@@ -87,7 +88,7 @@ class ProfilesDetail(LoginRequiredMixin,DetailView):
 class ProfilesUpdate(LoginRequiredMixin,UpdateView):
     #редактирую не профайл а дефэолдную таблицу User
     model=Profile
-    fields=('phone',
+    fields=('email','phone',
         'first_name',
         'last_name',
         'address_1',

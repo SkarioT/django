@@ -23,9 +23,9 @@
                 <tr>
 
                     {% if order.status %}
-                    <td ><a  class="btn btn-success" href="{% url 's-admin:detail' order.cart.user.prof_user.pk %}">Обработан</a></td>
+                    <td ><a  class="btn btn-success" href="{% url 's-admin:order_update' order.pk %}">Обработан</a></td>
                     {% else %}
-                    <td><a class="btn btn-danger">Не обработан</td>
+                    <td><a class="btn btn-danger" href="{% url 's-admin:order_update' order.pk %}">Не обработан</td>
                     {% endif %}
 
                     <td><a href="{% url 's-admin:order_update' order.pk %}">{{order}}</a></td>
