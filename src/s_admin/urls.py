@@ -48,7 +48,18 @@ urlpatterns = [
     path('cart/delete/<int:pk>', views.SAdminCartDelete.as_view(),name='cart_delete'),
 
     path('publisher', views.SAdminPublisherList.as_view(),name='publisher'),
-    path('publisher/update/<int:pk>', views.SAdminCartUpdate.as_view(),name='publisher_update'),
-    path('publisher/detail/<int:pk>', views.SAdminCartDetail.as_view(),name='publisher_detail'),
-    path('publisher/delete/<int:pk>', views.SAdminCartDelete.as_view(),name='publisher_delete'),
+    path('publisher/create', views.SAdminPublisherCreate.as_view(),name='publisher_create'),
+    path('publisher/update/<int:pk>', views.SAdminPublisherUpdate.as_view(),name='publisher_update'),
+    path('publisher/delete/<int:pk>', views.SAdminPublisherDelete.as_view(),name='publisher_delete'),
+
+    path('series', views.SAdminSeriesList.as_view(),name='series'),
+    path('series/create', views.SAdminSeriesCreate.as_view(),name='series_create'),
+    path('series/update/<int:pk>', views.SAdminSeriesUpdate.as_view(),name='series_update'),
+    path('series/delete/<int:pk>', views.SAdminSeriesDelete.as_view(),name='series_delete'),
+
+    path('order', views.SAdminOrderList.as_view(),name='order'),
+    #доделать
+    # path('order/detail/<int:pk>', views.SAdminCartDetail.as_view(),name='order_detail'),
+    path('order/update/<int:pk>', views.SAdminOrderUpdate.as_view(),name='order_update'),
+    path('order/delete/<int:pk>', views.SAdminSeriesDelete.as_view(),name='orders_delete'),
 ]

@@ -4,7 +4,7 @@
 {% load crispy_forms_tags %}
     {% block main %}
     <div class="container" >
-            <marquee class="list-group-item" behavior="scroll" direction="left">USD: {{rate.USD}}, EUR : {{rate.EUR}},100 RUB {{rate.RUB}}</marquee>
+            <marquee class="list-group-item" behavior="scroll" direction="left">USD : {{rate.USD}}, EUR : {{rate.EUR}},100 RUB : {{rate.RUB}}</marquee>
 
 
 
@@ -26,11 +26,12 @@
                 </div>
                 {% endfor %}
                 <div class="carousel-item active">
-                    <img data-src="holder.js/800x400?auto=yes&amp;bg=666&amp;fg=444&amp;text=Second __s_slide" alt="Second __ss__ slide [800x400]" src="/media/home_page_image.jpg" data-holder-rendered="true">
+                    <img data-src="holder.js/800x400?auto=yes&amp;bg=666&amp;fg=444&amp;text=Second __s_slide" alt="Second __ss__ 
+                     slide [800x400]" src="/media/home_page_image.jpg" data-holder-rendered="true">
                     <div class="carousel-caption d-none d-md-block">
                         <a href="{% url 'CRUDL_books:list'%}" class="btn btn-success">Перечень всех книг</a><br><br>
-                        <a href="{% url 'CRUDL_books:list'%}" class="btn btn-success">Подробнее</a>
-                        <p>...</p>
+                        <a href="{% url 'CRUDL_books:genre_list'%}" class="btn btn-success">Книги по жанрам</a><br><br>
+                        <a href="{% url 'CRUDL_books:author_list' %}" class="btn btn-success">Книги по автору</a><br><br>
                     </div>
                 </div>
             

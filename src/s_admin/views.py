@@ -9,6 +9,8 @@ from books import views as book_view
 
 from cart import models as cart_model
 
+#order
+from order.models import Order
 
 #profile
 from profiles.views import ProfilesDetail,ProfilesUpdate,ProfilesList
@@ -29,6 +31,29 @@ from django.views.generic import CreateView,DetailView,UpdateView,DeleteView,Lis
 
 #
 # ДОДЕЛАТЬ ПРОВЕРКУ НА ПРОФИЛЬ, ТО ЧТО СЕЙЧАС - НЕ РАБОТАЕТ
+
+class SAdminOrderList(LoginRequiredMixin,ListView):
+    model=Order
+    template_name='s_admin/order/o_list.html'
+
+    def get_queryset(self,*args,**kwargs):
+        print(self.request.user.groups)
+        if self.request.user.groups.filter(name='Customers'):
+            return self.handle_no_permission()
+        else:
+            return self.model.objects.all() 
+
+class SAdminOrderUpdate(LoginRequiredMixin,UpdateView):
+    model=Order
+    template_name='s_admin/order/o_update.html'
+    fields=('__all__')
+
+    def get_queryset(self,*args,**kwargs):
+        print(self.request.user.groups)
+        if self.request.user.groups.filter(name='Customers'):
+            return self.handle_no_permission()
+        else:
+            return self.model.objects.all() 
 
 class S_Admin(LoginRequiredMixin,TemplateView):
     models=books_model.Books
@@ -309,21 +334,95 @@ class SAdminCartDelete(LoginRequiredMixin,DeleteView):
 
 
 #publisher
+class SAdminPublisherCreate(LoginRequiredMixin,CreateView):
+    fields=('__all__')
+    model=books_model.Publisher
+    template_name='s_admin/publisher/p_create.html'
+    success_url =reverse_lazy('s-admin:publisher')
+
+    def get_context_data(self, **kwargs):
+        print(self.request.user.groups)
+        if self.request.user.groups.filter(name='Customers'):
+            return self.handle_no_permission()
+        else:
+            return super().get_context_data(**kwargs)
 class SAdminPublisherList(LoginRequiredMixin,ListView):
     model=books_model.Publisher
     template_name='s_admin/publisher/p_list.html'
 
+    def get_queryset(self,*args,**kwargs):
+        print(self.request.user.groups)
+        if self.request.user.groups.filter(name='Customers'):
+            return self.handle_no_permission()
+        else:
+            return self.model.objects.all() 
+class SAdminPublisherUpdate(LoginRequiredMixin,UpdateView):
+    model=books_model.Publisher
+    fields=('__all__')
+    template_name='s_admin/publisher/p_update.html'
+    def get_success_url(self):
+        return reverse_lazy('s-admin:publisher')
+
+    def get_queryset(self,*args,**kwargs):
+        print(self.request.user.groups)
+        if self.request.user.groups.filter(name='Customers'):
+            return self.handle_no_permission()
+        else:
+            return self.model.objects.all() 
+
+class SAdminPublisherDelete(LoginRequiredMixin,DeleteView):
+    model=books_model.Publisher
+    template_name='s_admin/publisher/p_delete.html'
+    success_url =reverse_lazy('s-admin:publisher')
+
+    def get_queryset(self,*args,**kwargs):
+        print(self.request.user.groups)
+        if self.request.user.groups.filter(name='Customers'):
+            return self.handle_no_permission()
+        else:
+            return self.model.objects.all() 
+
+#series
+class SAdminSeriesCreate(LoginRequiredMixin,CreateView):
+    fields=('__all__')
+    model=books_model.Series
+    template_name='s_admin/series/se_create.html'
+    success_url =reverse_lazy('s-admin:series')
+
     def get_context_data(self, **kwargs):
-        c= super().get_context_data(**kwargs)
-        try:
-            user=self.request.user
-            prof_user=Profile.objects.get(username=user)
-            print(user)
-            print(prof_user.pk)
-            c['prof_user']=prof_user.pk
-        except Profile.DoesNotExist:
-            prof_user=None
-        return c
+        print(self.request.user.groups)
+        if self.request.user.groups.filter(name='Customers'):
+            return self.handle_no_permission()
+        else:
+            return super().get_context_data(**kwargs)
+class SAdminSeriesList(LoginRequiredMixin,ListView):
+    model=books_model.Series
+    template_name='s_admin/series/se_list.html'
+
+    def get_queryset(self,*args,**kwargs):
+        print(self.request.user.groups)
+        if self.request.user.groups.filter(name='Customers'):
+            return self.handle_no_permission()
+        else:
+            return self.model.objects.all() 
+class SAdminSeriesUpdate(LoginRequiredMixin,UpdateView):
+    model=books_model.Series
+    template_name='s_admin/series/se_update.html'
+    fields=('__all__')
+    def get_success_url(self):
+        return reverse_lazy('s-admin:series')
+
+    def get_queryset(self,*args,**kwargs):
+        print(self.request.user.groups)
+        if self.request.user.groups.filter(name='Customers'):
+            return self.handle_no_permission()
+        else:
+            return self.model.objects.all() 
+
+class SAdminSeriesDelete(LoginRequiredMixin,DeleteView):
+    model=books_model.Series
+    template_name='s_admin/series/se_delete.html'
+    success_url =reverse_lazy('s-admin:series')
 
     def get_queryset(self,*args,**kwargs):
         print(self.request.user.groups)

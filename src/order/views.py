@@ -14,7 +14,7 @@ class CreateOrder(UpdateView):
     model=Order
     context_object_name='order'
     template_name="order/create.html"
-    fields=('delivery_address','contact_phone',)
+    fields=('delivery_address','contact_phone','comment')
     success_url=reverse_lazy("cart:my")
 
     def get_object(self, queryset=None):

@@ -18,11 +18,11 @@ class Home_page(ListView):
         rate = {}
         for c in course:
             if c.get('Cur_Abbreviation') == 'USD':
-                rate['USD'] = c.get('Cur_OfficialRate') * c.get('Cur_Scale')
+                rate['USD'] = c.get('Cur_OfficialRate') 
             elif c.get('Cur_Abbreviation') == 'EUR':
-                rate['EUR'] = c.get('Cur_OfficialRate') * c.get('Cur_Scale')
+                rate['EUR'] = c.get('Cur_OfficialRate')
             elif c.get('Cur_Abbreviation') == 'RUB':
-                rate['RUB'] = c.get('Cur_OfficialRate') * c.get('Cur_Scale')
+                rate['RUB'] = c.get('Cur_OfficialRate') 
         context = super().get_context_data(**kwargs)
         context = {'USD': rate.get('USD'), 'EUR': rate.get('EUR'), 'RUB': rate.get('RUB'), 'rate': rate}
         return context

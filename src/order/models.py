@@ -30,3 +30,10 @@ class Order(models.Model):
         auto_now=True,
         auto_now_add=False
     )
+    comment=models.TextField(
+        verbose_name="Комментарий к заказу",
+        blank=True,
+        null=True
+    )
+    def __str__(self):
+        return f"Order #{self.pk}"

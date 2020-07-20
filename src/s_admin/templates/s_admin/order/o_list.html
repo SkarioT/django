@@ -1,0 +1,48 @@
+{% extends "sadmin.html" %}
+{% block title %} <title>Лист всех издательств</title> {% endblock title %}
+
+{% load crispy_forms_tags %}
+{%load my_tags %}
+              {% block nav_orders %}
+                <li class="nav-item">
+                  <a class="nav-link active" href="{% url 's-admin:order' %}">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="feather feather-file"><path d="M13 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V9z"></path><polyline points="13 2 13 9 20 9"></polyline></svg>
+                    Orders
+                  </a>
+                </li>
+              {% endblock nav_orders %}
+
+    {% block main %}
+        <table class="table table-striped" width="100%" > 
+            <thead class="thead-dark"></thead>
+                <tr>
+                    <th>Ордер</th><th>Корзина</th><th>Статус</th><th>Адрес доставки</th><th>Телефон</th><th>Создан</th><th>Обновлено</th>
+                </tr>
+            </thead>
+            {% for order in object_list %}
+                <tr>
+                
+                    <td><a href="{% url 's-admin:order_update' order.pk %}">{{order}}</a></td>
+                    <td><a href="{% url 's-admin:cart_detail' order.cart.pk %}">{{order.cart}}</a></td>
+                    {% if order.status %}
+                    <td>обработан</td>
+                    {% else %}
+                    <td>Не обработан</td>
+                    {% endif %}
+ 
+                    <td>{{order.delivery_address}}</td> 
+                    <td>{{order.contact_phone}}</td>
+                    <td>{{order.create}}</td>   
+                    <td>{{order.update}}</td>           
+                    <td> 
+                    {% for books in order.publisher_books.all %}
+                        <a href="{% url 's-admin:books_detail' books.pk %}">{{books}}</a> <br>
+                    {%endfor%}
+                </tr>
+        {% endfor %} 
+        </table>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
+{% endblock main %}
+</body>
+</html>
+
