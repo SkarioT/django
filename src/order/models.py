@@ -9,7 +9,7 @@ class Order(models.Model):
         on_delete=models.PROTECT,
     )
     status=models.BooleanField(
-        verbose_name="Статус заказа",
+        verbose_name="Выполнен(да/нет)",
         default=False
     )
 

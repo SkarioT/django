@@ -14,13 +14,22 @@
         <table class="table table-striped" width="100%" > 
             <thead class="thead-dark"></thead>
                 <tr>
-                    <th>Имя пользователя</th><th>Phone</th><th>first_name</th><th>last_name</th><th>address_1</th>
+                    <th>Имя пользователя</th><th>Группа</th><th>Phone</th><th>first_name</th><th>last_name</th><th>address_1</th>
                     <th>address_2</th><th>city</th><th>county</th><th>zip_code</th><th>#</th>
                 </tr>
             </thead>
             {% for profile in object_list %}
                 <tr>
                     <td><a href="{% url 's-admin:detail' profile.pk %}">{{profile.user}}</a></td>
+                        <td>
+                            {% if profile.user.groups.all|length == 1 %}
+                                {{ profile.user.groups.all.0.name }}
+                            {% else %}
+                                {% for group in profile.user.groups.all %}
+                                    {{ group.name }}
+                                {% endfor %}
+                            {% endif %}
+                        </td>
                     <td>{{profile.phone}}</td>
                     <td>{{profile.first_name}}</td>
                     <td>{{profile.last_name}}</td>

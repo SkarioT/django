@@ -16,24 +16,30 @@
         <table class="table table-striped" width="100%" > 
             <thead class="thead-dark"></thead>
                 <tr>
-                    <th>Ордер</th><th>Корзина</th><th>Статус</th><th>Адрес доставки</th><th>Телефон</th><th>Создан</th><th>Обновлено</th>
+                    <th>Статус</th><th>Заказ</th><th>Автор заказа</th><th>Адрес доставки</th><th>Телефон</th><th>Создан</th><th>Обновлено</th><th>К оплате</th>
                 </tr>
             </thead>
             {% for order in object_list %}
                 <tr>
-                
-                    <td><a href="{% url 's-admin:order_update' order.pk %}">{{order}}</a></td>
-                    <td><a href="{% url 's-admin:cart_detail' order.cart.pk %}">{{order.cart}}</a></td>
+
                     {% if order.status %}
-                    <td>обработан</td>
+                    <td ><a  class="btn btn-success" href="{% url 's-admin:detail' order.cart.user.prof_user.pk %}">Обработан</a></td>
                     {% else %}
-                    <td>Не обработан</td>
+                    <td><a class="btn btn-danger">Не обработан</td>
                     {% endif %}
- 
+
+                    <td><a href="{% url 's-admin:order_update' order.pk %}">{{order}}</a></td>
+                     {% if order.cart.user.prof_user.pk %}
+                        <td><a href="{% url 's-admin:detail' order.cart.user.prof_user.pk %}">{{order.cart.user.prof_user.username}}</a> </td> 
+                    {% else %}
+                        <td>Гость </td> 
+                    {% endif %}
+                    
                     <td>{{order.delivery_address}}</td> 
                     <td>{{order.contact_phone}}</td>
                     <td>{{order.create}}</td>   
-                    <td>{{order.update}}</td>           
+                    <td>{{order.update}}</td>
+                    <td><a class="btn btn-outline-info" href="{% url 's-admin:cart_detail' order.cart.pk %}">{{order.cart.totalprice}} р.</a></td>           
                     <td> 
                     {% for books in order.publisher_books.all %}
                         <a href="{% url 's-admin:books_detail' books.pk %}">{{books}}</a> <br>

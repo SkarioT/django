@@ -35,7 +35,7 @@ from django.views.generic import CreateView,DetailView,UpdateView,DeleteView,Lis
 class SAdminOrderList(LoginRequiredMixin,ListView):
     model=Order
     template_name='s_admin/order/o_list.html'
-
+    
     def get_queryset(self,*args,**kwargs):
         print(self.request.user.groups)
         if self.request.user.groups.filter(name='Customers'):
@@ -46,7 +46,10 @@ class SAdminOrderList(LoginRequiredMixin,ListView):
 class SAdminOrderUpdate(LoginRequiredMixin,UpdateView):
     model=Order
     template_name='s_admin/order/o_update.html'
-    fields=('__all__')
+    fields=('status','delivery_address','contact_phone','comment')
+
+    def get_success_url(self):
+        return reverse_lazy('s-admin:order')
 
     def get_queryset(self,*args,**kwargs):
         print(self.request.user.groups)
