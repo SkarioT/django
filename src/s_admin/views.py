@@ -26,22 +26,22 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.urls import reverse,reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView,DetailView,UpdateView,DeleteView,ListView,FormView,TemplateView
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 # Create your views here.
 
 #
 # ДОДЕЛАТЬ ПРОВЕРКУ НА ПРОФИЛЬ, ТО ЧТО СЕЙЧАС - НЕ РАБОТАЕТ
 
-class SAdminOrderList(LoginRequiredMixin,ListView):
+class SAdminOrderList(LoginRequiredMixin,PermissionRequiredMixin,ListView):
     model=Order
     template_name='s_admin/order/o_list.html'
-    
-    def get_queryset(self,*args,**kwargs):
-        print(self.request.user.groups)
-        if self.request.user.groups.filter(name='Customers'):
-            return self.handle_no_permission()
-        else:
-            return self.model.objects.all() 
+    permission_required ='order.add_choice'
+    # def get_queryset(self,*args,**kwargs):
+    #     if self.request.user.groups.filter(name='Customers'):
+    #         return self.handle_no_permission()
+    #     else:
+    #         return self.model.objects.all() 
 
 class SAdminOrderUpdate(LoginRequiredMixin,UpdateView):
     model=Order
@@ -52,7 +52,7 @@ class SAdminOrderUpdate(LoginRequiredMixin,UpdateView):
         return reverse_lazy('s-admin:order')
 
     def get_queryset(self,*args,**kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -64,7 +64,7 @@ class S_Admin(LoginRequiredMixin,TemplateView):
 
 
     def render_to_response(self, context, **response_kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             raise PermissionDenied
         return super().render_to_response(context, **response_kwargs)    
@@ -75,7 +75,7 @@ class CustomersList(ProfilesList):
     template_name='s_admin/customers/list.html'
 
     def get_queryset(self,*args,**kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -87,7 +87,7 @@ class CustomersUpdate(ProfilesUpdate):
         return reverse_lazy('s-admin:customers')
 
     def get_queryset(self,*args,**kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -97,7 +97,7 @@ class CustomersDetail(ProfilesDetail):
     template_name='s_admin/customers/detail.html'
 
     def get_queryset(self,*args,**kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -108,7 +108,7 @@ class SAdminBooksList(LoginRequiredMixin,book_view.BooksList):
     template_name='s_admin/books/b_list.html'
     paginate_by=None
     def get_queryset(self,*args,**kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -118,7 +118,7 @@ class SAdminBooksDetail(LoginRequiredMixin,book_view.BooksDetail):
     template_name='s_admin/books/b_detail.html'
 
     def get_queryset(self,*args,**kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -129,7 +129,7 @@ class SAdminBooksDelete(book_view.BooksDelete):
     success_url =reverse_lazy('s-admin:product')
 
     def get_queryset(self,*args,**kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -141,7 +141,7 @@ class SAdminBooksUpdate(book_view.BooksUpdate):
         return reverse_lazy('s-admin:books_detail', kwargs={'pk':self.object.pk})
 
     def get_queryset(self,*args,**kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -153,7 +153,7 @@ class SAdminBooksCreate(book_view.BooksCreate):
         return reverse_lazy('s-admin:books_detail', kwargs={'pk':self.object.pk})
 
     def get_context_data(self, **kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -167,7 +167,7 @@ class SAdminGenreCreate(LoginRequiredMixin,CreateView):
     success_url =reverse_lazy('s-admin:genre')
 
     def get_context_data(self, **kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -179,7 +179,7 @@ class SAdminGenreList(LoginRequiredMixin,ListView):
     template_name='s_admin/genre/g_list.html'
 
     def get_queryset(self,*args,**kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -193,7 +193,7 @@ class SAdminGenreUpdate(LoginRequiredMixin,UpdateView):
         return reverse_lazy('s-admin:genre_detail', kwargs={'pk':self.object.pk})
 
     def get_queryset(self,*args,**kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -203,7 +203,7 @@ class SAdminGenreDetail(LoginRequiredMixin,DetailView):
     template_name='s_admin/genre/g_detail.html'
 
     def get_queryset(self,*args,**kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -215,7 +215,7 @@ class SAdminGenreDelete(LoginRequiredMixin,DeleteView):
     success_url =reverse_lazy('s-admin:genre')
 
     def get_queryset(self,*args,**kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -229,7 +229,7 @@ class SAdminAuthorCreate(LoginRequiredMixin,CreateView):
     success_url =reverse_lazy('s-admin:author')
 
     def get_context_data(self, **kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -241,7 +241,7 @@ class SAdminAuthorList(LoginRequiredMixin,ListView):
     template_name='s_admin/author/a_list.html'
 
     def get_queryset(self,*args,**kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -255,7 +255,7 @@ class SAdminAuthorUpdate(LoginRequiredMixin,UpdateView):
         return reverse_lazy('s-admin:author_detail', kwargs={'pk':self.object.pk})
 
     def get_queryset(self,*args,**kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -265,7 +265,7 @@ class SAdminAuthorDetail(LoginRequiredMixin,DetailView):
     template_name='s_admin/author/a_detail.html'
 
     def get_queryset(self,*args,**kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -277,7 +277,7 @@ class SAdminAuthorDelete(LoginRequiredMixin,DeleteView):
     success_url =reverse_lazy('s-admin:author')
 
     def get_queryset(self,*args,**kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -304,7 +304,7 @@ class SAdminCartUpdate(LoginRequiredMixin,UpdateView):
         return reverse_lazy('s-admin:cart_detail', kwargs={'pk':self.object.pk})
 
     def get_queryset(self,*args,**kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -326,7 +326,7 @@ class SAdminCartDelete(LoginRequiredMixin,DeleteView):
     success_url =reverse_lazy('s-admin:cart')
 
     def get_queryset(self,*args,**kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -354,7 +354,7 @@ class SAdminPublisherList(LoginRequiredMixin,ListView):
     template_name='s_admin/publisher/p_list.html'
 
     def get_queryset(self,*args,**kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -379,7 +379,7 @@ class SAdminPublisherDelete(LoginRequiredMixin,DeleteView):
     success_url =reverse_lazy('s-admin:publisher')
 
     def get_queryset(self,*args,**kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -403,7 +403,7 @@ class SAdminSeriesList(LoginRequiredMixin,ListView):
     template_name='s_admin/series/se_list.html'
 
     def get_queryset(self,*args,**kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:
@@ -428,7 +428,7 @@ class SAdminSeriesDelete(LoginRequiredMixin,DeleteView):
     success_url =reverse_lazy('s-admin:series')
 
     def get_queryset(self,*args,**kwargs):
-        print(self.request.user.groups)
+        print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
             return self.handle_no_permission()
         else:

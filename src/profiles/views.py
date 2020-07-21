@@ -85,7 +85,7 @@ class ProfilesDetail(LoginRequiredMixin,DetailView):
 
 
 
-class ProfilesUpdate(LoginRequiredMixin,UpdateView):
+class ProfilesUpdate(LoginRequiredMixin,SuccessMessageMixin,UpdateView):
     #редактирую не профайл а дефэолдную таблицу User
     model=Profile
     fields=('email','phone',
@@ -99,8 +99,13 @@ class ProfilesUpdate(LoginRequiredMixin,UpdateView):
     # model= User
     # fields=('username','first_name','last_name','email','groups','is_staff','is_active','is_superuser','last_login','date_joined')
     template_name='profiles/update.html'
+
+
     def get_success_url(self):
         return reverse_lazy('CRUDL_profiles:detail', kwargs={'pk':self.object.pk})
+
+    def get_success_message(self, cleaned_data):
+        return f"Profile {self.object.username} was updated."
 
 
 

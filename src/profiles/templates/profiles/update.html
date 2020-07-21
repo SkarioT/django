@@ -7,8 +7,9 @@
           {% endblock profiles_active %}
 
     {% block main %}
-
+{% if user.username == object.username%}
      <div class=container>
+             
      <h3>Обновление данных для {{object.username}}</h3>
      <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
@@ -18,7 +19,18 @@
 
      </form>
     </div>
-
+{% else %}
+<div class=container>
+.
+                  <div class="alert alert-danger alert-dismissible fade show" role="alert" {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                    <h3 class="text-center text-info" >  Доступ запрещён.  Обновить можно только данные своего профиля</h3>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+  <a class="btn btn-success" href="{% url 'CRUDL_profiles:detail' user.prof_user.pk %}">Мой профиль</a>
+  {% endif %}
+</div>
 </body>
 {% endblock main %}
 </html>
