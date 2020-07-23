@@ -62,9 +62,12 @@ class CreateOrder(SuccessMessageMixin,UpdateView):
         #пример нотификации если заказ офоромлен
         # notify_managers(self.request.user, self.object)
         del(self.request.session['cart_pk'])
-        user=self.request.user
+        if self.request.user.is_anonymous:
+            user='Гость'
+        else:
+            user=self.request.user
         print(user)
-        prof_user=Profile.objects.get(username=user)
+
         
         cdt=datetime.now()
         cdt=datetime.strftime(cdt,'%d.%m.%Y, %H:%M')
@@ -74,7 +77,7 @@ class CreateOrder(SuccessMessageMixin,UpdateView):
         comment=str(cdt)+' '+str(user)+':\n'+str(order.comment)
         order=Order.objects.filter(pk=cur_order).update(comment=comment)
 
-        return reverse_lazy("CRUDL_profiles:detail", kwargs={'pk':prof_user.pk})
+        return reverse_lazy("cart:my")
 
     def get_success_message(self, cleaned_data):
         return f"{self.object}  - оформлен. Ожидайте звонка нашего специалиста."
