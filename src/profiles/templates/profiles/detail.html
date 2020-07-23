@@ -10,6 +10,7 @@
 {% block main %}
 {% if user.username == object.username%}
 <body>
+
     <h1>{{object.name}}</h1>
     {% include "message.html" %}
             <table class="table table-striped" width="100%" > 
@@ -17,11 +18,8 @@
                     <tr>
                         <th>Пользователь</th><th>Телефон</th><th>Имя</th><th>Фамилия</th><th>Адрес</th><th>Адрес 2</th></th><th>Город</th><th>Страна</th><th>Zip code</th><th>#</th>
                     </tr>
-                </thead>
-                
+                </thead>         
                 <tr>
-
-
                     <td>{{object.username}}</td>
                     <td>{{object.phone}}</td>
                     <td>{{object.first_name}}</td>
@@ -39,58 +37,45 @@
             </table>
                     
 
-        <div class="row">          
-            <div class="card" style="width: 18rem;">
-                <div class="card-header">
-                    Дата заказа
-                </div>
-                <ul class="list-group list-group-flush">
-                {% for cart in object.user.carts.all %}
-                    {% if cart.order %}
-                    <li class="list-group-item">{{cart.create}}</li>
-                    {% else %}
-                    {% endif %}
-                    
-                {% endfor %}
-                </ul>
-            </div>
 
-            <div class="card" style="width: 18rem;">
-                <div class="card-header">
-                    Статус заказа
-                </div>
-                
-                <ul class="list-group list-group-flush">
-                {% for cart in object.user.carts.all %}
-                    {% if cart.order %}
-                    <li class="list-group-item">
-                        {% if cart.order.status %}
-                        Выполнен
-                        {% else %}
-                        В процессе обработки
-                        {% endif %}
-                    </li>
-                    {% else %}
-                    {% endif %}
-                {% endfor %}
-                </ul>
-            </div>
-            <div class="card" style="width: 28rem;">
+            <div class="card" style="width: 48rem;">
                 <div class="card-header" >
                 <a class="badge badge-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                    Мои заказы
+                    Мои заказы(подробнее)
                     </a>
                 </div>
                 <ul class="list-group list-group-flush">
                 {% for cart in object.user.carts.all %}
                 
                     {% if cart.order %}
-                    <div class="card border-dark" style="width: 28rem;">
+                    <div class="card border-dark" style="width: 55rem;">
                         <li class="list-group-item">
-                        <button type="button" class="badge badge-primary">
-                        Заказ №{{cart.order.pk}}, Сумма заказа <span class="badge badge-light">{{cart.totalprice}}</span>
-                        <span class="sr-only">unread messages</span>
-                        </button></li>
+                            <button type="button" class="btn btn-outline-secondary" disabled>
+                                Дата создания: {{cart.order.create}}
+                            </button>                           
+                            <button type="button" class="btn btn-primary" disabled>
+                            Заказ №{{cart.order.pk}}, Сумма заказа <span class="badge badge-light">{{cart.totalprice}}</span>
+                            <span class="sr-only">unread messages</span>
+                            </button>
+
+                            <a href="{% url 'order:update' cart.order.pk %}" type="button" class="btn btn-outline-secondary" >
+                            Статус : 
+                                {% if cart.order.status2 == 'Доставка' %}
+                                <span class="badge badge-info">{{cart.order.status2}}</span>  
+                                {% elif cart.order.status2 == 'В обработке' %}
+
+                                <span class="badge badge-primary"  data-toggle="tooltip" title="Можно отметить/добавить комментарий">{{cart.order.status2}}</span> 
+
+                                {% elif cart.order.status2 == 'Отменен' %}
+                                <span class="badge badge-danger">{{cart.order.status2}}</span> 
+                                {% elif cart.order.status2 == 'Выполнен' %}
+                                <span class="badge badge-success">{{cart.order.status2}}</span> 
+                                {% endif %} 
+                                <span class="sr-only">unread messages</span>
+                            </a>
+
+                        </li>
+                       
                         <div class="collapse" id="collapseExample">
                             <div class="card card-body">
                                 <table class="table table-striped" >
@@ -138,6 +123,7 @@
             </table>
 {% endif %}
         <a class="btn btn-success" href="{% url 'home_page'%}">Back </a>
+
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 </body>
 

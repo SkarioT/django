@@ -27,28 +27,46 @@ from django.urls import reverse,reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.views.generic import CreateView,DetailView,UpdateView,DeleteView,ListView,FormView,TemplateView
 from django.contrib.auth.mixins import PermissionRequiredMixin
+from datetime import datetime
 
 # Create your views here.
 
 #
 # ДОДЕЛАТЬ ПРОВЕРКУ НА ПРОФИЛЬ, ТО ЧТО СЕЙЧАС - НЕ РАБОТАЕТ
 
-class SAdminOrderList(LoginRequiredMixin,PermissionRequiredMixin,ListView):
+class SAdminOrderList(LoginRequiredMixin,ListView):
     model=Order
     template_name='s_admin/order/o_list.html'
-    permission_required ='order.add_choice'
-    # def get_queryset(self,*args,**kwargs):
-    #     if self.request.user.groups.filter(name='Customers'):
-    #         return self.handle_no_permission()
-    #     else:
-    #         return self.model.objects.all() 
+
+    def get_queryset(self,*args,**kwargs):
+        if self.request.user.groups.filter(name='Customers'):
+            return self.handle_no_permission()
+        else:
+            return self.model.objects.all() 
 
 class SAdminOrderUpdate(LoginRequiredMixin,UpdateView):
     model=Order
     template_name='s_admin/order/o_update.html'
-    fields=('status','delivery_address','contact_phone','comment')
+    fields=('status2','delivery_address','contact_phone','comment')
+
+    def get_object(self, queryset=None):
+        obj=super().get_object(queryset=queryset)
+        global cur_comment
+        cur_comment=obj.comment
+        # order=Order.objects.get(pk=cur_order)
+        # print('get_obj_comen',order.comment)
+        return obj
 
     def get_success_url(self):
+        user=self.request.user
+        cdt=datetime.now()
+        cdt=datetime.strftime(cdt,'%d.%m.%Y, %H:%M')
+        cur_order=self.object.pk
+        order=Order.objects.get(pk=cur_order)
+        print(order.comment)
+        comment=cur_comment+'\n'+str(cdt)+' '+str(user)+':\n'+str(order.comment)
+        order=Order.objects.filter(pk=cur_order).update(comment=comment)
+
         return reverse_lazy('s-admin:order')
 
     def get_queryset(self,*args,**kwargs):

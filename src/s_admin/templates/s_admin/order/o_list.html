@@ -22,11 +22,16 @@
             {% for order in object_list %}
                 <tr>
 
-                    {% if order.status %}
-                    <td ><a  class="btn btn-success" href="{% url 's-admin:order_update' order.pk %}">Обработан</a></td>
-                    {% else %}
-                    <td><a class="btn btn-danger" href="{% url 's-admin:order_update' order.pk %}">Не обработан</td>
-                    {% endif %}
+                    {% if order.status2 == 'Доставка' %}
+                    <td ><a  class="btn btn-info" href="{% url 's-admin:order_update' order.pk %}">{{order.status2}}</a></td>
+                    {% elif order.status2 == 'В обработке' %}
+                    <td><a class="btn btn-primary" href="{% url 's-admin:order_update' order.pk %}">{{order.status2}}</td>
+                    {% elif order.status2 == 'Отменен' %}
+                    <td><a class="btn btn-danger" href="{% url 's-admin:order_update' order.pk %}">{{order.status2}}</td>
+                    {% elif order.status2 == 'Выполнен' %}
+                    <td><a class="btn btn-success" href="{% url 's-admin:order_update' order.pk %}">{{order.status2}}</td>
+                    {% endif %} 
+
 
                     <td><a href="{% url 's-admin:order_update' order.pk %}">{{order}}</a></td>
                      {% if order.cart.user.prof_user.pk %}

@@ -30,7 +30,6 @@ class Home_page(ListView):
             course = nbrb.json()
             rate = {}
             for c in course:
-                cdc=c.get('Date')
                 if c.get('Cur_Abbreviation') == 'USD':
                     context['USD'] = c.get('Cur_OfficialRate') 
                 elif c.get('Cur_Abbreviation') == 'EUR':

@@ -9,8 +9,14 @@ class Order(models.Model):
         on_delete=models.PROTECT,
     )
     status=models.BooleanField(
-        verbose_name="Выполнен(да/нет)",
+        verbose_name="Отменить заказ",
         default=False
+    )
+    status2 = models.CharField(
+        verbose_name='Статус заказа',
+        choices=(('В обработке', 'В обработке'),('Доставка', 'Доставка'), ('Отменен', 'Отменен'),('Выполнен', 'Выполнен')),
+        max_length= 100,
+        default = 'В обработке',
     )
 
     delivery_address=models.TextField(

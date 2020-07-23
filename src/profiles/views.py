@@ -5,6 +5,7 @@ from .forms import CreateProfileFormModel
 from django.urls import reverse,reverse_lazy
 #модели
 from .models import Profile
+from order.views import Order
 from django.contrib.auth.models import User
 
 from django.db.models.signals import post_save
@@ -116,6 +117,10 @@ class ProfilesDelete(LoginRequiredMixin,DeleteView):
 class ProfilesList(LoginRequiredMixin,ListView):
     model=Profile
     template_name='profiles/list.html'
+
+# class ProfilesOrderDisable(LoginRequiredMixin,UpdateView):
+#     model= 
+#     template_name='profiles/detail.html'
 
 
 

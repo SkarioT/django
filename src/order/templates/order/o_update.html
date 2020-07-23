@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+  {% block title %}<title>Изменение ордеа{{object}}</title>{% endblock title %}
+{% load crispy_forms_tags %}
+
+    {% block main %}
+       <div class=container>
+      {% if user.username == object.cart.user.username%} 
+          {% if object.status2 == "В обработке" %}
+            <h3>Дополнительный комментарий и/или отмена {{object}}</h3>
+              <label>Текущий статус</label>
+              <input type="text" value="{{object.status2}}" maxlength="15" class="textinput textInput form-control" disabled>
+            <form action="" method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                    {{form|crispy}}
+                
+                <input class="btn btn-primary" type="submit" value="Обновить">
+            <a class="btn btn-success" href="{% url 'CRUDL_profiles:detail' user.prof_user.pk %}">Мой профиль</a>
+            </form>
+              
+              {% else %}
+                    <label>Текущий статус</label>
+              <input type="text" value="{{object.status2}}" maxlength="15" class="textinput textInput form-control" disabled>
+                    <label>Комментарии в заказе</label><br>
+              <textarea name="comment" cols="100" rows="20"  required="" id="id_delivery_address" disabled>{{object.comment}}</textarea>
+          {% endif %}
+      {% else %}
+      {{user.username}}
+      {{object.cart.user}}
+                        <div class="alert alert-danger alert-dismissible fade show" role="alert" {% if message.tags %} class="{{ message.tags }}"{% endif %}>
+                    <h3 class="text-center text-info" >  Доступ запрещён.<br>  Обновить можно только данные своего заказа</h3>
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    
+                </div>
+                <a class="btn btn-success" href="{% url 'CRUDL_profiles:detail' user.prof_user.pk %}">Мой профиль</a>
+      {% endif %}
+
+
+    </div>
+
+</body>
+{% endblock main %}
+</html>

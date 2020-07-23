@@ -20,7 +20,7 @@ from . import views
 
 urlpatterns = [
     path('create/', views.CreateOrder.as_view(),name='create'),
-    # path('mycart/', views.CartDetail.as_view(),name='my'),
+    path('update/<int:pk>', views.OrderUpdate.as_view(),name='update'),
     # path('delete/<int:pk>', views.BookInCartDelete.as_view(),name='delete'),
 
 ]
