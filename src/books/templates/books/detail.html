@@ -3,7 +3,7 @@
   {% block title %}<title>Детальный обзор Книги {{object.name}}</title>{% endblock title %}
 {% load crispy_forms_tags %}
         {% block books_active %}
-          <a class="nav-link dropdown-toggle active" href="{% url 'CRUDL_books:list' %}" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Books</a>
+          <a class="nav-link dropdown-toggle active" href="{% url 'CRUDL_books:list' %}" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Книги</a>
           {% endblock books_active %}
     {% block main %}
 <body>
@@ -11,9 +11,9 @@
 
 <div class="card mb-10" style="max-width: 1850px;">
   <div class="row no-gutters">
-    <div class="col-md-5">
+    <div class="col-md-4">
         {% if object.picture %}
-            <img  height="700" weight="300" src="{{object.picture.url}}" class="card-img" alt="">
+            <img  height="700" weight="200" src="{{object.picture.url}}" class="card-img" alt="">
         {% else %}
             <img src="..." class="card-img" alt="...">
         {% endif %}
@@ -74,7 +74,7 @@
     </div>
   </div>
 </div>
-        <a class="btn btn-success" href="{% url 'home_page'%}">Back </a>
+        <a class="btn btn-success" href="{% url 'home_page'%}">Домой </a>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>
 </body>
 {% endblock main %}

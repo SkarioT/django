@@ -95,8 +95,10 @@ class CreateOrder(SuccessMessageMixin,UpdateView):
         print(order.comment)
         comment=str(cdt)+' '+str(user)+':\n'+str(order.comment)
         order=Order.objects.filter(pk=cur_order).update(comment=comment)
-
-        return reverse_lazy('CRUDL_profiles:detail', kwargs={'pk':user.prof_user.pk})
+        if user=='Гость':
+            return reverse_lazy('home_page')
+        else:
+            return reverse_lazy('CRUDL_profiles:detail', kwargs={'pk':user.prof_user.pk})
 
     def get_success_message(self, cleaned_data):
         return f"{self.object}  - оформлен. Ожидайте звонка нашего специалиста."

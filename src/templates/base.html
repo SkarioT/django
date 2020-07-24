@@ -50,36 +50,36 @@
       </button>
     <div class="collapse navbar-collapse" id="navbarCollapse">
       <ul class="navbar-nav mr-auto">
-        <a class="nav-link" href="{% url 'home_page' %}">Home <span class="sr-only">(current)</span></a>
+        <a class="nav-link" href="{% url 'home_page' %}">Домошня страница <span class="sr-only">(current)</span></a>
         {% block books %}
         <li class="nav-item dropdown">
         {% block books_active %}
-          <a class="nav-link dropdown-toggle" href="{% url 'CRUDL_books:list' %}" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Books</a>
+          <a class="nav-link dropdown-toggle" href="{% url 'CRUDL_books:list' %}" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Книги</a>
           {% endblock books_active %}
           <div class="dropdown-menu" aria-labelledby="dropdown01">
-            <a class="dropdown-item" href="{% url 'CRUDL_books:list' %}">Books list</a>
-            <a class="dropdown-item" href="{% url 'CRUDL_books:genre_list' %}">Genre list</a>
-            <a class="dropdown-item" href="{% url 'CRUDL_books:author_list' %}">Authors list</a>
-            <a class="dropdown-item" href="{% url 'CRUDL_books:publisher_list' %}">Publisher list</a>
-            <a class="dropdown-item" href="{% url 'CRUDL_books:series_list' %}">Series list</a>
+            <a class="dropdown-item" href="{% url 'CRUDL_books:list' %}">Список книг</a>
+            <a class="dropdown-item" href="{% url 'CRUDL_books:genre_list' %}">Список жанров</a>
+            <a class="dropdown-item" href="{% url 'CRUDL_books:author_list' %}">Список авторов</a>
+            <a class="dropdown-item" href="{% url 'CRUDL_books:publisher_list' %}">Список издательств</a>
+            <a class="dropdown-item" href="{% url 'CRUDL_books:series_list' %}">Список серий</a>
           </div>
         </li>
         {% endblock books %}
         {% block profiles %}
         <li class="nav-item dropdown">
         {% block profiles_active%}
-          <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Profiles</a>
+          <a class="nav-link dropdown-toggle" href="#" id="dropdown01" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">Профиль</a>
           {% endblock profiles_active %}
           <div class="dropdown-menu" aria-labelledby="dropdown01">
             {% if user.is_authenticated %}
             <a class="dropdown-item" href="{% url 'CRUDL_profiles:detail' user.prof_user.pk %}">{{user}}</a>
-            <a class="dropdown-item" href="{% url 'change-password' %}">Change Password</a>
-            <a class="dropdown-item" href="{% url 'logout' %}">Logout</a>
+            <a class="dropdown-item" href="{% url 'change-password' %}">Изменить пароль</a>
+            <a class="dropdown-item" href="{% url 'logout' %}">Выход</a>
 
             {%endif%}
             {% if user.is_anonymous %}      
-            <a class="dropdown-item" href="{% url 'login' %}">Login page</a>
-            <a class="dropdown-item" href="{% url 'CRUDL_profiles:create' %}">Register here</a>
+            <a class="dropdown-item" href="{% url 'login' %}">Войти </a>
+            <a class="dropdown-item" href="{% url 'CRUDL_profiles:create' %}">Регистрация</a>
             {% endif%}
           </div>
         </li>
@@ -95,7 +95,7 @@
             {% endif %} 
             {% if user.is_authenticated %}
             <li class="nav-item">
-              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Hello {{user}} Last authorization time: {{user.last_login}}</a>
+              <a class="nav-link disabled" href="#" tabindex="-1" aria-disabled="true">Привет, <b>{{user}}</b> Последний вход: <b>{{user.last_login}}</b></a>
             </li>
              {% endif%}
           {% endblock profiles %}
@@ -122,7 +122,7 @@
 <footer class="text-muted">
       <div class="container">
         <p class="float-right">
-          <a href="#">Back to top</a>
+          <a href="#">Вверх</a>
         </p>
         <p>Album example is © Bootstrap</p>
         <p>It-acedemy labs. <a href="../../">Посетить домашнюю страницу</a> или открыть список  <a href="{% url 'CRUDL_books:list' %}">всех книг</a>.</p>

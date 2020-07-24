@@ -30,7 +30,7 @@
                     </td>
                     <td>
                     {% for books_q in cart.books.all %}
-                            <a class="btn btn-primary btn-sm" href="{% url 'cart:add' %}?book_pk={{books_q.books.pk}}">edit
+                            <a class="btn btn-primary btn-sm" href="{% url 'cart:add' %}?book_pk={{books_q.books.pk}}">Изменить
                             <span class="badge badge-light">{{books_q.qantity}}</span>
                             <span class="sr-only">unread messages</span></a> <br>
                     {% endfor %}
@@ -47,15 +47,15 @@
                     </td>
                     <td>
                     {% for books_d in object.books.all %}
-                        <a class="btn btn-danger btn-sm"href="{% url 'cart:delete' books_d.pk %}">Delete </a> <br>
+                        <a class="btn btn-danger btn-sm"href="{% url 'cart:delete' books_d.pk %}">Удалить </a> <br>
                     {% endfor %}
                     </td>
                 </tr>
             </thead>
         </table>
         
-        <b>Total price: {{object.totalprice}}<br>
-        <a class="btn btn-success" href="{% url 'order:create'%}"> Submin order</a>
+        <b>К оплате: {{object.totalprice}}<br>
+        <a class="btn btn-success" href="{% url 'order:create'%}"> Оформить заказ</a>
 
     </div>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js" integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI" crossorigin="anonymous"></script>

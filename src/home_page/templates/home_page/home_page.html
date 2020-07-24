@@ -4,7 +4,8 @@
 {% load crispy_forms_tags %}
     {% block main %}
     <div class="container" >
-            <marquee class="list-group-item" behavior="scroll" direction="left">USD : {{USD}}, EUR : {{EUR}},100 RUB : {{RUB}}</marquee>
+    {% include "message.html" %}
+            <marquee class="list-group-item" behavior="scroll" direction="left">Курсы валют на сегодня: USD : {{USD}}, EUR : {{EUR}},100 RUB : {{RUB}}</marquee>
 
 
 
@@ -22,7 +23,7 @@
                         <img  alt="{{object.name}} slide [800x400]" src="{{object.picture.url}}" data-holder-rendered="true">
                
                             <div class="carousel-caption d-none d-md-block">
-                                <h5 class="btn-light">{{object.name}}</h5> <br>
+                                <h5 class="btn-light"><a href="{% url 'CRUDL_books:detail' object.pk %}" >{{object.name}}</a></h5> <br>
                                 <a href="{% url 'CRUDL_books:detail' object.pk %}" class="btn btn-success">Подробнее</a>
                             </div>
                             
