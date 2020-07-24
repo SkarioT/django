@@ -58,9 +58,6 @@ class CreateOrder(SuccessMessageMixin,UpdateView):
         return obj
 
     def get_success_url(self):
-
-        #пример нотификации если заказ офоромлен
-        # notify_managers(self.request.user, self.object)
         cart_pk=self.request.session['cart_pk']
         del(self.request.session['cart_pk'])
         if self.request.user.is_anonymous:
