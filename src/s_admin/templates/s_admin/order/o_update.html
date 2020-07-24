@@ -1,5 +1,5 @@
 {% extends "sadmin.html" %}
-  {% block title %}<title>Изменение жанра {{object.name}}</title>{% endblock title %}
+  {% block title %}<title>Изменение {{object}}</title>{% endblock title %}
 {% load crispy_forms_tags %}
               {% block nav_orders %}
                 <li class="nav-item">
@@ -17,6 +17,12 @@
         <input type="text" value="{{object.cart.user}}" maxlength="15" class="textinput textInput form-control" disabled>
         <label>Сумма заказа</label>
         <input type="text" value="{{object.cart.totalprice}}" maxlength="15" class="textinput textInput form-control" disabled>
+        <label>Книги в заказе</label>
+        {% for books_q in object.cart.books.all %}
+        <input type="text" value="{{books_q.books}}, Кол-во: {{books_q.qantity}}, Цена за штуку: {{books_q.price}}" maxlength="15" class="textinput textInput form-control" disabled>           
+   
+
+        {% endfor %}
         {% csrf_token %}
             {{form|crispy}}
         <input class="btn btn-primary" type="submit" value="Обновить">

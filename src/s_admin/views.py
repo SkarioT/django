@@ -76,10 +76,33 @@ class SAdminOrderUpdate(LoginRequiredMixin,UpdateView):
         else:
             return self.model.objects.all() 
 
-class S_Admin(LoginRequiredMixin,TemplateView):
-    models=books_model.Books
+class S_Admin(LoginRequiredMixin,ListView):
+    model=Order
     template_name='s_admin/index.html'
+    context_object_name = "orders"
 
+    def get_context_data(self,**kwargs):
+        i=0
+        j=0
+        b=0
+        k=0
+        context = super().get_context_data(**kwargs)
+        orders=Order.objects.all()
+        for order in orders:
+            if order.status2=='Отменен':
+                i+=1
+                context['canseled']=i
+            if order.status2=='Доставка':
+                j+=1
+                context['delivery']=j
+            if order.status2=='В обработке':
+                b+=1
+                context['inprog']=b
+            if order.status2=='Выполнен':
+                k+=1
+                context['success']=k
+        print(orders)
+        return context
 
     def render_to_response(self, context, **response_kwargs):
         print(self.request.user.groups.get())

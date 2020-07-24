@@ -106,7 +106,7 @@ class Books(models.Model):
     # 15) Кол-во книг в наличии
     count_book=models.IntegerField(
         verbose_name="Ко-во книг в наличии",
-        default=10
+        default=100
     )
     # 16) наличие/доступен ли для заказа
     availability=models.BooleanField(
@@ -120,13 +120,13 @@ class Books(models.Model):
         default=9
     )
     # 18)Дата внесения в каталог"
-    create=models.DateField(
+    created=models.DateField(
         verbose_name="Дата внесения в каталог",
         auto_now=False,
         auto_now_add=True
     )
     # 19)"Дата последнего изменения"
-    update=models.DateField(
+    updated=models.DateField(
         verbose_name="Дата последнего изменения",
         auto_now=True,
         auto_now_add=False

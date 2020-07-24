@@ -6,6 +6,8 @@ from profiles.models import Profile
 from books.models import Books
 from django.urls import reverse,reverse_lazy
 from django.contrib.auth.mixins import LoginRequiredMixin
+from django.contrib.messages.views import SuccessMessageMixin
+from django.contrib import messages
 # Create your views here.
 
 
@@ -21,6 +23,7 @@ class AddBookToCart(UpdateView):
         book_pk=self.request.GET.get('book_pk')
         #получаем объект кники по pk=book_pk
         books=Books.objects.get(pk=book_pk)
+
         #получаем текущего юзера
         user=self.request.user 
         if user.is_anonymous:
@@ -46,6 +49,16 @@ class AddBookToCart(UpdateView):
         )
         return obj
 
+    def form_valid(self, form):
+        book_pk = self.request.GET.get('book_pk')
+        book = Books.objects.get(pk=book_pk)
+        qantity = self.request.POST['qantity']
+        if int(qantity) <= book.count_book:
+            form.save()
+            return super(AddBookToCart, self).form_valid(form)
+        else:
+            messages.error(self.request, f'Запрос привышает допустимое кол-во. Максимальное кол-во книг - { book.count_book }') 
+            return render(self.request, 'cart/add.html', {'form': form})
 
         
 class CartDetail(DetailView):

@@ -65,13 +65,16 @@ class BooksList(ListView):
     
     #накинуты права для Customers на просмотр только доступных книг
     def get_queryset(self,*args, **kwargs) :
-        print("group:",self.request.user.groups.filter(name='Customers'))
+
         #получение назнавания группы для текущего авторизированного пользователя
         cust=self.request.user.groups.values_list('name', flat=True).first()
         print(cust)
-        if self.request.user.has_perm('books.view_books') and self.request.user.groups.filter(name='Staff') :
+        if self.request.user.groups.filter(name='Customers') or self.request.user.is_anonymous:
+            print("группа текущего пользователя: ",cust )
+            print("кастомера прост только активных")
             return self.model.objects.filter(availability=True)
         else:
+            print("группа текущего пользователя: ",cust )
             return self.model.objects.all()
 
 

@@ -61,12 +61,31 @@ class CreateOrder(SuccessMessageMixin,UpdateView):
 
         #пример нотификации если заказ офоромлен
         # notify_managers(self.request.user, self.object)
+        cart_pk=self.request.session['cart_pk']
         del(self.request.session['cart_pk'])
         if self.request.user.is_anonymous:
             user='Гость'
         else:
             user=self.request.user
         print(user)
+       
+        #получаю список книг корзине исходя из ид корзины
+        booksincart = BookInCart.objects.all().filter(cart = cart_pk)
+        print("books",booksincart.all())
+        for book in booksincart:
+            print("book: ",book.books.pk)
+            cur_book=Books.objects.filter(pk=book.books.pk).last()
+            print("Всего книг",cur_book.count_book)
+            print("Книг в заказе",book.qantity)
+
+            new_count=int(cur_book.count_book)- int(book.qantity)
+            cur_book.count_book=new_count
+            print("cur_book qantity past update",cur_book.count_book)
+            cur_book.save()
+            #проверю, если книг остаётся 0 - перевочу книгу(и) в неактивные
+            if cur_book.count_book == 0:
+                cur_book.availability=False
+                cur_book.save()
 
         
         cdt=datetime.now()
@@ -77,7 +96,7 @@ class CreateOrder(SuccessMessageMixin,UpdateView):
         comment=str(cdt)+' '+str(user)+':\n'+str(order.comment)
         order=Order.objects.filter(pk=cur_order).update(comment=comment)
 
-        return reverse_lazy("cart:my")
+        return reverse_lazy('CRUDL_profiles:detail', kwargs={'pk':user.prof_user.pk})
 
     def get_success_message(self, cleaned_data):
         return f"{self.object}  - оформлен. Ожидайте звонка нашего специалиста."
@@ -107,7 +126,7 @@ class OrderUpdate(LoginRequiredMixin,UpdateView):
         print(order.comment)
         comment=cur_comment+'\n'+str(cdt)+' '+str(user)+':\n'+str(order.comment)
         if order.status==True:
-            print('order.status==True')
+            print('order.status==True / Canseled order')
             order=Order.objects.filter(pk=cur_order).update(status2='Отменен',comment={self.request.user:cdt})
         order=Order.objects.filter(pk=cur_order).update(comment=comment)
         prof_user=Profile.objects.get(username=user)

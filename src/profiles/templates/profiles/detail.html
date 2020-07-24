@@ -38,10 +38,10 @@
                     
 
 
-            <div class="card" style="width: 48rem;">
+            <div class="card" style="width: 55rem;">
                 <div class="card-header" >
                 <a class="badge badge-primary" data-toggle="collapse" href="#collapseExample" role="button" aria-expanded="false" aria-controls="collapseExample">
-                    Мои заказы(подробнее)
+                    Мои заказы :
                     </a>
                 </div>
                 <ul class="list-group list-group-flush">
@@ -52,11 +52,12 @@
                         <li class="list-group-item">
                             <button type="button" class="btn btn-outline-secondary" disabled>
                                 Дата создания: {{cart.order.create}}
-                            </button>                           
-                            <button type="button" class="btn btn-primary" disabled>
+                            </button> 
+                            {% comment %} {% for book in cart.books.all %}                           {% endcomment %}
+                                <a data-toggle="collapse" href="#{% for book in cart.books.all %}collapseExample{{book.pk}}{% endfor %}" role="button" aria-expanded="false" aria-controls="{% for book in cart.books.all %}collapseExample{{book.pk}}{% endfor %}" type="button" class="btn btn-outline-primary" >
                             Заказ №{{cart.order.pk}}, Сумма заказа <span class="badge badge-light">{{cart.totalprice}}</span>
                             <span class="sr-only">unread messages</span>
-                            </button>
+                            </a>
 
                             <a href="{% url 'order:update' cart.order.pk %}" type="button" class="btn btn-outline-secondary" >
                             Статус : 
@@ -76,7 +77,9 @@
 
                         </li>
                        
-                        <div class="collapse" id="collapseExample">
+                        
+                        <div class="collapse" id="{% for book in cart.books.all %}collapseExample{{book.pk}}{% endfor %}">
+                         
                             <div class="card card-body">
                                 <table class="table table-striped" >
                                     <tr>

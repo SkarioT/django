@@ -18,10 +18,12 @@
             </form>
               
               {% else %}
+              <h3>Архив заказа {{object}}</h3>
                     <label>Текущий статус</label>
               <input type="text" value="{{object.status2}}" maxlength="15" class="textinput textInput form-control" disabled>
                     <label>Комментарии в заказе</label><br>
-              <textarea name="comment" cols="100" rows="20"  required="" id="id_delivery_address" disabled>{{object.comment}}</textarea>
+              <textarea name="comment" cols="100" rows="20"  required="" id="id_delivery_address" disabled>{{object.comment}}</textarea><br>
+            <a class="btn btn-success" href="{% url 'CRUDL_profiles:detail' user.prof_user.pk %}">Мой профиль</a>
           {% endif %}
       {% else %}
       {{user.username}}
