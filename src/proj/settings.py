@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'phonenumber_field',
     'crispy_forms',
     'test_hello_word',
     'phones',
@@ -48,6 +49,9 @@ INSTALLED_APPS = [
     'order',
     'home_page'
 ]
+
+PHONENUMBER_DB_FORMAT = 'NATIONAL'
+PHONENUMBER_DEFAULT_REGION = 'BY'
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

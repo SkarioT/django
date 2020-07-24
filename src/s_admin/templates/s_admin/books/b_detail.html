@@ -24,7 +24,7 @@
                   </svg></a>
             </div>
         {% if object.picture %}
-            <img  height="450" weight="450" src="{{object.picture.url}}" class="card-img" alt="">
+            <img  height="650" weight="450" src="{{object.picture.url}}" class="card-img" alt="">
         {% else %}
             <img src="..." class="card-img" alt="...">
         {% endif %}
@@ -77,8 +77,8 @@
                     <li class="list-group-item"><b>Не доступен для заказа</b></li>
                 {% endif %}
             </ul>
-        <p class="card-text"><small class="text-muted">Добавлено {{object.create}}</small></p>
-        <p class="card-text"><small class="text-muted">Обновлено {{object.update}}</small></p>
+        <p class="card-text"><small class="text-muted">Добавлено {{object.created}}</small></p>
+        <p class="card-text"><small class="text-muted">Обновлено {{object.updated}}</small></p>
       </div>
     </div>
   </div>

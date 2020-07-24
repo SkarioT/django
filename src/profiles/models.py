@@ -1,11 +1,15 @@
 from django.db import models
 from django.contrib.auth import get_user_model
 from django.contrib.auth.models import Group
+from phonenumber_field.modelfields import PhoneNumberField
+from django.core.validators import MaxValueValidator, MinValueValidator,ValidationError
+
 
 
 from django.dispatch import receiver
 
 User= get_user_model()
+
 
 class Profile(models.Model):
     user=models.OneToOneField(
@@ -20,13 +24,13 @@ class Profile(models.Model):
         max_length=100,
         default=''
     )
-    phone=models.CharField(
-        verbose_name="Телефон",
-        max_length=15,
+    phone=PhoneNumberField(
         null=True,
-        blank=True,
-        default="375290000000"
+        verbose_name="Телефон",     
     )
+
+
+
     email=models.EmailField(
         verbose_name="Е-mail",
         null=True,
@@ -69,6 +73,8 @@ class Profile(models.Model):
 
     def __str__(self):
         return f"{self.user}, {self.county},{self.city},{self.address_1},{self.address_2},{self.zip_code}"
+    
+
 # fields=('username','password','first_name','last_name','email')
 
 #функция сигнал, при кком либо изменние в User, менят для User.last_name имя на "upd_lastname_from_signal"

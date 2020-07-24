@@ -43,7 +43,6 @@ class Books(models.Model):
         'Series',
         verbose_name="Серия",
         related_name="series_books",
-        null=True,
         blank=True,
     )
 
@@ -149,6 +148,12 @@ class Author(models.Model):
     last_name=models.CharField(
         verbose_name="Фамилия",
         max_length=50
+    )
+    description = models.TextField(
+        verbose_name="Информация об атворе",
+        null=True,
+        blank=True,
+        default='Информация об авторескоро будет добавлена на сайт. Сделать ее более полной и интересной помогут объективные отзывы тех, кто хорошо знаком с творчеством и фактами биографии данного автора. Оставляйте свои комментарии, делитесь впечатлениями и вступайте в дискуссии — это поможет другим сделать выбор.'
     )
     def __str__(self):
         return f"{self.first_name} {self.last_name}"

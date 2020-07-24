@@ -2,6 +2,7 @@ from django import forms
 from .models import Profile
 from django.views.generic.base import TemplateView
 from django.contrib.auth.models import User
+from phonenumber_field.formfields import PhoneNumberField
 
 
 class CreateProfileFormModel(forms.Form):
@@ -19,9 +20,12 @@ class CreateProfileFormModel(forms.Form):
         max_length=45,
         
     )
-    phone=forms.CharField(
-        label='Телефон',
-        max_length=15
+    # phone=forms.CharField(
+    #     label='Телефон',
+    #     max_length=15
+    # )
+    phone=PhoneNumberField(
+       label='Телефон',
     )
     first_name=forms.CharField(
         label='Имя',

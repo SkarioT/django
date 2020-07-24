@@ -1,5 +1,5 @@
 {% extends "sadmin.html" %}
-  {% block title %}<title>Изменение жанра {{object.name}}</title>{% endblock title %}
+  {% block title %}<title>Изменение серии {{object.name}}</title>{% endblock title %}
 {% load crispy_forms_tags %}
               {% block nav_series %}
                 <li class="nav-item d-flex justify-content-between">
@@ -10,7 +10,7 @@
               {% endblock nav_series %}
     {% block main %}
        <div class=container>
-     <h3>Обновление данных издателя</h3>
+     <h3>Обновление данных серии</h3>
      <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
             {{form|crispy}}

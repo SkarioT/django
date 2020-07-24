@@ -12,7 +12,7 @@ from django.contrib.auth.mixins import LoginRequiredMixin
 class Home_page(ListView):
     model=Books
     template_name='home_page/home_page.html'
-    paginate_by=5
+    # paginate_by=5
     
     def get_context_data(self, **kwargs):
         context = super().get_context_data(**kwargs)
@@ -49,3 +49,5 @@ class Home_page(ListView):
             print("запрос выполнент, данные занесены в БД")
         return context
 
+    def get_queryset(self):
+        return self.model.objects.all().filter(availability=True).order_by('created')[:5]

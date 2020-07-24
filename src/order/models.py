@@ -1,5 +1,7 @@
 from django.db import models
 from cart.models import Cart
+from phonenumber_field.modelfields import PhoneNumberField
+
 
 # Create your models here.
 
@@ -22,9 +24,9 @@ class Order(models.Model):
     delivery_address=models.TextField(
         verbose_name="Адрес доставки",
     )
-    contact_phone=models.CharField(
-        verbose_name="Контактный номер",
-        max_length=15
+    contact_phone=PhoneNumberField(
+        null=True,
+        verbose_name="Телефон",     
     )
     create=models.DateField(
         verbose_name="Дата cоздания",

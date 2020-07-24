@@ -32,24 +32,24 @@
         <h5 class="card-title">{{object.name}}</h5>
             <ul class="list-group list-group-flush">
                 <li class="list-group-item">Описание книги</li>
-                 <li class="list-group-item">Автор:
+                 <li class="list-group-item">Автор:<br>
                 {% for author in object.author.all %}
-                    <b>{{author}}</b> 
+                    <b>{{author}}</b> <br>
                 {% endfor %} 
                 </li>
-                <li class="list-group-item">Жанр:  
+                <li class="list-group-item">Жанр:  <br>
                 {% for genre in object.genre.all %}
-                    <b>{{genre.name}}</b>
+                    <b>{{genre.name}}</b><br>
                 {% endfor %}
                 </li>
-                <li class="list-group-item">Серия:  
+                <li class="list-group-item">Серия:  <br>
                 {% for series in object.series.all %}
-                    <b>{{series.name}}</b>
+                    <b>{{series.name}}</b> <br>
                 {% endfor %}
                 </li>
-                <li class="list-group-item">Издательство:  
+                <li class="list-group-item">Издательство:  <br>
                 {% for publisher in object.publisher.all %}
-                    <b>{{publisher.name}}</b>
+                    <b>{{publisher.name}}</b><br>
                 {% endfor %}
                 </li>
                 <li class="list-group-item">Кол-во страниц: <b>{{object.count_page}}</b></li>
@@ -68,8 +68,8 @@
                     <li class="list-group-item"><b>Не доступен для заказа</b></li>
                 {% endif %}
             </ul>
-        <p class="card-text"><small class="text-muted">Добавлено {{object.create}}</small></p>
-        <p class="card-text"><small class="text-muted">Обновлено {{object.update}}</small></p>
+        <p class="card-text"><small class="text-muted">Добавлено {{object.created}}</small></p>
+        <p class="card-text"><small class="text-muted">Обновлено {{object.updated}}</small></p>
       </div>
     </div>
   </div>

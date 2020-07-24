@@ -101,7 +101,7 @@ class S_Admin(LoginRequiredMixin,ListView):
             if order.status2=='Выполнен':
                 k+=1
                 context['success']=k
-        print(orders)
+      
         return context
 
     def render_to_response(self, context, **response_kwargs):
@@ -148,6 +148,7 @@ class CustomersDetail(ProfilesDetail):
 class SAdminBooksList(LoginRequiredMixin,book_view.BooksList):
     template_name='s_admin/books/b_list.html'
     paginate_by=None
+    paginate_by=4
     def get_queryset(self,*args,**kwargs):
         print(self.request.user.groups.get())
         if self.request.user.groups.filter(name='Customers'):
@@ -167,7 +168,7 @@ class SAdminBooksDetail(LoginRequiredMixin,book_view.BooksDetail):
 
 class SAdminBooksDelete(book_view.BooksDelete):
     template_name='s_admin/books/b_delete.html'
-    success_url =reverse_lazy('s-admin:product')
+    success_url =reverse_lazy('s-admin:books')
 
     def get_queryset(self,*args,**kwargs):
         print(self.request.user.groups.get())

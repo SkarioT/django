@@ -26,8 +26,7 @@
             <a class="btn btn-success" href="{% url 'CRUDL_profiles:detail' user.prof_user.pk %}">Мой профиль</a>
           {% endif %}
       {% else %}
-      {{user.username}}
-      {{object.cart.user}}
+
                         <div class="alert alert-danger alert-dismissible fade show" role="alert" {% if message.tags %} class="{{ message.tags }}"{% endif %}>
                     <h3 class="text-center text-info" >  Доступ запрещён.<br>  Обновить можно только данные своего заказа</h3>
                     <button type="button" class="close" data-dismiss="alert" aria-label="Close">

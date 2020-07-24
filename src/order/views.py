@@ -104,7 +104,7 @@ class CreateOrder(SuccessMessageMixin,UpdateView):
 class OrderUpdate(LoginRequiredMixin,UpdateView):
     model=Order
     template_name='order/o_update.html'
-    fields=('status','comment',)
+    fields=('contact_phone','status','comment',)
 
     def get_object(self, queryset=None):
         obj=super().get_object(queryset=queryset)

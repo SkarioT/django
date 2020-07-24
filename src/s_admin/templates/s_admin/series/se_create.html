@@ -11,7 +11,7 @@
     {% block main %}
 
      <div class=container>
-     <h3>Добавление новой книги пользователем  {{user}}</h3>
+     <h3>Добавление новой серии пользователем  <b>{{user}}</b></h3>
      <form  action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
             {{form|crispy}}

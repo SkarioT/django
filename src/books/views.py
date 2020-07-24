@@ -61,7 +61,7 @@ class BooksDelete(LoginRequiredMixin,DeleteView):
 class BooksList(ListView):
     model= models.Books
     template_name='books/list.html'
-    paginate_by=8
+    paginate_by=4
     
     #накинуты права для Customers на просмотр только доступных книг
     def get_queryset(self,*args, **kwargs) :
@@ -72,7 +72,7 @@ class BooksList(ListView):
         if self.request.user.groups.filter(name='Customers') or self.request.user.is_anonymous:
             print("группа текущего пользователя: ",cust )
             print("кастомера прост только активных")
-            return self.model.objects.filter(availability=True)
+            return self.model.objects.filter(availability=True).order_by('created')
         else:
             print("группа текущего пользователя: ",cust )
             return self.model.objects.all()

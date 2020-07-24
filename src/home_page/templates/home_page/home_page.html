@@ -18,11 +18,14 @@
             <div class="carousel-inner" >
                 {% for object in object_list %}
                 <div class="carousel-item" style="width: 25rem;">
+                
                         <img  alt="{{object.name}} slide [800x400]" src="{{object.picture.url}}" data-holder-rendered="true">
+               
                             <div class="carousel-caption d-none d-md-block">
                                 <h5 class="btn-light">{{object.name}}</h5> <br>
                                 <a href="{% url 'CRUDL_books:detail' object.pk %}" class="btn btn-success">Подробнее</a>
                             </div>
+                            
                 </div>
                 {% endfor %}
                 <div class="carousel-item active">
@@ -47,7 +50,13 @@
 
         </div>
     </div>
-
+    <div class="container">
+                    <div clas="row">
+                        <a href="{% url 'CRUDL_books:list'%}" class="btn btn-success">Перечень всех книг</a>
+                        <a href="{% url 'CRUDL_books:genre_list'%}" class="btn btn-success">Книги по жанрам</a>
+                        <a href="{% url 'CRUDL_books:author_list' %}" class="btn btn-success">Книги по автору</a>
+                    </div>
+                    </div>
 
 {% endblock main %}
 
