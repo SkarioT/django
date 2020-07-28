@@ -1,3 +1,4 @@
+import os
 from django.shortcuts import render
 from datetime import datetime
 from django.views.generic import CreateView,DetailView,UpdateView,DeleteView,ListView,FormView
@@ -10,6 +11,8 @@ from profiles.models import Profile
 from django.contrib.auth.mixins import LoginRequiredMixin
 
 class Home_page(ListView):
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    print('OS_PATH:',os.path.join(BASE_DIR,'static'))
     model=Books
     template_name='home_page/home_page.html'
     # paginate_by=5
