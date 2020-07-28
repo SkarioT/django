@@ -18,6 +18,7 @@ configparser==5.0.0
 distlib==0.3.1
 Django==3.0.7
 django-crispy-forms==1.9.1
+django-phonenumber-field==4.0.0
 docutils==0.16
 filelock==3.0.12
 gitdb==4.0.5
@@ -36,6 +37,7 @@ numpy==1.19.0
 packaging==20.4
 pbr==5.4.5
 pexpect==4.8.0
+phonenumbers==8.12.6
 Pillow==7.1.2
 pluggy==0.13.1
 prettytable==0.7.2

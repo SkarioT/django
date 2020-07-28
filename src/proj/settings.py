@@ -26,7 +26,7 @@ SECRET_KEY = 'by&ol$$+^(%9e736z&&dxw6pxdf)hz7nm3rmgt7r6hw%dn7-j4'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['skariot.pythonanywhere.com','127.0.0.1']
+ALLOWED_HOSTS = ['skariot.pythonanywhere.com','127.0.0.1','192.168.2.','192.168.1.']
 
 
 # Application definition
