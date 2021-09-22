@@ -16,7 +16,7 @@ colorama==0.4.3
 configobj==5.0.6
 configparser==5.0.0
 distlib==0.3.1
-Django==3.0.7
+Django==3.1.13
 django-crispy-forms==1.9.1
 django-phonenumber-field==4.0.0
 docutils==0.16
