@@ -16,7 +16,7 @@ pylint==2.5.2
 pylint-django==2.0.15
 pylint-plugin-utils==0.6
 pytz==2020.1
-PyYAML==5.3.1
+PyYAML==5.4
 requests==2.23.0
 six==1.15.0
 smmap==3.0.4
