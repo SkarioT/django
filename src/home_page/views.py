@@ -21,24 +21,27 @@ class Home_page(ListView):
         context = super().get_context_data(**kwargs)
         cd=datetime.now().date()
         dbcd=CourseData.objects.last()
+        print(dbcd.create)
+        print(cd)
 
-        if cd==(dbcd.create):
-            print("даты равны")
-            context['USD']=dbcd.usd
-            context['EUR']=dbcd.eur
-            context['RUB']=dbcd.rub
-        else:
-            print("даты не равны, выполняется запрос к сайту+занесения в бд")
-            nbrb = requests.get('https://www.nbrb.by/api/exrates/rates?periodicity=0')
-            course = nbrb.json()
-            rate = {}
-            for c in course:
-                if c.get('Cur_Abbreviation') == 'USD':
-                    context['USD'] = c.get('Cur_OfficialRate') 
-                elif c.get('Cur_Abbreviation') == 'EUR':
-                    context['EUR'] = c.get('Cur_OfficialRate')
-                elif c.get('Cur_Abbreviation') == 'RUB':
-                    context['RUB'] = c.get('Cur_OfficialRate') 
+        # if cd==(dbcd.create):
+            # print("даты равны")
+        context['USD']=dbcd.usd
+        context['EUR']=dbcd.eur
+        context['RUB']=dbcd.rub
+        # else:
+        #     pass
+        #     print("даты не равны, выполняется запрос к сайту+занесения в бд")
+            # nbrb = requests.get('https://www.nbrb.by/api/exrates/rates?periodicity=0')
+            # course = nbrb.json()
+            # rate = {}
+            # for c in course:
+            #     if c.get('Cur_Abbreviation') == 'USD':
+            #         context['USD'] = c.get('Cur_OfficialRate') 
+            #     elif c.get('Cur_Abbreviation') == 'EUR':
+            #         context['EUR'] = c.get('Cur_OfficialRate')
+            #     elif c.get('Cur_Abbreviation') == 'RUB':
+            #         context['RUB'] = c.get('Cur_OfficialRate') 
 
         cdn,created=CourseData.objects.get_or_create(
             create=cd,
